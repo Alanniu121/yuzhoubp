@@ -691,7 +691,7 @@ body { overflow-x: hidden; }
     <div class="hero">
       <div class="hero-kicker">赫家讲坛 · 脑洞文字 BP 博弈</div>
       <h1 class="hero-title">宇宙<span>BP</span></h1>
-      <p class="hero-sub">机制 ＞ 体系 ＞ 数值。<br>两个教练，十二 Ban 十 Pick，分段博弈，用典故与梗互相克制。</p>
+      <p class="hero-sub">机制 ＞ 体系 ＞ 数值。<br>两个教练，八 Ban 十 Pick，分段博弈，用典故与梗互相克制。</p>
       <div class="hero-actions">
         <button class="btn btn-primary" id="btnPve">人机对战</button>
         <button class="btn btn-ghost" id="btnPvp">双人热座</button>
@@ -849,14 +849,14 @@ body { overflow-x: hidden; }
       <h2>《宇宙BP》竞技场 · 规则</h2>
 
       <h3>一、BP 阶段</h3>
-      <p><b>分段 BP（KPL 式，禁 6 → 选 6 → 禁 6 → 选 4）</b>：</p>
+      <p><b>分段 BP（KPL 式，禁 4 → 选 6 → 禁 4 → 选 4）</b>：</p>
       <ol>
-        <li><b>第一轮禁用</b>：红、蓝各 Ban 3 个。</li>
+        <li><b>第一轮禁用</b>：红、蓝各 Ban 2 个。</li>
         <li><b>第一轮选用</b>：红1 → 蓝1 → 蓝2 → 红2 → 红3 → 蓝3，各 3 人。</li>
-        <li><b>第二轮禁用</b>：蓝、红各再 Ban 3 个——<b>这时候已经看得到对方的阵容了，可以照着拆体系、封天敌</b>。</li>
+        <li><b>第二轮禁用</b>：蓝、红各再 Ban 2 个——<b>这时候已经看得到对方的阵容了，可以照着拆体系、封天敌</b>。</li>
         <li><b>第二轮选用</b>：蓝4 → 红4 → 红5 → 蓝5，各 2 人，蓝方拿到最后一手 counterpick。</li>
       </ol>
-      <p>全场共 12 个 Ban、10 个 Pick，被 Ban 的角色本局彻底消失。</p>
+      <p>全场共 8 个 Ban、10 个 Pick，被 Ban 的角色本局彻底消失。</p>
       <p><b>位置加成</b>：上单 +8 战力、打野 +4、中单 +2、射手 +6、辅助全队 +3（自己 +0）。</p>
 
       <h3>二、推演阶段</h3>
@@ -873,7 +873,7 @@ body { overflow-x: hidden; }
 
       <p><b>每回合结算</b>：红蓝各出手一次算一个回合，回合结束时自动结算双方存活人数。</p>
       <p><b>复制类技能分两种模式</b>：诸葛亮 / 孙悟空 / 卡卡西出手时可二选一——「复制技能」把对方的主动机制整套搬走（对方本局无法行动，杀招类直接抹除），或「复制战力」拿走对方一半战力再打。对方没有主动机制时只能复制战力。</p>
-      <p><b>复审（每方每局 1 次）</b>：<b>任何一方</b>有人出局——不管是进攻打死对面、进攻被反杀、被反伤反死、被 AOE 波及还是被抹除——推演都会<b>先暂停</b>，等这一方决定要不要申诉。</p>
+      <p><b>复审（每次判决 1 次，不再每局限制）</b>：<b>任何一方</b>有人出局——不管是进攻打死对面、进攻被反杀、被反伤反死、被 AOE 波及还是被抹除——推演都会<b>先暂停</b>，等这一方决定要不要申诉。</p>
       <p>点「⚖ 复审」，用出局角色<b>自己的典故</b>说明判决不成立：成立 → 推翻原判，角色满血回到场上并 +15 战力；不成立 → 维持原判，机会作废。点「放弃复审」则直接继续。</p>
 
       <p><b>免死</b>与<b>保命</b>可以抵消一次克制；但「抹除」类概念机制（德鲁比、神笔马良、罗翔、灭霸）无视一切。</p>
@@ -1430,10 +1430,432 @@ var CHARACTERS = [
     mech:'凌晨四点', mechText:'每次对撞必定先手，且不会被反杀。',
     passive:{ noRiposte:true, firstStrike:true } },
 
-  { id:'messi', name:'梅西', from:'现实 · 球王', cat:'num', tier:'T1', power:84, emblem:'⚽',
-    tags:['现实','名人','足球'], lore:'连过五人 梅西 世界杯 金球 小跳蚤',
-    mech:'连过五人', mechText:'防守在他面前不存在：无视「铁壁 / 防御」类机制。',
-    counter:{ tags:['铁壁','防御','铜头','硬功'], note:'连过五人' } },
+{ id:'cr7', name:'C罗', from:'现实 · 球王', cat:'mech', tier:'T1', power:84, emblem:'⚽',
+    tags:['现实','名人','足球','C罗'], lore:'C罗 SIUUU 营销 跳水 假摔 罗三岁 摔手机 五座金球 自律',
+    mech:'营销', mechText:'热搜、通稿、SIUUU 三件套，先把人设立住——免死一次；谁碰他一下立刻倒地，第一次攻击原样反弹、出手者出局。',
+    passive:{ reflect:1, saveCount:1 }, act:{ type:'chop', value:18, desc:'摔手机：目标战力 -18' } },
+
+{ id:'zhangxuefeng', name:'张雪峰', from:'现实 · 考研名师', cat:'mech', tier:'T1', power:60, emblem:'🎓',
+    tags:['现实','名人','教育'], lore:'张雪峰 劝退 新闻学打晕 文科都是服务业 不知道学啥就学计算机 985 志愿填报 考研',
+    mech:'劝退', mechText:'三句话，把你这个专业的梦说没：指定一名敌人本局无法行动（他被劝退去复读了）。',
+    act:{ type:'disable', desc:'劝退：令一名敌人本局无法行动' } },
+
+{ id:'neymar', name:'内马尔', from:'现实 · 球王', cat:'mech', tier:'T1', power:82, emblem:'🎭',
+    tags:['现实','名人','足球'], lore:'内马尔 内马尔滚 假摔 翻滚 巴黎 巴西',
+    mech:'内马尔滚', mechText:'被碰一下就滚三圈，滚的时候谁也打不着：免死一次，且第一次被攻击原样反弹、出手者出局。',
+    passive:{ saveCount:1, reflect:1 } },
+
+  { id:'suarez', name:'苏亚雷斯', from:'现实 · 球王', cat:'num', tier:'T1', power:84, emblem:'🦷',
+    tags:['现实','名人','足球'], lore:'苏亚雷斯 咬人 2014世界杯 基耶利尼 手球 乌拉圭',
+    mech:'咬人', mechText:'咬一口，直接见血：目标战力 -30。',
+    act:{ type:'chop', value:30, desc:'咬人：目标战力 -30' } },
+
+  { id:'lijiaqi', name:'李佳琦', from:'现实 · 带货一哥', cat:'mech', tier:'T1', power:58, emblem:'💄',
+    tags:['现实','名人','带货'], lore:'李佳琦 哪里贵了 这么多年工资涨没涨 找找自己原因 买它',
+    mech:'哪里贵了', mechText:'一句「这么多年工资涨没涨」，全场破防：敌方全体战力 -20。',
+    act:{ type:'aoe', value:20, desc:'破防，敌方全体战力 -20' } },
+
+  { id:'liuxiaolingtong', name:'六小龄童', from:'现实 · 老艺术家', cat:'ctr', tier:'T1', power:65, emblem:'🐒',
+    tags:['现实','名人','演艺'], lore:'六小龄童 六老师 孙悟空 戏说不是胡说 改编不是乱编 两开花',
+    mech:'改编不是乱编', mechText:'一切二创、同人、魔改在他面前都不作数：克制所有「MJ校园 / 二创 / 同人」角色，且免疫机制克制。',
+    passive:{ nullify:true },
+    counter:{ tags:['MJ校园','二创','同人'], note:'改编不是乱编' } },
+
+  { id:'zhaobenshan', name:'赵本山', from:'现实 · 小品王', cat:'mech', tier:'T1', power:70, emblem:'🩼',
+    tags:['现实','名人','小品'], lore:'赵本山 卖拐 忽悠 走两步 白云黑土 铁岭',
+    mech:'卖拐', mechText:'把拐卖给你，你还得谢谢我：偷走目标 30 点战力。',
+    act:{ type:'steal', value:30, desc:'忽悠：偷取目标 30 点战力' } },
+
+  { id:'zhangyimou', name:'张艺谋', from:'现实 · 国师', cat:'mech', tier:'T1', power:62, emblem:'🎬',
+    tags:['现实','名人','导演','老戏骨'], lore:'张艺谋 国师 奥运开幕式 人海战术 老戏骨 大红 红高粱 满江红 谋女郎',
+    mech:'老戏骨', mechText:'一带新人，全组都能演：全队战力 +15；什么套路都见过，机制克制对他无效；场面铺得太大，死不了（免死一次）。',
+    passive:{ saveCount:1, nullify:true }, act:{ type:'buff', value:15, all:true, desc:'老戏骨带戏：全队战力 +15' } },
+
+{ id:'nickwilde', name:'尼克·胡尼克', from:'动画 · 疯狂动物城', cat:'mech', tier:'T1', power:68, emblem:'🦊',
+    tags:['动画','动物城','狐狸','骗子'], lore:'尼克 胡尼克 狐狸 诈骗 冰棍 街头智慧 任何人都能成为任何样子',
+    mech:'街头诈骗', mechText:'一根冰棍成本五块，卖你一百：偷取目标 25 点战力。',
+    act:{ type:'steal', value:25, desc:'街头诈骗：偷取目标 25 点战力' } },
+
+  { id:'judy', name:'朱迪', from:'动画 · 疯狂动物城', cat:'mech', tier:'T1', power:70, emblem:'🐰',
+    tags:['动画','动物城','兔子','警察'], lore:'朱迪 兔子警官 ZPD 胡萝卜录音笔 任何人都能成为任何样子 兔子窝',
+    mech:'胡萝卜录音笔', mechText:'你说的每句话我都录下来了：指定一名敌人，他的机制被当场作废、本局无法行动。',
+    act:{ type:'disable', desc:'录音笔取证：令一名敌人本局无法行动' } },
+
+{ id:'huoqigang', name:'霍启刚', from:'网络梗', cat:'ctr', tier:'T1', power:45, emblem:'🌊',
+    tags:['网络梗','自媒体','水军'], lore:'霍启刚 水军头子 带节奏 风向 控评 刷屏',
+    mech:'政治手段', mechText:'带节奏黑梅西：舆论说翻就翻，黑的能带成白的——他在场，梅西的被动直接失效。',
+    counter:{ tags:['梅西'], note:'带节奏' }, aura:{ muteTags:['梅西'] },
+    act:{ type:'chop', value:20, desc:'开一波节奏：目标战力 -20' } },
+
+{ id:'cr7sister', name:'C罗姐姐', from:'网络梗', cat:'ctr', tier:'T1', power:45, emblem:'📣',
+    tags:['网络梗','自媒体'], lore:'C罗姐姐 维护C罗 带节奏 发帖 拉踩 嘴上维护实际拆台',
+    mech:'维护C罗', mechText:'嘴上说是在维护，发出去的每一条都在拆台：她在场，C罗的「营销」被动直接失效（免死、反弹全没）。',
+    counter:{ tags:['C罗'], note:'维护C罗（实则拆台）' }, aura:{ muteTags:['C罗'] },
+    act:{ type:'chop', value:20, desc:'发一条"维护"长文：目标战力 -20' } },
+
+/* ============ 国产经典动画 ============ */
+  { id:'dawa', name:'大娃', from:'动画 · 葫芦兄弟', cat:'num', tier:'T1', power:88, emblem:'🍃',
+    tags:['动画','葫芦兄弟','葫芦'], lore:'大娃 力大无穷 红葫芦 七兄弟 葫芦山',
+    mech:'力大无穷', mechText:'个头一涨，力气涨十倍：目标战力 -30。',
+    act:{ type:'chop', value:30, desc:'力大无穷：目标战力 -30' } },
+
+  { id:'erwa', name:'二娃', from:'动画 · 葫芦兄弟', cat:'mech', tier:'T1', power:66, emblem:'👁',
+    tags:['动画','葫芦兄弟','葫芦'], lore:'二娃 千里眼 顺风耳 橙葫芦 看得远听得到',
+    mech:'千里眼顺风耳', mechText:'你的底牌他早就看穿了：指定一名敌人本局无法行动。',
+    act:{ type:'disable', desc:'看穿底牌，令一名敌人本局无法行动' } },
+
+  { id:'liuwa', name:'六娃', from:'动画 · 葫芦兄弟', cat:'mech', tier:'T1', power:72, emblem:'💨',
+    tags:['动画','葫芦兄弟','葫芦'], lore:'六娃 隐身 蓝葫芦 神出鬼没 抓不到',
+    mech:'隐身', mechText:'一隐身就找不到人：免死一次。',
+    passive:{ saveCount:1 } },
+
+  { id:'qiwa', name:'七娃', from:'动画 · 葫芦兄弟', cat:'mech', tier:'T1', power:80, emblem:'🏺',
+    tags:['动画','葫芦兄弟','葫芦'], lore:'七娃 宝葫芦 紫葫芦 收人 什么都吸得进去',
+    mech:'宝葫芦', mechText:'宝葫芦一开，什么都能吸进去：偷取目标 30 点战力。',
+    act:{ type:'steal', value:30, desc:'宝葫芦：偷取目标 30 点战力' } },
+
+  { id:'shuke', name:'舒克', from:'动画 · 舒克和贝塔', cat:'num', tier:'T1', power:74, emblem:'🚁',
+    tags:['动画','舒克贝塔','飞行员'], lore:'舒克 开直升机 老鼠 飞行员 舒克舒克舒克',
+    mech:'直升机', mechText:'从天上压下来，先手又打不着：先手，且不会被反杀。',
+    passive:{ firstStrike:true, noRiposte:true } },
+
+  { id:'beita', name:'贝塔', from:'动画 · 舒克和贝塔', cat:'num', tier:'T1', power:76, emblem:'🚜',
+    tags:['动画','舒克贝塔','坦克手'], lore:'贝塔 开坦克 老鼠 坦克手 贝塔贝塔贝塔',
+    mech:'坦克炮', mechText:'一发炮弹掀翻一片：目标战力 -25。',
+    act:{ type:'chop', value:25, desc:'坦克炮：目标战力 -25' } },
+
+  { id:'afanti', name:'阿凡提', from:'动画 · 阿凡提的故事', cat:'mech', tier:'T1', power:58, emblem:'🫏',
+    tags:['动画','阿凡提','智慧'], lore:'阿凡提 倒骑毛驴 巴依老爷 智慧 骗倒财主',
+    mech:'智慧的骗术', mechText:'几句话让巴依老爷乖乖掏钱：偷取目标 25 点战力。',
+    act:{ type:'steal', value:25, desc:'空手套白狼：偷取目标 25 点战力' } },
+
+  { id:'dansheng', name:'蛋生', from:'动画 · 天书奇谭', cat:'mech', tier:'T1', power:82, emblem:'📜',
+    tags:['动画','天书奇谭','法术'], lore:'蛋生 天书 狐狸精 袁公 法术 白云洞',
+    mech:'天书', mechText:'翻一页天书，把对方的法术全收了：清空敌方全部增益。',
+    act:{ type:'purge', desc:'天书收法：清空敌方全部增益' } },
+
+  { id:'xuehaizi', name:'雪孩子', from:'动画 · 雪孩子', cat:'sys', tier:'T1', power:64, emblem:'⛄',
+    tags:['动画','雪孩子','牺牲'], lore:'雪孩子 小兔 房子着火 融化 救人',
+    mech:'融化', mechText:'为了救兔子，他把自己化了：全队获得一次免死。',
+    act:{ type:'barrier', desc:'舍身相护：全队获得一次免死' } },
+
+  { id:'chenxiang', name:'沉香', from:'动画 · 宝莲灯', cat:'num', tier:'T1', power:84, emblem:'⛰',
+    tags:['动画','宝莲灯','劈山'], lore:'沉香 宝莲灯 劈山救母 三圣母 华山',
+    mech:'劈山救母', mechText:'一斧子把山劈开：目标战力 -30。',
+    act:{ type:'chop', value:30, desc:'劈山：目标战力 -30' } },
+
+  { id:'jiuselu', name:'九色鹿', from:'动画 · 九色鹿', cat:'mech', tier:'T1', power:70, emblem:'🦌',
+    tags:['动画','九色鹿','神兽'], lore:'九色鹿 救人 出卖 神鹿 敦煌',
+    mech:'神鹿', mechText:'谁想害它，先被自己的念头反噬：第一次被攻击原样反弹，出手者出局。',
+    passive:{ reflect:1 } },
+
+  { id:'sangeheshang', name:'三个和尚', from:'动画 · 三个和尚', cat:'mech', tier:'T2', power:38, emblem:'🛕',
+    tags:['动画','三个和尚','寓言'], lore:'三个和尚 没水喝 挑水 抬水 谁也不干',
+    mech:'没水喝', mechText:'人一多就谁也不挑水，全队渴得没劲：敌方全体战力 -12。',
+    act:{ type:'aoe', value:12, desc:'没水喝：敌方全体战力 -12' } },
+
+/* ============ 葫芦兄弟：爷爷 + 双 Boss ============ */
+  { id:'yeye', name:'爷爷', from:'动画 · 葫芦兄弟', cat:'sys', tier:'T2', power:48, emblem:'🌱',
+    tags:['动画','葫芦兄弟','爷爷','妖精克星'], lore:'爷爷 种葫芦 养大七个葫芦娃 采药 石缝里的种子',
+    mech:'种葫芦', mechText:'一颗种子种出七个孙子，还个个护着他：全队获得一次免死。',
+    act:{ type:'barrier', desc:'种葫芦：全队获得一次免死' },
+    counter:{ tags:['妖精'], note:'一把年纪，什么妖精没见过' } },
+
+  { id:'shejing', name:'蛇精', from:'动画 · 葫芦兄弟', cat:'mech', tier:'T1', power:88, emblem:'🐍',
+    tags:['动画','葫芦兄弟','妖精','Boss'], lore:'蛇精 如意宝贝 蛇窟 金蛇 夫人 把葫芦娃一个个收进来',
+    mech:'如意宝贝', mechText:'如意一放，石头都能变大：克制所有葫芦兄弟；指名一人本局无法行动。',
+    counter:{ tags:['葫芦'], note:'一个都跑不了' },
+    act:{ type:'disable', desc:'如意宝贝：令一名敌人本局无法行动' } },
+
+  { id:'xiezijing', name:'蝎子精', from:'动画 · 葫芦兄弟', cat:'num', tier:'T1', power:82, emblem:'🦂',
+    tags:['动画','葫芦兄弟','妖精','Boss'], lore:'蝎子精 大钳子 蛇精的丈夫 抓走爷爷 蝎子洞',
+    mech:'大钳子', mechText:'一钳子下去，谁都被夹住：目标战力 -28。',
+    act:{ type:'chop', value:28, desc:'大钳子：目标战力 -28' } },
+
+  /* ============ 其他国产动画：正派与反派 ============ */
+  { id:'yizhier', name:'一只耳', from:'动画 · 黑猫警长', cat:'mech', tier:'T1', power:56, emblem:'🐭',
+    tags:['动画','黑猫警长','反派','老鼠'], lore:'一只耳 老鼠 黑猫警长的宿敌 耳朵 逃犯',
+    mech:'调虎离山', mechText:'专挑警察不在的时候下手：克制一切「警察」类角色。',
+    counter:{ tags:['警察'], note:'听见警笛就跑' },
+    act:{ type:'chop', value:20, desc:'背后捅一刀：目标战力 -20' } },
+
+  { id:'hongtailang', name:'红太狼', from:'动画 · 喜羊羊', cat:'num', tier:'T1', power:72, emblem:'🍳',
+    tags:['动画','喜羊羊','反派','狼'], lore:'红太狼 平底锅 灰太狼的老婆 羊村 抓羊',
+    mech:'平底锅', mechText:'一锅下去，灰太狼自己都晕：克制「狼」类角色，且先手。',
+    counter:{ tags:['狼'], note:'回家吃饭' }, passive:{ firstStrike:true },
+    act:{ type:'chop', value:22, desc:'平底锅：目标战力 -22' } },
+
+  { id:'xionger', name:'熊二', from:'动画 · 熊出没', cat:'num', tier:'T1', power:86, emblem:'🐻',
+    tags:['动画','熊出没','熊'], lore:'熊二 熊大他弟 光头强 蜂蜜 狗熊岭',
+    mech:'一屁股坐下去', mechText:'不讲技术，就讲分量：目标战力 -26。',
+    act:{ type:'chop', value:26, desc:'一屁股坐下去：目标战力 -26' } },
+
+  { id:'bayi', name:'巴依老爷', from:'动画 · 阿凡提的故事', cat:'mech', tier:'T1', power:62, emblem:'💰',
+    tags:['动画','阿凡提','反派','财主'], lore:'巴依老爷 财主 抠门 放高利贷 被阿凡提整',
+    mech:'放高利贷', mechText:'借你十块，还我三十：偷取目标 22 点战力。',
+    act:{ type:'steal', value:22, desc:'放高利贷：偷取目标 22 点战力' } },
+
+  { id:'hulijing', name:'狐狸精', from:'动画 · 天书奇谭', cat:'mech', tier:'T1', power:78, emblem:'🦊',
+    tags:['动画','天书奇谭','反派','妖精'], lore:'狐狸精 偷天书 三个狐妖 蛋生 贪',
+    mech:'偷天书', mechText:'把别人的本事偷来自己用：偷取目标 28 点战力。',
+    act:{ type:'steal', value:28, desc:'偷天书：偷取目标 28 点战力' } },
+
+  { id:'busheren', name:'捕蛇人', from:'动画 · 九色鹿', cat:'mech', tier:'T2', power:44, emblem:'🪤',
+    tags:['动画','九色鹿','反派','告密'], lore:'捕蛇人 落水被救 见钱眼开 出卖九色鹿 报应',
+    mech:'出卖', mechText:'为了赏钱什么都说：指定一名敌人本局无法行动。',
+    act:{ type:'disable', desc:'出卖：令一名敌人本局无法行动' } },
+
+  { id:'datouerzi', name:'大头儿子', from:'动画 · 大头儿子和小头爸爸', cat:'mech', tier:'T2', power:46, emblem:'🧒',
+    tags:['动画','大头儿子','家庭'], lore:'大头儿子 小头爸爸 围裙妈妈 大头 十万个为什么',
+    mech:'十万个为什么', mechText:'一个问题接一个问题，问到对方崩溃：目标战力 -18。',
+    act:{ type:'chop', value:18, desc:'十万个为什么：目标战力 -18' } },
+
+  { id:'xiaotoubaba', name:'小头爸爸', from:'动画 · 大头儿子和小头爸爸', cat:'sys', tier:'T2', power:50, emblem:'👨',
+    tags:['动画','大头儿子','家庭'], lore:'小头爸爸 耐心 陪玩 讲道理 大头儿子',
+    mech:'讲道理', mechText:'耐着性子一句一句讲，全家都听他的：全队战力 +12。',
+    act:{ type:'buff', value:12, all:true, desc:'讲道理：全队战力 +12' } },
+
+  { id:'luoxiaohei', name:'罗小黑', from:'动画 · 罗小黑战记', cat:'mech', tier:'T1', power:74, emblem:'🐈',
+    tags:['动画','罗小黑','妖精','猫'], lore:'罗小黑 猫妖 空间系 无限 会变猫',
+    mech:'空间系', mechText:'一眨眼就换了个地方：免死一次，且不会被反杀。',
+    passive:{ saveCount:1, noRiposte:true } },
+
+  { id:'genie', name:'盖聂', from:'动画 · 秦时明月', cat:'ctr', tier:'T1', power:84, emblem:'⚔',
+    tags:['动画','秦时明月','剑客','鬼谷'], lore:'盖聂 剑圣 百步飞剑 荆天明 鬼谷纵横',
+    mech:'百步飞剑', mechText:'剑出鞘，人就到了跟前：克制一切「剑 / 剑客」类角色，且先手。',
+    counter:{ tags:['剑客','剑'], note:'百步飞剑' }, passive:{ firstStrike:true } },
+
+  { id:'wuliuqi', name:'伍六七', from:'动画 · 刺客伍六七', cat:'mech', tier:'T1', power:76, emblem:'✂',
+    tags:['动画','刺客伍六七','刺客','刺客'], lore:'伍六七 刺客 剪刀 玄武国 大保J发廊',
+    mech:'以气御剪', mechText:'一把理发剪刀当武器使：目标战力 -24。',
+    act:{ type:'chop', value:24, desc:'以气御剪：目标战力 -24' } },
+
+/* ============ 葫芦兄弟补齐 ============ */
+  { id:'siwa', name:'四娃', from:'动画 · 葫芦兄弟', cat:'mech', tier:'T1', power:78, emblem:'🔥',
+    tags:['动画','葫芦兄弟','葫芦'], lore:'四娃 火娃 喷火 绿葫芦 烧山',
+    mech:'喷火', mechText:'一口火喷出去，谁也扛不住：敌方全体战力 -18。',
+    act:{ type:'aoe', value:18, desc:'喷火：敌方全体战力 -18' } },
+
+  { id:'wuwa', name:'五娃', from:'动画 · 葫芦兄弟', cat:'sys', tier:'T1', power:74, emblem:'💧',
+    tags:['动画','葫芦兄弟','葫芦'], lore:'五娃 水娃 吸水 青葫芦 大水',
+    mech:'吸水', mechText:'一口把水全吸干，对方的招也使不出来了：清空敌方全部增益。',
+    act:{ type:'purge', desc:'吸水：清空敌方全部增益' } },
+
+  /* ============ 哪吒组 ============ */
+  { id:'shiji', name:'石矶娘娘', from:'动画 · 哪吒传奇', cat:'mech', tier:'T1', power:86, emblem:'🪨',
+    tags:['动画','哪吒传奇','反派','妖精'], lore:'石矶娘娘 截教 石头精 抓哪吒 骷髅山',
+    mech:'设局', mechText:'布好阵等你自己走进来：克制「哪吒」及一切「妖精克星」，指名一人本局无法行动。',
+    counter:{ tags:['哪吒','妖精克星'], note:'专抓哪吒' },
+    act:{ type:'disable', desc:'设局：令一名敌人本局无法行动' } },
+
+  { id:'xiaolongnü', name:'小龙女', from:'动画 · 哪吒传奇', cat:'sys', tier:'T1', power:70, emblem:'🐉',
+    tags:['动画','哪吒传奇','龙族'], lore:'小龙女 东海 龙宫 帮哪吒 定海',
+    mech:'定海', mechText:'一句话压住水势：全队获得一次免死。',
+    act:{ type:'barrier', desc:'定海：全队获得一次免死' } },
+
+  { id:'aobing', name:'敖丙', from:'动画 · 魔童降世', cat:'num', tier:'T1', power:85, emblem:'🌊',
+    tags:['动画','魔童降世','龙族','反派'], lore:'敖丙 东海龙王三太子 万龙甲 水淹陈塘关',
+    mech:'水淹陈塘关', mechText:'引海水倒灌，谁也站不住：克制「哪吒」，且敌方全体战力 -20。',
+    counter:{ tags:['哪吒'], note:'水淹陈塘关' },
+    act:{ type:'aoe', value:20, desc:'水淹陈塘关：敌方全体战力 -20' } },
+
+  /* ============ 西游记（动画版） ============ */
+  { id:'zhubajie', name:'猪八戒', from:'动画 · 西游记', cat:'num', tier:'T1', power:80, emblem:'🐷',
+    tags:['动画','西游记','徒弟'], lore:'猪八戒 九齿钉耙 高老庄 天蓬元帅 好吃懒做',
+    mech:'九齿钉耙', mechText:'九齿一耙下去，谁都翻个跟头：目标战力 -24。',
+    act:{ type:'chop', value:24, desc:'九齿钉耙：目标战力 -24' } },
+
+  { id:'shaseng', name:'沙僧', from:'动画 · 西游记', cat:'sys', tier:'T1', power:72, emblem:'📿',
+    tags:['动画','西游记','徒弟'], lore:'沙僧 卷帘大将 流沙河 挑行李 大师兄师父被妖怪抓走了',
+    mech:'挑行李', mechText:'重活全他扛，队友才走得动：全队战力 +14。',
+    act:{ type:'buff', value:14, all:true, desc:'挑行李：全队战力 +14' } },
+
+  { id:'niumowang', name:'牛魔王', from:'动画 · 西游记', cat:'num', tier:'T1', power:90, emblem:'🐂',
+    tags:['动画','西游记','妖怪','Boss'], lore:'牛魔王 大力牛魔王 火焰山 芭蕉扇 孙悟空结拜兄弟',
+    mech:'大力', mechText:'跟孙悟空掰手腕都不输：目标战力 -30。',
+    act:{ type:'chop', value:30, desc:'大力：目标战力 -30' } },
+
+  { id:'tieshan', name:'铁扇公主', from:'动画 · 西游记', cat:'mech', tier:'T1', power:78, emblem:'🪭',
+    tags:['动画','西游记','妖怪'], lore:'铁扇公主 芭蕉扇 火焰山 一扇熄火 二扇生风',
+    mech:'芭蕉扇', mechText:'一扇子把人扇出十万八千里：目标本局无法行动。',
+    act:{ type:'disable', desc:'芭蕉扇：令一名敌人本局无法行动' } },
+
+  /* ============ 喜羊羊组 ============ */
+  { id:'lanyangyang', name:'懒羊羊', from:'动画 · 喜羊羊', cat:'mech', tier:'T2', power:40, emblem:'😴',
+    tags:['动画','喜羊羊','羊'], lore:'懒羊羊 睡觉 头上长草 懒 好吃',
+    mech:'装睡', mechText:'躺着不动，谁都以为他没事：免死一次。',
+    passive:{ saveCount:1 } },
+
+  { id:'feiyangyang', name:'沸羊羊', from:'动画 · 喜羊羊', cat:'num', tier:'T1', power:76, emblem:'💪',
+    tags:['动画','喜羊羊','羊'], lore:'沸羊羊 力气大 黑皮肤 直脾气 运动',
+    mech:'直脾气', mechText:'一句话不对就冲上去：先手，且数值对撞 +10。',
+    passive:{ firstStrike:true, flat:10 } },
+
+  { id:'manyangyang', name:'慢羊羊', from:'动画 · 喜羊羊', cat:'sys', tier:'T2', power:36, emblem:'👓',
+    tags:['动画','喜羊羊','羊','村长'], lore:'慢羊羊 村长 慢 发明 蜗牛',
+    mech:'发明', mechText:'捣鼓半天掏出个东西，还真能用：全队战力 +12。',
+    act:{ type:'buff', value:12, all:true, desc:'发明：全队战力 +12' } },
+
+  /* ============ 黑猫警长组 ============ */
+  { id:'baimao', name:'白猫班长', from:'动画 · 黑猫警长', cat:'sys', tier:'T1', power:68, emblem:'🐈',
+    tags:['动画','黑猫警长','警察','白猫'], lore:'白猫班长 黑猫警长的部下 牺牲 吃猫鼠',
+    mech:'挡在前面', mechText:'有危险先自己上：全队获得一次免死。',
+    act:{ type:'barrier', desc:'挡在前面：全队获得一次免死' } },
+
+  { id:'chimaoshu', name:'吃猫鼠', from:'动画 · 黑猫警长', cat:'mech', tier:'T1', power:80, emblem:'🐀',
+    tags:['动画','黑猫警长','反派','老鼠'], lore:'吃猫鼠 一只耳的舅舅 专吃猫 大反派',
+    mech:'吃猫', mechText:'猫见了他腿都软：克制一切「警察」与「猫」类角色。',
+    counter:{ tags:['警察','猫'], note:'专吃猫' },
+    act:{ type:'chop', value:24, desc:'一口咬下去：目标战力 -24' } },
+
+  /* ============ 秦时明月组 ============ */
+  { id:'weizhuang', name:'卫庄', from:'动画 · 秦时明月', cat:'ctr', tier:'T1', power:88, emblem:'🗡',
+    tags:['动画','秦时明月','剑客','反派'], lore:'卫庄 鲨齿 鬼谷 横剑 盖聂的师弟',
+    mech:'横剑', mechText:'鬼谷一门，横剑专破纵剑：克制「剑客 / 鬼谷」类角色。',
+    counter:{ tags:['剑客','鬼谷'], note:'横剑破纵剑' },
+    act:{ type:'chop', value:26, desc:'鲨齿：目标战力 -26' } },
+
+  { id:'jingtianming', name:'荆天明', from:'动画 · 秦时明月', cat:'mech', tier:'T1', power:66, emblem:'🌾',
+    tags:['动画','秦时明月','少年'], lore:'荆天明 墨家 荆轲的儿子 盖聂的徒弟 天真',
+    mech:'墨家机关', mechText:'机关一开，谁都困在里头：指定一名敌人本局无法行动。',
+    act:{ type:'disable', desc:'墨家机关：令一名敌人本局无法行动' } },
+
+  /* ============ 其他 ============ */
+  { id:'zhangchulan', name:'张楚岚', from:'动画 · 一人之下', cat:'mech', tier:'T1', power:74, emblem:'⚡',
+    tags:['动画','一人之下','异人'], lore:'张楚岚 金光咒 雷法 不要脸 冯宝宝',
+    mech:'金光咒', mechText:'金光护体又放电：免死一次，目标战力 -20。',
+    passive:{ saveCount:1 }, act:{ type:'chop', value:20, desc:'雷法：目标战力 -20' } },
+
+  { id:'fengbaobao', name:'冯宝宝', from:'动画 · 一人之下', cat:'num', tier:'T1', power:86, emblem:'🥬',
+    tags:['动画','一人之下','异人'], lore:'冯宝宝 不老 埋人 四川话 铁锹 王也救不了',
+    mech:'埋人', mechText:'一铁锹下去，直接给你挖个坑：目标战力 -28。',
+    act:{ type:'chop', value:28, desc:'埋人：目标战力 -28' } },
+
+  { id:'weiqunmama', name:'围裙妈妈', from:'动画 · 大头儿子', cat:'sys', tier:'T2', power:44, emblem:'🍲',
+    tags:['动画','大头儿子','家庭'], lore:'围裙妈妈 做饭 唠叨 一家人',
+    mech:'开饭了', mechText:'一桌饭下来全家都有劲：全队战力 +13。',
+    act:{ type:'buff', value:13, all:true, desc:'开饭了：全队战力 +13' } },
+
+  { id:'yuangong', name:'袁公', from:'动画 · 天书奇谭', cat:'mech', tier:'T1', power:84, emblem:'☁',
+    tags:['动画','天书奇谭','神仙'], lore:'袁公 看守天书 白云洞 传书蛋生 被罚',
+    mech:'天书传人', mechText:'把本事传下去，自己也还在：全队 +15，且免疫机制克制。',
+    passive:{ nullify:true }, act:{ type:'buff', value:15, all:true, desc:'天书传人：全队战力 +15' } },
+
+  { id:'wuxian', name:'无限', from:'动画 · 罗小黑战记', cat:'mech', tier:'T1', power:88, emblem:'🌀',
+    tags:['动画','罗小黑','妖精','空间系'], lore:'无限 空间系 罗小黑的师父 御灵系',
+    mech:'空间切割', mechText:'一划就是一道口子：克制一切「空间系」类角色。',
+    counter:{ tags:['空间系'], note:'空间切割' },
+    act:{ type:'chop', value:26, desc:'空间切割：目标战力 -26' } },
+
+{ id:'pudadi', name:'普大帝', from:'网络梗', cat:'mech', tier:'T1', power:92, emblem:'☢',
+    tags:['网络梗','政治'], lore:'普大帝 核按钮 硬汉 克格勃 三分之二 克林姆林宫',
+    mech:'核威慑', mechText:'与川建国分处两方时，双方互相锁定、本局都无法行动；同队时，世界就剩这两极——全队 +20。',
+    rival:'chuangjianguo',
+    act:{ type:'aoe', value:25, desc:'核按钮：敌方全体战力 -25' } },
+
+  { id:'yeliqin', name:'叶利钦', from:'历史 · 俄罗斯', cat:'sys', tier:'T1', power:72, emblem:'🍶',
+    tags:['历史','俄罗斯','政治','已故'], lore:'叶利钦 休克疗法 炮打白宫 俄罗斯首任总统 醉',
+    mech:'休克疗法', mechText:'一剂猛药下去，全场都休克：敌方全体战力 -15。',
+    act:{ type:'aoe', value:15, desc:'休克疗法：敌方全体战力 -15' } },
+
+{ id:'unitednations', name:'联合国', from:'现实 · 国际组织', cat:'ctr', tier:'T1', power:58, emblem:'🌐',
+    tags:['现实','国际','组织'], lore:'联合国 大会决议 安理会 联合一致共策和平 蓝色头盔 表决',
+    mech:'大会决议', mechText:'安理会可以否决，可大会一百多票照样通过：克制一切「政治」类角色；点名一人本局无法行动。',
+    counter:{ tags:['政治'], note:'大会决议' },
+    act:{ type:'disable', desc:'大会决议：令一名敌人本局无法行动' } },
+
+  { id:'yamani', name:'亚马尼', from:'历史 · 沙特石油', cat:'ctr', tier:'T1', power:54, emblem:'🛢',
+    tags:['历史','沙特','石油','政治'], lore:'亚马尼 沙特石油大臣 1973石油禁运 1986增产 油价崩盘 靠卖油过日子的先塌',
+    mech:'石油价格战', mechText:'他一增产，油价直接砸穿——靠卖油换外汇的先塌：克制「政治」类角色，敌方全体战力 -16。',
+    counter:{ tags:['政治'], note:'砸你饭碗' },
+    act:{ type:'aoe', value:16, desc:'石油价格战：敌方全体战力 -16' } },
+
+/* ============ 用经济手段改写历史的人 ============ */
+  { id:'johnlaw', name:'约翰·劳', from:'历史 · 密西西比泡沫', cat:'mech', tier:'T1', power:70, emblem:'💶',
+    tags:['历史','法国','金融','泡沫'], lore:'约翰·劳 密西西比泡沫 纸币 印钞 法国财政 泡沫破裂',
+    counter:{ tags:['银行','央行'], note:'印钞冲垮老规矩' },
+    mech:'印钞', mechText:'钱可以随便印，泡沫可以随便吹：全队战力 +20，代价是每回合自身 -5。',
+    act:{ type:'buff', value:20, all:true, desc:'印钞放水：全队战力 +20' } },
+
+  { id:'keynes', name:'凯恩斯', from:'历史 · 宏观经济学', cat:'sys', tier:'T1', power:66, emblem:'📘',
+    tags:['历史','英国','经济','学者'], lore:'凯恩斯 通论 挖坑填坑 有效需求 布雷顿森林 政府干预',
+    mech:'挖坑填坑', mechText:'雇人挖坑再雇人填坑，钱就流动起来了：全队战力 +16，且免疫机制克制。',
+    passive:{ nullify:true }, act:{ type:'buff', value:16, all:true, desc:'政府花钱：全队战力 +16' } },
+
+  { id:'volcker', name:'沃尔克', from:'历史 · 美联储', cat:'mech', tier:'T1', power:78, emblem:'📈',
+    tags:['历史','美国','经济','央行'], lore:'沃尔克 沃尔克时刻 利率20% 治通胀 美联储主席',
+    mech:'沃尔克时刻', mechText:'利率拉到 20%，全场都冷静下来：克制「金融」类角色，令一人本局无法行动。',
+    counter:{ tags:['金融','泡沫'], note:'把水抽干' },
+    act:{ type:'disable', desc:'把利率拉满：令一名敌人本局无法行动' } },
+
+  { id:'livermore', name:'利弗莫尔', from:'历史 · 华尔街', cat:'num', tier:'T1', power:82, emblem:'🐻',
+    tags:['历史','美国','金融','做空'], lore:'利弗莫尔 大空头 1929 做空 股票作手回忆录 破产',
+    counter:{ tags:['泡沫','金融'], note:'大空头' },
+    mech:'大空头', mechText:'别人贪婪他做空，崩盘那天他在数钱：数值对撞 +12，且不会被反杀。',
+    passive:{ flat:12, noRiposte:true } },
+
+  { id:'morgan', name:'摩根', from:'历史 · 华尔街', cat:'sys', tier:'T1', power:80, emblem:'🏦',
+    tags:['历史','美国','金融','银行'], lore:'摩根 1907年救市 JP摩根 一个人顶一个央行 托拉斯',
+    counter:{ tags:['做空'], note:'组织救市' },
+    mech:'一个人当央行', mechText:'市场塌了他一个人兜底：全队获得一次免死。',
+    act:{ type:'barrier', desc:'1907 救市：全队获得一次免死' } },
+
+  { id:'rockefeller', name:'洛克菲勒', from:'历史 · 石油托拉斯', cat:'mech', tier:'T1', power:86, emblem:'🛢',
+    tags:['历史','美国','石油','垄断'], lore:'洛克菲勒 标准石油 托拉斯 反垄断 首富',
+    mech:'托拉斯', mechText:'把你的管道、炼厂、销路全买下来：偷取目标 28 点战力。',
+    act:{ type:'steal', value:28, desc:'托拉斯：偷取目标 28 点战力' } },
+
+  { id:'ford', name:'福特', from:'历史 · 流水线', cat:'sys', tier:'T1', power:74, emblem:'🚗',
+    tags:['历史','美国','工业','制造'], lore:'福特 T型车 流水线 五美元日薪 量产',
+    mech:'流水线', mechText:'把活拆成一百道工序，谁都能上手：全队战力 +15。',
+    act:{ type:'buff', value:15, all:true, desc:'流水线：全队战力 +15' } },
+
+  { id:'reagan', name:'里根', from:'历史 · 冷战', cat:'mech', tier:'T1', power:82, emblem:'🎬',
+    tags:['历史','美国','政治','冷战'], lore:'里根 星球大战计划 供给侧 军备竞赛 拖垮苏联 演员出身',
+    counter:{ tags:['苏联'], note:'军备竞赛拖垮你' },
+    mech:'星球大战', mechText:'把你拖进军备竞赛，跟到你破产为止：敌方全体战力 -18。',
+    act:{ type:'aoe', value:18, desc:'星球大战：敌方全体战力 -18' } },
+
+  { id:'guanzhong', name:'管仲', from:'历史 · 齐国', cat:'mech', tier:'T1', power:76, emblem:'🧂',
+    tags:['历史','春秋','齐国','经济'], lore:'管仲 盐铁专卖 四民分业 尊王攘夷 通货积财',
+    counter:{ tags:['商人','财主'], note:'盐铁只能我卖' },
+    mech:'盐铁专卖', mechText:'盐和铁只能从他手里买：偷取目标 24 点战力。',
+    act:{ type:'steal', value:24, desc:'盐铁专卖：偷取目标 24 点战力' } },
+
+  { id:'sanghongyang', name:'桑弘羊', from:'历史 · 盐铁会议', cat:'sys', tier:'T1', power:72, emblem:'⚖',
+    tags:['历史','汉','经济','财政'], lore:'桑弘羊 均输平准 盐铁官营 盐铁会议 汉武帝的钱袋子',
+    counter:{ tags:['商人','财主'], note:'均输平准压死你' },
+    mech:'均输平准', mechText:'贵了就抛、贱了就收，把物价按死：敌方全体战力 -16。',
+    act:{ type:'aoe', value:16, desc:'均输平准：敌方全体战力 -16' } },
+
+  { id:'wanganshi', name:'王安石', from:'历史 · 熙宁变法', cat:'sys', tier:'T1', power:68, emblem:'📜',
+    tags:['历史','宋','变法','经济'], lore:'王安石 青苗法 市易法 熙宁变法 拗相公 天变不足畏',
+    mech:'青苗法', mechText:'青黄不接时借钱给你，秋后连本带息还：全队战力 +16。',
+    act:{ type:'buff', value:16, all:true, desc:'青苗法：全队战力 +16' } },
+
+  { id:'huxueyan', name:'胡雪岩', from:'历史 · 红顶商人', cat:'mech', tier:'T1', power:64, emblem:'💰',
+    tags:['历史','清','商人','金融'], lore:'胡雪岩 红顶商人 钱庄 阜康 挤兑 生丝大战',
+    mech:'挤兑', mechText:'一句话让所有人同时来取钱：清空敌方全部增益，并使其战力 -12。',
+    act:{ type:'purge', desc:'挤兑：清空敌方全部增益' } },
+
+{ id:'hexiansheng', name:'X兔子', from:'第三极', cat:'mech', tier:'T1', power:90, emblem:'🕊',
+    tags:['虚构','外交','第三极','防御'], lore:'X兔子 一心只搞自己事儿 第三极 不站队 闷头发展 抗性 核威慑 新冷战',
+    mech:'一心只搞自己事儿', mechText:'第三极的 X兔子，不结盟、不站队、不惹事，闷头搞自己的：免疫一切机制克制，免死一次；主动打开还能护住全队。与普大帝或川建国敌对时触发核威慑/新冷战，双方一起挨。',
+    passive:{ nullify:true, saveCount:1 },
+
+    act:{ type:'barrier', desc:'一心只搞自己事儿：全队获得一次免死' } },
+
+  { id:'mozishou', name:'墨子 · 止楚攻宋', from:'战国 · 墨家', cat:'mech', tier:'T1', power:70, emblem:'🧱',
+    tags:['历史','战国','墨家','守城'], lore:'墨子 止楚攻宋 公输盘 九攻九拒 十日十夜 守城',
+    mech:'止楚攻宋', mechText:'走了十天十夜，把一场仗劝了下来：全队获得一次免死，且免疫机制克制。',
+    passive:{ nullify:true }, act:{ type:'barrier', desc:'止战：全队获得一次免死' } },
+
+  { id:'messi', name:'梅西', from:'现实 · 球王', cat:'num', tier:'T1', power:86, emblem:'⚽',
+    tags:['现实','名人','足球','梅西'], lore:'手球 上帝之手2.0 掐脖子 法比尼奥 七场五点 世界杯纪录 连过五人 金球 小跳蚤',
+    mech:'七场五点', mechText:'七场吹了五个点球，单届世界杯纪录：裁判向着他——战力不如对方时，反而判他赢。',
+    passive:{ underdogWin:true },
+    counter:{ tags:['铁壁','防御','铜头','硬功'], note:'手球 + 连过五人' },
+    act:{ type:'disable', desc:'掐脖子：锁住咽喉，令一名敌人本局无法行动' } },
 
   { id:'jordan', name:'乔丹', from:'现实 · 飞人', cat:'num', tier:'T1', power:83, emblem:'🏀',
     tags:['现实','名人','篮球'], lore:'最后一投 乔丹 飞人 绝杀 篮球之神',
@@ -1543,6 +1965,11 @@ var CHARACTERS = [
     lore:'灭霸的爸爸叫灭建国 盒武器 我要去告老师 十八码的 成绩单 同桌',
     mech:'高科技盒武器', mechText:'当众开盒：喊出对方的家长名字，有家长的当场破防社死；没家长的反而被全班嘲笑（自损战力）。',
     act:{ type:'doxx', desc:'开盒一名敌人：有家长的当场出局，没家长的自己被嘲笑' } },
+
+{ id:'qiyidazhuan', name:'奇异大专', from:'网络梗 · MJ校园', cat:'mech', tier:'T1', power:58, emblem:'📜',
+    tags:['漫威','MJ校园','同学','法师'], lore:'奇异大专 学历降级 阿戈摩托之眼 一千四百万种补考 专升本 时间宝石',
+    mech:'一千四百万种补考', mechText:'时间倒回去重考一次：免死一次；倒带把你俩一起拖进补考，目标本局无法行动。',
+    passive:{ saveCount:1 }, act:{ type:'disable', desc:'拉对手一起补考，令其本局无法行动' } },
 
   { id:'miejia', name:'灭建国', from:'网络梗 · MJ校园', cat:'mech', tier:'T1', power:52, emblem:'📱',
     tags:['网络梗','MJ校园','家长','中年'], lore:'中年土味 抖音账号 灭霸的爸爸 土味视频 对着镜头扭',
@@ -1811,7 +2238,7 @@ var CHARACTERS = [
 
 
   /* ==================== 帝王将相 ==================== */
-  { id:'kangxi', name:'康熙', from:'历史 · 清', cat:'mech', tier:'T1', power:88, emblem:'👑',
+  { id:'kangxi', name:'康熙', from:'历史 · 清', cat:'mech', tier:'T1', power:85, emblem:'👑',
     tags:['历史','清','帝王'], lore:'康熙 平三藩 擒鳌拜 九子夺嫡 康乾盛世 微服私访',
     mech:'平三藩', mechText:'三路大军一起压过去：敌方全体战力 -20。',
     act:{ type:'aoe', value:20, desc:'敌方全体战力 -20' } },
@@ -1821,17 +2248,17 @@ var CHARACTERS = [
     mech:'朱批', mechText:'一道朱批下来，人头落地：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'一道朱批，令一名敌人本局无法行动' } },
 
-  { id:'zhuyuanzhang', name:'朱元璋', from:'历史 · 明', cat:'ctr', tier:'T1', power:86, emblem:'⚔',
+  { id:'zhuyuanzhang', name:'朱元璋', from:'历史 · 明', cat:'ctr', tier:'T1', power:88, emblem:'🌾',
     tags:['历史','明','帝王'], lore:'朱元璋 洪武 杀功臣 胡惟庸案 布衣天子',
     mech:'杀功臣', mechText:'兔死狗烹，专杀开国武将：克制一切「将 / 武将」类角色。',
     counter:{ tags:['将','武将'], note:'杀功臣' } },
 
-  { id:'lishimin', name:'李世民', from:'历史 · 唐', cat:'mech', tier:'T1', power:90, emblem:'🐉',
+  { id:'lishimin', name:'李世民', from:'历史 · 唐', cat:'mech', tier:'T1', power:88, emblem:'⚔',
     tags:['历史','唐','帝王'], lore:'李世民 玄武门之变 贞观之治 天可汗 秦王破阵乐',
     mech:'玄武门', mechText:'兄弟相残：挑动两名敌人自相残杀，败者出局。',
     act:{ type:'duel', desc:'挑动两名敌人互殴，败者出局' } },
 
-  { id:'zhaokuangyin', name:'赵匡胤', from:'历史 · 宋', cat:'mech', tier:'T1', power:82, emblem:'🍶',
+  { id:'zhaokuangyin', name:'赵匡胤', from:'历史 · 宋', cat:'mech', tier:'T1', power:84, emblem:'🗡',
     tags:['历史','宋','帝王'], lore:'赵匡胤 杯酒释兵权 陈桥兵变 黄袍加身 宋太祖',
     mech:'杯酒释兵权', mechText:'一杯酒就把你的兵权收了：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'一杯酒，收了一名敌人的兵权' } },
@@ -1962,12 +2389,12 @@ var CHARACTERS = [
     act:{ type:'steal', value:25, desc:'偷取目标 25 点战力' } },
 
   { id:'sidalin', name:'斯大林', from:'历史 · 二战', cat:'num', tier:'T1', power:88, emblem:'⭐',
-    tags:['历史','二战','政治'], lore:'斯大林 钢铁意志 斯大林格勒 红场阅兵 苏联',
+    tags:['历史','二战','政治','苏联'], lore:'斯大林 钢铁意志 斯大林格勒 红场阅兵 苏联',
     mech:'钢铁意志', mechText:'钢铁同志：免死一次，且数值对撞 +10。',
     passive:{ saveCount:1, flat:10 } },
 
   { id:'geerbajiaofu', name:'戈尔巴乔夫', from:'历史 · 冷战', cat:'mech', tier:'T1', power:60, emblem:'🕊',
-    tags:['历史','冷战','政治'], lore:'戈尔巴乔夫 改革 新思维 苏联解体 地图头',
+    tags:['历史','冷战','政治','苏联'], lore:'戈尔巴乔夫 改革 新思维 苏联解体 地图头',
     mech:'新思维', mechText:'把旧规矩全拆了：敌方所有增益与体系效果一并作废。',
     act:{ type:'breakAll', desc:'双方体系全部作废' } },
 
@@ -1976,10 +2403,11 @@ var CHARACTERS = [
     mech:'乒乓外交', mechText:'一个小小的球把局面打开：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'破冰：令一名敌人本局无法行动' } },
 
-  { id:'chuangjianguo', name:'川建国', from:'网络梗 · 建国同志', cat:'mech', tier:'T1', power:76, emblem:'🧢',
+  { id:'chuangjianguo', name:'川建国', from:'网络梗 · 建国同志', cat:'mech', tier:'T1', power:84, emblem:'🧢',
     tags:['网络梗','名人','政治'], lore:'川建国 推特治国 让美国再次伟大 懂王 退群',
-    mech:'推特治国', mechText:'一条推文把水搅浑：敌方全体战力 -15。',
-    act:{ type:'aoe', value:15, desc:'敌方全体战力 -15' } },
+    mech:'推特治国', mechText:'一条推文把水搅浑：敌方全体战力 -20；号封了还能开小号，免死一次。',
+    passive:{ saveCount:1 },
+    act:{ type:'aoe', value:20, desc:'推特治国：敌方全体战力 -20' } },
 
 
   /* ==================== 世界政治人物（已故历史人物） ==================== */
@@ -1988,7 +2416,7 @@ var CHARACTERS = [
     mech:'两任而退', mechText:'把权力交出去，把人心收回来：全队战力 +18。',
     act:{ type:'buff', value:18, all:true, desc:'全队战力 +18' } },
 
-  { id:'napolun', name:'拿破仑', from:'历史 · 法兰西第一帝国', cat:'num', tier:'T1', power:88, emblem:'🎖',
+  { id:'napolun', name:'拿破仑', from:'历史 · 法国', cat:'num', tier:'T1', power:88, emblem:'🎖',
     tags:['历史','法国','政治','军事'], lore:'拿破仑 炮兵 民法典 滑铁卢 百日王朝 跨过阿尔卑斯',
     mech:'炮兵轰击', mechText:'先轰一轮再冲锋：敌方全体战力 -20。',
     act:{ type:'aoe', value:20, desc:'敌方全体战力 -20' } },
@@ -2034,7 +2462,7 @@ var CHARACTERS = [
     passive:{ saveCount:2 } },
 
   { id:'liening', name:'列宁', from:'历史 · 俄国革命', cat:'mech', tier:'T1', power:80, emblem:'🚩',
-    tags:['历史','俄国','政治'], lore:'列宁 十月革命 阿芙乐尔号 面包与和平 苏维埃',
+    tags:['历史','俄国','政治','苏联'], lore:'列宁 十月革命 阿芙乐尔号 面包与和平 苏维埃',
     mech:'十月革命', mechText:'一声炮响，队伍就起来了：召唤一个分身（战力 60%）。',
     act:{ type:'summon', desc:'召唤起义队伍加入战斗' } },
 
@@ -2043,7 +2471,7 @@ var CHARACTERS = [
     mech:'我来，我见，我征服', mechText:'跨过卢比孔河就没有回头路：敌方全体战力 -20。',
     act:{ type:'aoe', value:20, desc:'敌方全体战力 -20' } },
 
-  { id:'yalishanda', name:'亚历山大大帝', from:'历史 · 马其顿', cat:'ctr', tier:'T1', power:86, emblem:'⚔',
+  { id:'yalishanda', name:'亚历山大', from:'历史 · 希腊', cat:'ctr', tier:'T1', power:86, emblem:'🏛',
     tags:['历史','希腊','政治','军事'], lore:'亚历山大 戈尔迪之结 远征 马其顿方阵 巴比伦',
     mech:'斩断戈尔迪之结', mechText:'解不开就一剑砍断：无视一切「铁壁 / 防御 / 铜头」类硬功。',
     counter:{ tags:['铁壁','防御','铜头','硬功'], note:'斩断死结' } },
@@ -2197,6 +2625,85 @@ var CHARACTERS = [
     mech:'扼住命运的咽喉', mechText:'越是绝境越要吼出来：战力不如对方时，反而赢下这次对撞。',
     passive:{ underdogWin:true } },
 
+
+  /* ==================== ① MJ校园 · 教师组（T2 机制卡） ==================== */
+  { id:'jiaodao', name:'教导主任', from:'网络梗 · MJ校园', cat:'mech', tier:'T2', power:42, emblem:'📋',
+    tags:['网络梗','MJ校园','教师'], lore:'教导主任 抓早恋 办公室 通报批评 查走廊',
+    mech:'抓早恋', mechText:'你俩跟我来一趟办公室：挑动两名敌人互殴，败者出局。',
+    act:{ type:'duel', desc:'把两名敌人叫进办公室，败者出局' } },
+
+  { id:'banzhuren', name:'班主任', from:'网络梗 · MJ校园', cat:'mech', mech:'叫家长', tier:'T2', power:40, emblem:'☎',
+    tags:['网络梗','MJ校园','教师'], lore:'班主任 叫家长 办公室 家长签字 你们家孩子',
+    mechText:'一个电话把你爸叫来：点名一名敌人，有家长的直接出局。',
+    act:{ type:'doxx', desc:'叫家长，有 parent 的敌人当场出局' } },
+
+  { id:'xiaozhang', name:'校长', from:'网络梗 · MJ校园', cat:'mech', tier:'T2', power:45, emblem:'🎓',
+    tags:['网络梗','MJ校园','教师'], lore:'校长 记大过 升旗仪式 全校通报 处分',
+    mech:'记大过', mechText:'升旗台上念名字，社死当场：目标战力 -20。',
+    act:{ type:'chop', value:20, desc:'目标战力 -20' } },
+
+  { id:'menwei', name:'门卫大爷', from:'网络梗 · MJ校园', cat:'mech', tier:'T2', power:35, emblem:'🚧',
+    tags:['网络梗','MJ校园','教师'], lore:'门卫大爷 查门禁 校牌 迟到了登记 不让进',
+    mech:'查门禁', mechText:'没校牌就是不让进：指定一名敌人本局无法行动。',
+    act:{ type:'disable', desc:'拦在门外，令一名敌人本局无法行动' } },
+
+  { id:'suguan', name:'宿管阿姨', from:'网络梗 · MJ校园', cat:'mech', tier:'T2', power:33, emblem:'🔌',
+    tags:['网络梗','MJ校园','教师'], lore:'宿管阿姨 查寝 没收热得快 电饭锅 熄灯',
+    mech:'查寝', mechText:'柜子一开全没收：清空敌方全部增益。',
+    act:{ type:'purge', desc:'没收敌方全部增益' } },
+
+  { id:'shitang', name:'食堂阿姨', from:'网络梗 · MJ校园', cat:'mech', tier:'T2', power:30, emblem:'🥄',
+    tags:['网络梗','MJ校园','教师'], lore:'食堂阿姨 手抖 打菜 抖三抖 番茄炒蛋',
+    mech:'手抖', mechText:'一勺下去抖掉一半，谁都别想吃饱：敌方全体战力 -12。',
+    act:{ type:'aoe', value:12, desc:'敌方全体战力 -12' } },
+
+  /* ==================== ③ 反机制 ==================== */
+  { id:'gangjing', name:'杠精', from:'网络梗 · 互联网', cat:'ctr', tier:'T1', power:48, emblem:'💬',
+    tags:['网络梗','互联网','平民'], lore:'杠精 你说的都对 但是 我觉得不行 那你说呢',
+    mech:'你说的都对，但是', mechText:'什么机制在他这儿都不好使：一切机制克制对他无效。',
+    passive:{ nullify:true } },
+
+  { id:'jiafang', name:'甲方', from:'网络梗 · 互联网', cat:'mech', tier:'T1', power:52, emblem:'📄',
+    tags:['网络梗','互联网','老板'], lore:'甲方 这个不行 重做 我要的是五彩斑斓的黑 需求变更',
+    mech:'这个不行，重做', mechText:'一句重做，前面全白干：双方所有体系效果一并作废。',
+    act:{ type:'breakAll', desc:'一句话推翻全部方案，双方体系作废' } },
+
+  { id:'jizhe', name:'记者', from:'网络梗 · 互联网', cat:'mech', tier:'T1', power:50, emblem:'🎤',
+    tags:['网络梗','互联网','媒体'], lore:'记者 曝光 话筒怼脸 热搜 采访',
+    mech:'曝光', mechText:'话筒一怼，你就上热搜了：指定一名敌人本局无法行动。',
+    act:{ type:'disable', desc:'曝光一名敌人，令其本局无法行动' } },
+
+  /* ==================== ④ 冷门 IP 补强 ==================== */
+  { id:'zhangjuzheng', name:'张居正', from:'明 · 万历新政', cat:'sys', tier:'T1', power:78, emblem:'📜',
+    tags:['历史','明','首辅','改革'], lore:'张居正 一条鞭法 万历新政 考成法 首辅',
+    mech:'一条鞭法', mechText:'把全国的税并成一条：全队战力 +18。',
+    act:{ type:'buff', value:18, all:true, desc:'全队战力 +18' } },
+
+  { id:'zhenghe', name:'郑和', from:'明 · 下西洋', cat:'mech', tier:'T1', power:72, emblem:'⛵',
+    tags:['历史','明','航海'], lore:'郑和 七下西洋 宝船 船队 宣德',
+    mech:'七下西洋', mechText:'宝船队一路宣威，沿途都得服软：敌方全体战力 -15。',
+    act:{ type:'aoe', value:15, desc:'敌方全体战力 -15' } },
+
+  { id:'weiqing', name:'卫青', from:'汉 · 抗击匈奴', cat:'num', tier:'T1', power:84, emblem:'🐎',
+    tags:['历史','汉','将','武将'], lore:'卫青 直捣龙城 大将军 漠北之战 奴隶出身',
+    mech:'直捣龙城', mechText:'七战七捷，直插王庭：目标战力 -25。',
+    act:{ type:'chop', value:25, desc:'目标战力 -25' } },
+
+  { id:'huoqubing', name:'霍去病', from:'历史 · 汉', cat:'num', tier:'T1', power:88, emblem:'🏹',
+    tags:['历史','汉','将','武将'], lore:'霍去病 封狼居胥 匈奴未灭何以家为 八百骑 冠军侯',
+    mech:'封狼居胥', mechText:'八百骑深入两千公里，封山而还：敌方全体战力 -20。',
+    act:{ type:'aoe', value:20, desc:'敌方全体战力 -20' } },
+
+  { id:'yegong', name:'叶公', from:'寓言 · 叶公好龙', cat:'mech', tier:'T2', power:38, emblem:'🐉',
+    tags:['寓言','成语','平民'], lore:'叶公好龙 钩以写龙 凿以写龙 真龙来了就跑',
+    mech:'叶公好龙', mechText:'嘴上说最喜欢你：把敌人的攻击全引到自己身上，然后溜掉。',
+    act:{ type:'taunt', desc:'让一名敌人本局只追着叶公打' } },
+
+  { id:'nanguo', name:'南郭先生', from:'寓言 · 滥竽充数', cat:'sys', tier:'T2', power:32, emblem:'🎺',
+    tags:['寓言','成语','平民'], lore:'南郭先生 滥竽充数 三百人一起吹 齐湣王 逃',
+    mech:'滥竽充数', mechText:'混在三百人的乐队里谁也看不出来：全队获得一次免死。',
+    act:{ type:'barrier', desc:'混进队伍，全队获得一次免死' } },
+
 ];
 
 /* ============================ 体系（组合技） ============================ */
@@ -2297,6 +2804,78 @@ var COMBOS = [
     desc:'牛魔王（牛）+ 白骨精（鬼）+ 大蛇丸（蛇）= 牛鬼蛇神。全队 +22。',
     effects:{ teamPower:22 } },
 
+  { id:'jiaowuchu', name:'教务处', members:['jiaodao','banzhuren','xiaozhang'], tag:'三人',
+    desc:'教导主任 + 班主任 + 校长：三个人凑齐，全队 +22。',
+    effects:{ teamPower:22 } },
+
+  { id:'hulu', name:'葫芦兄弟', members:['dawa','erwa','sanwa','liuwa','qiwa'], tag:'五人',
+    desc:'大娃 + 二娃 + 三娃 + 六娃 + 七娃：七兄弟凑齐五个，全队 +25，每人免死一次。',
+    effects:{ teamPower:25, teamShield:1 } },
+
+  { id:'sanzhier', name:'两极格局', members:['pudadi','chuangjianguo'], tag:'双人',
+    desc:'普大帝 + 川建国：世界就剩这两极，一个东一个西，同队时全队 +20。',
+    effects:{ teamPower:20 } },
+
+  { id:'hongguan', name:'宏观调控', members:['keynes','volcker'], tag:'双人',
+    desc:'凯恩斯 + 沃尔克：一个放水一个抽水，两只手都在政府手里，双方 +24。',
+    effects:{ pairPower:24 } },
+
+  { id:'longduan', name:'垄断资本', members:['rockefeller','morgan'], tag:'双人',
+    desc:'洛克菲勒 + 摩根：石油和银行都在他们手里，双方 +24。',
+    effects:{ pairPower:24 } },
+
+  { id:'yantie', name:'盐铁专卖', members:['guanzhong','sanghongyang'], tag:'双人',
+    desc:'管仲 + 桑弘羊：盐和铁归国家卖，千年不换的财政术，双方 +22。',
+    effects:{ pairPower:22 } },
+
+  { id:'sanfentianxia', name:'三分天下', members:['pudadi','chuangjianguo','hexiansheng'], tag:'三人',
+    desc:'普大帝 + 川建国 + 和先生：三家坐下来分世界，全队 +25，每人免死一次。',
+    effects:{ teamPower:25, teamShield:1 } },
+
+  { id:'mengyou', name:'盟友', members:['pudadi','hexiansheng'], tag:'双人',
+    desc:'普大帝 + 和先生：一个出硬的一个出软的，双方 +22，且各多一次免死。',
+    effects:{ pairPower:22, pairSave:1 } },
+
+  { id:'waibuyali', name:'外部压力', members:['unitednations','yamani'], tag:'双人',
+    desc:'联合国 + 亚马尼：一手决议、一手砸油价，双方 +22。',
+    effects:{ pairPower:22 } },
+
+  { id:'kelinmulin', name:'克林姆林宫', members:['pudadi','yeliqin'], tag:'双人',
+    desc:'普大帝 + 叶利钦：老上司与新上司互相兜底，双方 +20，且各多一次免死。',
+    effects:{ pairPower:20, pairSave:1 } },
+
+  { id:'xifang', name:'取经队', members:['zhubajie','shaseng','sunwukong','tangseng'], tag:'四人',
+    desc:'猪八戒 + 沙僧 + 孙悟空 + 唐僧：师徒四人凑齐，全队 +24，每回合回复 5 战力。',
+    effects:{ teamPower:24 } },
+
+  { id:'yijia', name:'一家人', members:['datouerzi','xiaotoubaba'], tag:'双人',
+    desc:'大头儿子 + 小头爸爸：一大一小，双方 +22。',
+    effects:{ pairPower:22 } },
+
+  { id:'shukeibei', name:'舒克和贝塔', members:['shuke','beita'], tag:'双人',
+    desc:'舒克 + 贝塔：一个开飞机一个开坦克，双方 +26。',
+    effects:{ pairPower:26 } },
+
+  { id:'zpd', name:'ZPD 搭档', members:['nickwilde','judy'], tag:'双人',
+    desc:'尼克 + 朱迪：一只狐狸和一只兔子，搭档出警，双方 +26。',
+    effects:{ pairPower:26 } },
+
+  { id:'tiaoshui', name:'跳水兄弟', members:['cr7','neymar'], tag:'双人',
+    desc:'C罗 + 内马尔：一个假摔一个翻滚，裁判都看不过来，双方 +26。',
+    effects:{ pairPower:26 } },
+
+  { id:'laoyishu', name:'老艺术家', members:['liuxiaolingtong','zhaobenshan'], tag:'双人',
+    desc:'六小龄童 + 赵本山：一个讲规矩，一个卖拐，双方 +24。',
+    effects:{ pairPower:24 } },
+
+  { id:'meiluo', name:'梅罗时代', members:['messi','cr7'], tag:'双人',
+    desc:'梅西 + C罗：十五年的对手，同框就是一个时代，双方 +26。',
+    effects:{ pairPower:26 } },
+
+  { id:'dahan', name:'大汉双璧', members:['weiqing','huoqubing'], tag:'双人',
+    desc:'卫青 + 霍去病：舅甥两代战神，双方 +26。',
+    effects:{ pairPower:26 } },
+
   { id:'daming', name:'大明君臣', members:['jiajing','hairui'], tag:'双人',
     desc:'嘉靖 + 海瑞：一个要骂，一个要杀，双方 +25。',
     effects:{ pairPower:25 } },
@@ -2387,6 +2966,12 @@ var IP_CYCLES = [
     why:'盘古开天在最前，辈分压女娲 → 女娲炼石补的就是共工撞塌的天 → 共工一头撞断的正是盘古化成的天柱' },
   { ip:'现实', chain:['luoxiang','tyson','bolt'],
     why:'罗翔一条故意伤害罪把泰森送进去 → 泰森一拳 KO，跑得再快也没用 → 博尔特跑得比传票快' },
+  { ip:'哪吒', chain:['aobing','nezha','shiji'],
+    why:'敖丙引海水淹陈塘关逼死哪吒 → 哪吒重生后打上骷髅山 → 石矶背后有截教撑腰，龙王也得让她三分' },
+  { ip:'华尔街', chain:['morgan','livermore','johnlaw'],
+    why:'摩根一个人组织救市，把做空的按回去 → 利弗莫尔专等崩盘那一刻做空，泡沫都得破 → 约翰·劳印钞，把老银行家的规矩整个冲垮' },
+  { ip:'葫芦兄弟', chain:['xiezijing','yeye','shejing'],
+    why:'蝎子精一钳子把爷爷抓进洞 → 爷爷一把火烧了蛇洞 → 蛇精是当家的，蝎子精也得听她的' },
   { ip:'大明王朝', chain:['jiajing','yansong','hairui'],
     why:'嘉靖一道旨就能抄严嵩的家 → 严党把海瑞下了诏狱 → 海瑞抬着棺材上疏骂皇帝' },
   { ip:'人民的名义', chain:['houliangping','qitongwei','gaoyuliang'],
@@ -2516,7 +3101,84 @@ var BIOS = {
   yen: '（1893—1972）咏春拳宗师。李小龙之师，佛山咏春一脉的代表人物。',
   tyson: '（1966— ）美国拳击手。1986年成为最年轻的世界重量级拳王。',
   kobe: '（1978—2020）美国篮球运动员。效力洛杉矶湖人20年，单场砍下81分。',
-  messi: '（1987— ）阿根廷足球运动员。八次金球奖得主，2022年率队夺得世界杯。',
+  zhangxuefeng: '（1984— ）考研辅导老师、志愿填报博主。以「劝退式」专业建议走红，名言是「不知道学啥就学计算机」。',
+  neymar: '（1992— ）巴西足球运动员。以华丽盘带著称，也因夸张倒地翻滚被叫做「内马尔滚」。',
+  suarez: '（1987— ）乌拉圭足球运动员。2014 年世界杯对意大利时咬基耶利尼，被禁赛四个月。',
+  lijiaqi: '（1992— ）带货主播。2023 年一句「这么多年工资涨没涨，有没有认真工作」引发全网讨论。',
+  liuxiaolingtong: '（1959— ）演员，86 版《西游记》孙悟空扮演者。名言「戏说不是胡说，改编不是乱编」。',
+  zhaobenshan: '（1957— ）小品演员。2001 年春晚《卖拐》把「忽悠」演成了全国流行语。',
+  zhangyimou: '（1950— ）导演。2008 年北京奥运会开幕式总导演，以浓烈色彩和大型群体调度著称，被称作「国师」。',
+  nickwilde: '《疯狂动物城》角色。街头骗子出身的狐狸，靠一张嘴和一根冰棍谋生，后成为警官。',
+  judy: '《疯狂动物城》主角。兔子警官，坚信「任何人都能成为任何样子」，随身带一支胡萝卜录音笔。',
+  cr7sister: '嘴上说在维护 C罗，发出去的每一条都在拆台。',
+  huoqigang: '厉害的香港人。',
+  dawa: '《葫芦兄弟》老大，力大无穷，红葫芦。',
+  erwa: '《葫芦兄弟》老二，千里眼顺风耳，橙葫芦。',
+  liuwa: '《葫芦兄弟》老六，会隐身，蓝葫芦。',
+  qiwa: '《葫芦兄弟》老七，有宝葫芦，能使法宝把对手收进去。',
+  shuke: '《舒克和贝塔》里的飞行员老鼠，开直升机。',
+  beita: '《舒克和贝塔》里的坦克手老鼠，开坦克。',
+  afanti: '《阿凡提的故事》主角，倒骑毛驴，专治财主巴依老爷。',
+  dansheng: '《天书奇谭》主角，从蛋里出生，学法于袁公。',
+  xuehaizi: '《雪孩子》主角，为了救小兔冲进火场，最后融化。',
+  chenxiang: '《宝莲灯》主角，劈开华山救母亲三圣母。',
+  jiuselu: '《九色鹿》主角，救过人也被出卖过，敦煌壁画里的神鹿。',
+  sangeheshang: '《三个和尚》里那句老话：一个和尚挑水喝，三个和尚没水喝。',
+  yeye: '《葫芦兄弟》里的老爷爷，种出了七个葫芦娃，最后为救他们而死。',
+  shejing: '《葫芦兄弟》大反派，蛇精，法宝是如意，专抓葫芦娃。',
+  xiezijing: '《葫芦兄弟》大反派，蝎子精，蛇精的丈夫，一钳子夹住爷爷。',
+  yizhier: '《黑猫警长》里的反派老鼠，被黑猫警长追了一整部。',
+  hongtailang: '《喜羊羊与灰太狼》里的红太狼，灰太狼的妻子，武器是平底锅。',
+  xionger: '《熊出没》主角之一，熊大的弟弟，爱吃蜂蜜。',
+  bayi: '《阿凡提的故事》里的财主，抠门放贷，专被阿凡提整。',
+  hulijing: '《天书奇谭》反派，偷走天书的狐妖。',
+  busheren: '《九色鹿》里的捕蛇人，被九色鹿救过，后来却为了赏钱出卖它。',
+  datouerzi: '《大头儿子和小头爸爸》主角，头很大，问题很多。',
+  xiaotoubaba: '《大头儿子和小头爸爸》主角，头很小，脾气很好。',
+  luoxiaohei: '《罗小黑战记》主角，会变猫的妖精，空间系。',
+  genie: '《秦时明月》剑圣，百步飞剑，荆天明的师父。',
+  wuliuqi: '《刺客伍六七》主角，用剪刀当武器，玄武国刺客。',
+  siwa: '《葫芦兄弟》老四，会喷火，绿葫芦。',
+  wuwa: '《葫芦兄弟》老五，会吸水，青葫芦。',
+  shiji: '《哪吒传奇》反派，骷髅山的石头精，截教门下，专跟哪吒过不去。',
+  xiaolongnü: '《哪吒传奇》里的东海龙宫小公主，哪吒的伙伴。',
+  aobing: '《哪吒之魔童降世》里的东海龙王三太子。',
+  zhubajie: '《西游记》里的猪八戒，原天蓬元帅，使九齿钉耙。',
+  shaseng: '《西游记》里的沙僧，原卷帘大将，一路挑行李。',
+  niumowang: '《西游记》里的牛魔王，火焰山，孙悟空当年的结拜大哥。',
+  tieshan: '《西游记》里的铁扇公主，芭蕉扇一扇能灭火焰山。',
+  lanyangyang: '《喜羊羊与灰太狼》里的懒羊羊，整天睡觉。',
+  feiyangyang: '《喜羊羊与灰太狼》里的沸羊羊，力气最大，脾气最直。',
+  manyangyang: '《喜羊羊与灰太狼》里的慢羊羊村长，走路慢，爱发明。',
+  baimao: '《黑猫警长》里的白猫班长，黑猫警长的部下，为掩护同伴牺牲。',
+  chimaoshu: '《黑猫警长》大反派，一只耳的舅舅，专吃猫。',
+  weizhuang: '《秦时明月》里的卫庄，鬼谷横剑，盖聂的师弟。',
+  jingtianming: '《秦时明月》主角，荆轲之子，盖聂的徒弟。',
+  zhangchulan: '《一人之下》主角，会金光咒和雷法。',
+  fengbaobao: '《一人之下》主角之一，不老不死，随身带把铁锹。',
+  weiqunmama: '《大头儿子和小头爸爸》里的围裙妈妈。',
+  yuangong: '《天书奇谭》里看守天书的仙人，把天书传给了蛋生。',
+  wuxian: '《罗小黑战记》里的无限，空间系妖精，罗小黑的师父。',
+  pudadi: '网络梗里对俄罗斯总统的称呼。核按钮、硬汉、克格勃，三分之二的核弹在他手里。',
+  yeliqin: '（1931—2007）俄罗斯首任总统。推行休克疗法，1993 年炮打白宫。',
+  unitednations: '1945 年成立的国际组织，安理会五个常任理事国各有一票否决权。',
+  yamani: '（1930—2021）沙特阿拉伯石油大臣。任内主导 1973 年石油禁运；1986 年推动增产，油价崩盘。',
+  johnlaw: '（1671—1729）苏格兰经济学家、法国财政总监。纸币与密西西比泡沫的制造者。',
+  keynes: '（1883—1946）英国经济学家。著《就业、利息和货币通论》，主张政府干预，参与布雷顿森林会议。',
+  volcker: '（1927—2019）美联储主席。1979—1982 年把利率提到 20% 治通胀，史称「沃尔克时刻」。',
+  livermore: '（1877—1940）美国股票作手。1929 年大崩盘前做空，赚到上亿美元。',
+  morgan: '（1837—1913）美国金融家。1907 年金融危机时私人出面组织救市，被称「一个人顶一个央行」。',
+  rockefeller: '（1837—1937）美国石油大亨。创办标准石油，曾占美国炼油九成产能，1911 年被拆分。',
+  ford: '（1863—1947）美国汽车制造商。T 型车流水线量产，给工人开五美元日薪。',
+  reagan: '（1911—2004）美国第 40 任总统。演员出身，提出「星球大战」计划，拖长军备竞赛。',
+  guanzhong: '（？—前645）春秋齐国相。推行盐铁专卖、四民分业，助齐桓公称霸。',
+  sanghongyang: '（前152—前80）西汉財政大臣。推行盐铁官营、均输平准，是《盐铁论》辩论的一方。',
+  wanganshi: '（1021—1086）北宋宰相。熙宁变法，推行青苗法、市易法，被称「拗相公」。',
+  huxueyan: '（1823—1885）晚清红顶商人。开阜康钱庄，因生丝生意失利引发挤兑而破产。',
+  hexiansheng: '第三极里的 X兔子，代号而已。不结盟、不站队，闷头搞自己的事；谁把它拖进对抗，双方一起挨。不属于任何现实国家或个人。',
+  mozishou: '《墨子·公输》记载：墨子走十日十夜到楚都，与公输盘九次演练攻守，把攻宋的事拦了下来。',
+  messi: '（1987— ）阿根廷足球运动员。八次金球奖得主，2022年率队夺得世界杯；那届阿根廷 7 场获判 5 个点球，创单届世界杯纪录。',
+  cr7: '（1985— ）葡萄牙足球运动员。五座金球奖，欧洲赛场与国家队历史射手王。',
   jordan: '（1963— ）美国篮球运动员。六次NBA总冠军，「最后一投」成为经典。',
   bolt: '（1986— ）牙买加短跑运动员。100米、200米世界纪录保持者。',
   musk: '（1971— ）企业家。特斯拉与SpaceX的负责人，长期推动可回收火箭。',
@@ -2598,6 +3260,27 @@ var BP = (function () {
 
   function other(side) { return side === 'red' ? 'blue' : 'red'; }
   function rndInt(n) { return Math.floor(Math.random() * n); }
+
+  /* ---- 「静音」光环：某角色在场时，指定标签的敌人被动全部失效 ---- */
+  function isMuted(b, ch) {
+    if (!b || !ch || !ch.alive) return false;
+    var foe = b[other(ch.side)];
+    if (!foe) return false;
+    var tags = ch.def.tags || [];
+    return foe.chars.some(function (e) {
+      if (!e.alive) return false;
+      // 指定宿敌静音：只在「我和他是敌对」时，才封掉他的被动
+      if (e.def.muteRival && e.def.muteRival === ch.def.id) return true;
+      if (!e.def.aura || !e.def.aura.muteTags) return false;
+      return tags.some(function (t) { return e.def.aura.muteTags.indexOf(t) >= 0; });
+    });
+  }
+  function effPassive(b, ch) {
+    if (!ch) return {};
+    if (isMuted(b, ch)) return {};
+    return ch.def.passive || {};
+  }
+
   function pickOne(arr) { return arr[rndInt(arr.length)]; }
   function sideName(k) { return k === 'red' ? '红方' : '蓝方'; }
 
@@ -2616,8 +3299,9 @@ var BP = (function () {
       reason: '',
       round: 1,
       suddenDeath: 0,
-      argue: { red: 1, blue: 1 },
-      review: { red: 1, blue: 1 },
+      argue: { red: 1, blue: 1 },   // 每回合刷新
+      review: { red: 1, blue: 1 },  // 每次判决可申诉一次
+      argueTurn: { red: 0, blue: 0 },
       lastArgue: null,
       lastKill: null,
       currentActor: null,
@@ -2656,9 +3340,49 @@ var BP = (function () {
       });
     });
 
+    // 核威慑：宿敌分属两方 → 双双锁定，本局都无法行动
+    ['red','blue'].forEach(function (k) {
+      var foe = b[other(k)];
+      b[k].chars.forEach(function (ch) {
+        if (!ch.def.rival || !ch.alive) return;
+        foe.chars.forEach(function (e) {
+          if (!e.alive || e.def.id !== ch.def.rival) return;
+          ch.disabled = true; ch.acted = true;
+          e.disabled = true; e.acted = true;
+          log(b, 'mech', '☢ 核威慑：' + ch.name + ' 与 ' + e.name + ' 分属两方，互相锁定——双方本局都无法行动。');
+        });
+      });
+    });
+
+    // 核威慑 / 新冷战：和先生与两极敌对时，双方一起挨
+    (function () {
+      var hx = null, side = null;
+      ['red','blue'].forEach(function (k) {
+        var c = null;
+        for (var i = 0; i < b[k].chars.length; i++) if (b[k].chars[i].def.id === 'hexiansheng') c = b[k].chars[i];
+        if (c) { hx = c; side = k; }
+      });
+      if (!hx || !hx.alive) return;
+      var foe = b[other(side)];
+      var hasFoe = function (id) {
+        for (var i = 0; i < foe.chars.length; i++) if (foe.chars[i].def.id === id && foe.chars[i].alive) return true;
+        return false;
+      };
+      var vsPutin = hasFoe('pudadi'), vsTrump = hasFoe('chuangjianguo');
+      if (!vsPutin && !vsTrump) return;
+      var dmg = 0, names = [];
+      if (vsPutin || vsTrump) { dmg += 15; names.push('核威慑'); }
+      if (vsTrump) { dmg += 10; names.push('新冷战'); }
+      ['red','blue'].forEach(function (k) {
+        b[k].chars.forEach(function (c) { if (c.alive) c.buff -= dmg; });
+      });
+      log(b, 'mech', '☢ ' + names.join(' + ') + '：和先生与' + (vsTrump ? '川建国' : '普大帝') +
+          '对上，双方全体战力 -' + dmg + '（谁也别想好过）。');
+    })();
+
     // 先手：有「凌晨四点」的一方先手，否则红方先
-    var redFast = b.red.chars.some(function (c) { return c.def.passive && c.def.passive.firstStrike; });
-    var blueFast = b.blue.chars.some(function (c) { return c.def.passive && c.def.passive.firstStrike; });
+    var redFast = b.red.chars.some(function (c) { return effPassive(b, c).firstStrike; });
+    var blueFast = b.blue.chars.some(function (c) { return effPassive(b, c).firstStrike; });
     b.turn = (blueFast && !redFast) ? 'blue' : 'red';
     b.firstActor = b.turn;
     b.comebackSide = other(b.turn);
@@ -2734,8 +3458,9 @@ var BP = (function () {
       s.chars.forEach(function (ch) {
         ch.bonus = (POS_BONUS[ch.pos] || 0) + SUP_TEAM_BONUS;
         ch.comboCounterTags = [];
-        ch.noRiposte = !!(ch.def.passive && ch.def.passive.noRiposte);
-        ch.saveMax = (ch.def.passive && ch.def.passive.saveCount) || 0;
+        var _ep = effPassive(b, ch);
+        ch.noRiposte = !!_ep.noRiposte;
+        ch.saveMax = _ep.saveCount || 0;
         ch.shieldMax = 0;
       });
       s.combos.forEach(function (c) {
@@ -2766,7 +3491,7 @@ var BP = (function () {
 
   function powerOf(b, ch, target) {
     var p = ch.def.power + ch.bonus + ch.buff;
-    var ps = ch.def.passive || {};
+    var ps = effPassive(b, ch);
     if (ps.flat) p += ps.flat;
     if (ps.dyingRage) p += ps.dyingRage * deadCount(b[ch.side]);
     if (target) {
@@ -2923,6 +3648,10 @@ var BP = (function () {
   }
 
   function doAction(b, sideKey, actorUid, t1, t2, opts) {
+    var _actorCh = getChar(b[sideKey], actorUid);
+    b.lastAction = { side: sideKey, actorId: _actorCh ? _actorCh.def.id : null };
+    b._snap = snapState(b);
+    if (!b.retroUsed) b.retroUsed = {};
     opts = opts || {};
     if (b.over) return { ok: false, error: '对局已结束' };
     if (b.turn !== sideKey) return { ok: false, error: '还没轮到你行动' };
@@ -3340,7 +4069,8 @@ var BP = (function () {
     if (b.over) return { ok: false, error: '对局已结束' };
     if (b.turn !== sideKey) return { ok: false, error: '还没轮到你' };
     if (!b.argue) b.argue = { red: 1, blue: 1 };
-    if (b.argue[sideKey] <= 0) return { ok: false, error: '本局的口胡次数已经用光了' };
+    if (!b.argueTurn) b.argueTurn = { red: 0, blue: 0 };
+    if (b.argue[sideKey] <= 0) return { ok: false, error: '这一手已经口胡过了，下一手再来' };
 
     var side = b[sideKey], foe = b[other(sideKey)];
     var a = getChar(side, actorUid), t = getChar(foe, targetUid);
@@ -3348,7 +4078,7 @@ var BP = (function () {
     if (!canAct(a)) return { ok: false, error: '该角色本局已无法行动' };
 
     var r = forced || judgeArgue(a.def, t.def, text);
-    b.argue[sideKey] -= 1;
+    b.argue[sideKey] -= 1;   // 每回合刷新，见 advanceTurn
 
     if (a.acted && a.freeAction) a.freeAction = false;
     else a.acted = true;
@@ -3385,7 +4115,7 @@ var BP = (function () {
     if (t.overridePower) pt = Math.max(pt, t.overridePower);
     var ma = mtOf(b, a), mt = mtOf(b, t);
 
-    if (t.def.passive && t.def.passive.immuneNumbers && Math.abs(pa - pt) < 25 && ma <= mt) {
+    if (effPassive(b, t).immuneNumbers && Math.abs(pa - pt) < 25 && ma <= mt) {
       return { winner: 'none', mode: 'immune', pa: pa, pt: pt, ma: ma, mt: mt };
     }
     if (Math.abs(pa - pt) >= 25) {
@@ -3395,7 +4125,7 @@ var BP = (function () {
     if (mt > ma) return { winner: 't', mode: 'mech', pa: pa, pt: pt, ma: ma, mt: mt };
     if (pa > pt) return { winner: 'a', mode: 'power', pa: pa, pt: pt, ma: ma, mt: mt };
     if (pt > pa) {
-      if (a.def.passive && a.def.passive.underdogWin) {
+      if (effPassive(b, a).underdogWin) {
         return { winner: 'a', mode: 'underdog', pa: pa, pt: pt, ma: ma, mt: mt };
       }
       return { winner: 't', mode: 'power', pa: pa, pt: pt, ma: ma, mt: mt };
@@ -3504,12 +4234,12 @@ var BP = (function () {
   function resolveAttack(b, a, t) {
     if (!t) { log(b, 'neg', '没有选择目标，这一手打空了。'); return; }
 
-    if (t.def.passive && t.def.passive.nullify) {
+    if (effPassive(b, t).nullify) {
       log(b, 'mech', t.name + ' 只是抬了抬眼皮：「你确定吗？」—— ' + a.name + ' 的动作被一句话作废。');
       return;
     }
 
-    if (t.reflectCount > 0) {
+    if (t.reflectCount > 0 && !isMuted(b, t)) {
       t.reflectCount -= 1;
       log(b, 'mech', t.name + ' 一记「接、化、发」——' + a.name + ' 的力量被卸了回去！');
       killChar(b, a, { cause: '接化发反噬' });
@@ -3547,9 +4277,68 @@ var BP = (function () {
     advanceTurn(b);
   }
 
+
+  /* ---------------- 上一手快照（供「复议上一手」回滚） ---------------- */
+  var SNAP_FIELDS = ['alive','acted','disabled','bonus','buff','saveMax','saveUsed',
+                     'shieldExtra','shieldUsed','reflectCount','tauntedBy','overridePower','freeAction'];
+  function snapState(b) {
+    var snap = { turn: b.turn, round: b.round, roundNo: b.roundNo, logLen: b.log.length,
+                 lastKill: b.lastKill ? JSON.parse(JSON.stringify(b.lastKill)) : null,
+                 awaitingReview: b.awaitingReview ? JSON.parse(JSON.stringify(b.awaitingReview)) : null,
+                 over: b.over, winner: b.winner };
+    ['red','blue'].forEach(function (k) {
+      snap[k] = b[k].chars.map(function (c) {
+        var o = { uid: c.uid };
+        SNAP_FIELDS.forEach(function (f) { o[f] = c[f] === undefined ? null : JSON.parse(JSON.stringify(c[f])); });
+        return o;
+      });
+    });
+    return snap;
+  }
+  function restoreState(b, snap) {
+    if (!snap) return false;
+    b.turn = snap.turn; b.round = snap.round; b.roundNo = snap.roundNo;
+    b.lastKill = snap.lastKill; b.awaitingReview = snap.awaitingReview;
+    b.over = snap.over; b.winner = snap.winner;
+    if (b.log.length > snap.logLen) b.log.length = snap.logLen;
+    ['red','blue'].forEach(function (k) {
+      snap[k].forEach(function (o) {
+        var c = null;
+        for (var i = 0; i < b[k].chars.length; i++) if (b[k].chars[i].uid === o.uid) { c = b[k].chars[i]; break; }
+        if (!c) return;
+        SNAP_FIELDS.forEach(function (f) { c[f] = o[f] === null ? undefined : JSON.parse(JSON.stringify(o[f])); });
+      });
+    });
+    recomputeCombos(b); recomputeAll(b);
+    return true;
+  }
+
+  /* ---------------- 复议上一手：成立则把该手结算整体撤销 ---------------- */
+  function appealLast(b, side, text, forced) {
+    if (b.over) return { ok: false, error: '对局已结束' };
+    if (!b._snap) return { ok: false, error: '没有可以复议的一手' };
+    if (!b.retroUsed) b.retroUsed = {};
+    if (b.retroUsed[side]) return { ok: false, error: '这一手已经复议过了，等下一手' };
+    var la = b.lastAction || {};
+    var aCh = byId(b[side], la.actorId) || b[side].chars.filter(function (c) { return c.alive; })[0];
+    var foe = other(side);
+    var tCh = b[foe].chars.filter(function (c) { return c.alive; })[0] || b[foe].chars[0];
+    if (!aCh || !tCh) return { ok: false, error: '没有可以复议的一手' };
+    var r = judgeArgue(aCh.def, tCh.def, text || '', forced);
+    if (!r.pass && !forced) { b.retroUsed[side] = true; return { ok: false, error: '复议不成立', verdict: r }; }
+    var ok = restoreState(b, b._snap);
+    b.retroUsed[side] = true;
+    b.lastAction = null;
+    log(b, 'rule', '⚖ ' + sideName(side) + ' 复议上一手成立：该手结算被整体撤销。');
+    return { ok: ok, verdict: r };
+  }
+
   function advanceTurn(b) {
     b.turn = other(b.turn);
     b.round += 1;
+    // 口胡每回合刷新一次；复审每次判决都有一次机会（不再每局限一次）
+    if (b.argue) b.argue[b.turn] = 1;
+    if (b.review) b.review[b.turn] = 1;
     if (b.turn === b.firstActor) {
       b.roundNo = (b.roundNo || 1) + 1;
       log(b, 'round', '—— 第 ' + (b.roundNo - 1) + ' 回合结算：红方存活 ' + aliveCount(b.red) +
@@ -3844,6 +4633,7 @@ var BP = (function () {
     judgeArgue: judgeArgue,
     useArgue: useArgue,
     reviewRuling: reviewRuling,
+    appealLast: appealLast,
     closeReview: closeReview
   };
 })();
@@ -3965,10 +4755,15 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
     $('#btnGo').addEventListener('click', function () {
       var b = G.battle;
       if (b && b.awaitingReview) { BP.closeReview(b); afterAction(); return; }
+      if (B.waitAI) { B.waitAI = false; maybeAIBattle(); return; }
       doPlayerAction();
     });
     $('#btnArgue').addEventListener('click', openArgue);
-    $('#btnReview').addEventListener('click', openReview);
+    $('#btnReview').addEventListener('click', function () {
+      var b = G.battle;
+      if (b && !b.awaitingReview && b.lastAction) { openRetro(); return; }
+      openReview();
+    });
 
     // 图鉴
     $('#dexSearch').addEventListener('input', function (e) {
@@ -4047,21 +4842,19 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
   }
 
   function buildSeq() {
-    // KPL 式分段 BP：禁 6 → 选 6 → 禁 6 → 选 4（248 人池，8 个 Ban 已经不够用了）
+    // KPL 式分段 BP：禁 4 → 选 6 → 禁 4 → 选 4（共 18 步）
     var seq = [];
-    var PHASE_NAME = { 1: '第一轮禁用 3', 2: '第一轮选用 3', 3: '第二轮禁用 3', 4: '第二轮选用 2' };
+    var PHASE_NAME = { 1: '第一轮禁用 2', 2: '第一轮选用 3', 3: '第二轮禁用 2', 4: '第二轮选用 2' };
     function push(t, s2, ph) { seq.push({ t: t, s: s2, ph: ph }); }
 
-    // 阶段1：各 ban 3（红先）
-    push('ban', 'red', 1); push('ban', 'blue', 1);
+    // 阶段1：各 ban 2（红先）
     push('ban', 'red', 1); push('ban', 'blue', 1);
     push('ban', 'red', 1); push('ban', 'blue', 1);
     // 阶段2：各 pick 3（红先）
     push('pick', 'red', 2); push('pick', 'blue', 2);
     push('pick', 'blue', 2); push('pick', 'red', 2);
     push('pick', 'red', 2); push('pick', 'blue', 2);
-    // 阶段3：各 ban 3（蓝先）
-    push('ban', 'blue', 3); push('ban', 'red', 3);
+    // 阶段3：各 ban 2（蓝先）
     push('ban', 'blue', 3); push('ban', 'red', 3);
     push('ban', 'blue', 3); push('ban', 'red', 3);
     // 阶段4：各 pick 2（蓝先，蓝拿最后一手 counterpick）
@@ -4350,9 +5143,11 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
     G.battle = BP.createBattle({ red: redPicks, blue: bluePicks }, { suddenPool: suddenPool });
     B.sel = null;
     B.busy = false;
+    // PvE 且 AI 先手时，也先停住等玩家点「让 AI 出手」
+    B.waitAI = (G.mode === 'pve' && G.battle.turn !== G.humanSide);
     show('battle');
     renderBattle(true);
-    maybeAIBattle();
+    if (!B.waitAI) maybeAIBattle();
   }
 
   function renderBattle(scrollLog) {
@@ -4478,6 +5273,19 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
 
     var myTurn = (G.mode === 'pvp') || (b.turn === G.humanSide);
     if (!myTurn) {
+      if (G.mode === 'pve' && B.waitAI) {
+        prompt.innerHTML = '轮到 <b>' + sideName(b.turn) + '</b>：看清这一手的结算，点「让 AI 出手」继续（想申诉就点「⚖ 复议上一手」）。';
+        btn.disabled = false; btn.textContent = '让 AI 出手';
+        reset.disabled = true;
+        var rbw = $('#btnReview');
+        var canRetro = b.lastAction && !(b.retroUsed && b.retroUsed[G.humanSide]);
+        if (rbw) {
+          rbw.textContent = '⚖ 复议上一手';
+          rbw.disabled = !canRetro;
+          rbw.classList.toggle('is-hot', !!canRetro);
+        }
+        return;
+      }
       prompt.innerHTML = '<b>' + sideName(b.turn) + '</b> 正在推演…';
       btn.disabled = true; reset.disabled = true;
       return;
@@ -4494,9 +5302,16 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
       var leftRev = (b.review && b.review[b.turn]) || 0;
       var lk = b.lastKill;
       var canRev = lk && lk.side === b.turn && !lk.appealed && leftRev > 0;
-      revBtn.disabled = !canRev;
-      revBtn.textContent = '⚖ 复审 ' + leftRev;
-      revBtn.classList.toggle('is-hot', !!canRev);
+      var canRetroMine = !canRev && b.lastAction && !(b.retroUsed && b.retroUsed[b.turn]);
+      if (canRetroMine) {
+        revBtn.disabled = false;
+        revBtn.textContent = '⚖ 复议上一手';
+        revBtn.classList.add('is-hot');
+      } else {
+        revBtn.disabled = !canRev;
+        revBtn.textContent = '⚖ 复审 ' + leftRev;
+        revBtn.classList.toggle('is-hot', !!canRev);
+      }
     }
     reset.disabled = !B.sel;
     if (!B.sel) {
@@ -4673,6 +5488,8 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
       if (G.mode === 'pve' && b.awaitingReview.side !== G.humanSide) { aiReview(); }
       return; // 等玩家决定
     }
+    // PvE：轮到 AI 时不再自动出手，先停住等玩家点「让 AI 出手」
+    if (G.mode === 'pve' && b.turn !== G.humanSide) { B.waitAI = true; renderBattle(); return; }
     maybeAIBattle();
   }
 
@@ -4731,7 +5548,7 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
     if (b.awaitingReview) return;
     if (G.mode === 'pve' && b.turn !== G.humanSide) return;
     var left = b.argue[b.turn] || 0;
-    if (left <= 0) { alert('本局的口胡次数已经用光了'); return; }
+    if (left <= 0) { alert('这一手已经口胡过了，下一手再来'); return; }
 
     var mine = b[b.turn].chars.filter(function (c) { return c.alive && BP.canAct(c); });
     var foes = b[other(b.turn)].chars.filter(function (c) { return c.alive; });
@@ -4745,7 +5562,7 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
 
     $('#modalCard').innerHTML =
       '<div class="mc-head"><span class="big-em">🎲</span><h3>口胡 · 跑团裁决</h3></div>' +
-      '<div class="mc-sub">本局剩余口胡机会：' + sideName(b.turn) + ' ' + left + ' 次。用你的典故去说服裁判。</div>' +
+      '<div class="mc-sub">这一手可以用 ' + left + ' 次口胡（每回合刷新）。用你的典故去说服裁判。</div>' +
       '<div class="argue-form">' +
       '<div class="argue-row"><label>我方角色</label><select id="argActor">' + opt(mine) + '</select></div>' +
       '<div class="argue-row"><label>想弄死谁</label><select id="argTarget">' + opt(foes) + '</select></div>' +
@@ -4876,6 +5693,49 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
     $('#copyPower').addEventListener('click', function () { run('power'); });
   }
 
+
+  /* ------------------------- 复议上一手 ------------------------- */
+  function openRetro() {
+    var b = G.battle;
+    if (!b || b.over) return;
+    if (b.retroUsed && b.retroUsed[b.turn]) { alert('这一手已经复议过了，等下一手'); return; }
+    var mine = b[b.turn].chars.filter(function (c) { return c.alive; });
+    var foes = b[other(b.turn)].chars.filter(function (c) { return c.alive; });
+    if (!mine.length || !foes.length) { alert('没有可以复议的对手'); return; }
+    function opt(list) {
+      return list.map(function (c) { return '<option value="' + c.uid + '">' + esc(c.name) + '</option>'; }).join('');
+    }
+    $('#modalCard').innerHTML =
+      '<div class="mc-head"><span class="big-em">⚖</span><h3>复议上一手</h3></div>' +
+      '<div class="mc-sub">不服刚结算完的这一手？用你角色的典故说明它不成立——成立的话，这一手整体撤销（战力、出局、轮次全部回滚）。</div>' +
+      '<div class="argue-form">' +
+      '<div class="argue-row"><label>我方角色</label><select id="retroActor">' + opt(mine) + '</select></div>' +
+      '<div class="argue-row"><label>对手</label><select id="retroTarget">' + opt(foes) + '</select></div>' +
+      '<textarea id="retroText" rows="4" placeholder="例：他那一手用的是自己设定的机制，但我方【我的角色】的典故明确克制它，所以这次结算不该成立。"></textarea>' +
+      '<div class="argue-actions">' +
+      '<button class="btn btn-primary" id="retroJudge">本地裁判判定</button>' +
+      '<button class="btn btn-ghost" id="retroCancel">算了</button>' +
+      '</div><div id="retroResult" class="argue-result"></div></div>';
+    $('#modal').classList.add('is-on');
+    $('#retroCancel').addEventListener('click', function () { $('#modal').classList.remove('is-on'); renderBattle(); });
+    $('#retroJudge').addEventListener('click', function () {
+      var r = BP.appealLast(b, b.turn, $('#retroText').value, false);
+      if (r.ok) {
+        $('#retroResult').innerHTML = '<div class="argue-ok">✅ 复议成立：上一手结算已撤销。</div>';
+        setTimeout(function () {
+          $('#modal').classList.remove('is-on');
+          B.waitAI = (G.mode === 'pve' && b.turn !== G.humanSide);
+          renderBattle(true);
+        }, 700);
+      } else {
+        $('#retroResult').innerHTML = '<div class="argue-no">❌ 复议不成立' +
+          (r.verdict ? '（说服力 ' + r.verdict.score.toFixed(2) + '）' : '') +
+          (r.verdict && r.verdict.reason ? '：' + esc(r.verdict.reason) : '') + '</div>';
+        renderBattle(true);
+      }
+    });
+  }
+
   /* ------------------------- 复审 ------------------------- */
   function openReview() {
     var b = G.battle;
@@ -4886,7 +5746,7 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
     if (G.mode === 'pve' && my !== G.humanSide) return;
     if (lk.side !== my) { alert('现在没有轮到你申诉的判决'); return; }
     if (lk.appealed) { alert('这次判决已经复审过了'); return; }
-    if ((b.review[my] || 0) <= 0) { alert('本局的复审次数已经用光了'); return; }
+    if ((b.review[my] || 0) <= 0) { alert('这次判决已经申诉过了，等下一次判决'); return; }
 
     var victim = BP.getChar(b[my], lk.uid);
     var killer = lk.killer ? CHAR_MAP[lk.killer] : null;
@@ -4897,7 +5757,7 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
       '<div class="mc-sub">第 ' + (lk.round || 1) + ' 回合的判决：' +
       '<b>' + esc(victim.name) + '</b> 被 ' +
       (killer ? '<b>' + esc(killer.name) + '</b>' : '对手') +
-      ' 以「' + esc(lk.cause) + '」判出局。本局剩余复审 ' + (b.review[my] || 0) + ' 次。</div>' +
+      ' 以「' + esc(lk.cause) + '」判出局。本次判决可申诉 ' + (b.review[my] || 0) + ' 次（每次判决都有）。</div>' +
       '<div class="argue-form">' +
       '<textarea id="revText" rows="4" placeholder="例：我的' + esc(victim.def.name) + '明明' +
       esc(victim.def.lore.split(' ')[0] || victim.def.mech) + '，这个判决不成立——"></textarea>' +
@@ -5114,7 +5974,7 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
     G: G, B: B, show: show, startDraft: startDraft, commitPick: commitPick,
     aiDraftStep: aiDraftStep, startBattle: startBattle, renderBattle: renderBattle,
     onFightClick: onFightClick, onComboClick: onComboClick, doPlayerAction: doPlayerAction, afterAction: afterAction,
-    showEnd: showEnd, renderDex: renderDex, openCard: openCard
+    showEnd: showEnd, renderDex: renderDex, openCard: openCard, openRetro: openRetro
   };
 })();
 
