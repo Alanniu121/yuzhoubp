@@ -797,6 +797,7 @@ body { overflow-x: hidden; }
         <button class="btn btn-ghost" id="btnResetSel">重选</button>
         <button class="btn btn-ghost" id="btnArgue">🎲 口胡</button>
         <button class="btn btn-ghost" id="btnReview">⚖ 复审</button>
+        <button class="btn btn-ghost" id="btnAscend" style="display:none">👑 逢魔降临</button>
         <button class="btn btn-primary" id="btnGo" disabled>出击</button>
       </div>
     </div>
@@ -943,11 +944,11 @@ var CHARACTERS = [
     mech:'当阳桥一吼', mechText:'一声暴喝，指定一名敌方角色本局再也无法行动。',
     act:{ type:'disable', desc:'指定一名敌人，令其本局无法行动' } },
 
-  { id:'liubei', name:'刘备', from:'三国 · 主公', cat:'sys', tier:'T2', power:70, emblem:'🤝',
+  { id:'liubei', name:'刘备', from:'三国 · 主公', cat:'sys', tier:'T2', power:78, emblem:'🤝',
     tags:['历史','三国','近战','主公'], lore:'桃园结义 三顾茅庐 白帝城托孤 仁德 汉室宗亲',
     mech:'仁德', mechText:'体系件：与关羽、张飞同场触发「桃园结义」。' },
 
-  { id:'zhugeliang', name:'诸葛亮', from:'三国 · 军师', cat:'mech', tier:'T1', power:30, emblem:'🪶',
+  { id:'zhugeliang', name:'诸葛亮', from:'三国 · 军师', cat:'mech', tier:'T1', power:38, emblem:'🪶',
     tags:['历史','三国','军师','智'], lore:'草船借箭 空城计 借东风 木牛流马 出师表',
     mech:'草船借箭', mechText:'借来对方的机制：复制一名敌人的克制关系并立刻用来打它。',
     act:{ type:'copy', desc:'指定一名敌人，复制其克制关系并立刻攻击它' } },
@@ -1022,7 +1023,7 @@ var CHARACTERS = [
     mech:'卧薪尝胆', mechText:'出局后自动复活一次（战力 80%），三千越甲可吞吴。',
     passive:{ saveCount:1 } },
 
-  { id:'wuzetian', name:'武则天', from:'唐 · 女皇', cat:'mech', tier:'T1', power:45, emblem:'🌕',
+  { id:'wuzetian', name:'武则天', from:'唐 · 女皇', cat:'mech', tier:'T1', power:53, emblem:'🌕',
     tags:['历史','唐','帝王'], lore:'无字碑 女皇 日月当空 铜匦 请君入瓮',
     mech:'无字碑', mechText:'一块无字碑抹去功过：指定一名敌人，其机制本局彻底失效。',
     act:{ type:'disable', desc:'指定一名敌人，令其本局无法行动' } },
@@ -1032,36 +1033,36 @@ var CHARACTERS = [
     mech:'精忠报国', mechText:'克制一切「金 / 背叛 / 奸臣」类角色。',
     counter:{ tags:['金','背叛','奸臣'], note:'精忠报国' } },
 
-  { id:'baozheng', name:'包拯', from:'宋 · 开封府', cat:'ctr', tier:'T1', power:35, emblem:'⚖',
+  { id:'baozheng', name:'包拯', from:'宋 · 开封府', cat:'ctr', tier:'T1', power:43, emblem:'⚖',
     tags:['历史','宋','法','铁面'], lore:'铡美案 包青天 龙头铡 铁面无私 开封府',
     mech:'铡美案', mechText:'龙头铡落下：克制一切「负心 / 背叛」类角色。',
     counter:{ tags:['负心','背叛'], note:'铡美案' } },
 
-  { id:'libai', name:'李白', from:'唐 · 诗仙', cat:'mech', tier:'T1', power:70, emblem:'🍶',
+  { id:'libai', name:'李白', from:'唐 · 诗仙', cat:'mech', tier:'T1', power:78, emblem:'🍶',
     tags:['历史','唐','诗人','酒'], lore:'醉里挑灯看剑 举杯邀明月 诗仙 铁杵磨针 将进酒',
     mech:'醉里挑灯', mechText:'酒酣之际拔剑：五成概率斩杀目标，五成概率自己醉倒出局。',
     act:{ type:'gamble', desc:'指定一名敌人：五成概率斩杀，五成概率自己出局' } },
 
-  { id:'dufu', name:'杜甫', from:'唐 · 诗圣', cat:'sys', tier:'T2', power:25, emblem:'🏚',
+  { id:'dufu', name:'杜甫', from:'唐 · 诗圣', cat:'sys', tier:'T2', power:33, emblem:'🏚',
     tags:['历史','唐','诗人','文墨'], lore:'忧国忧民 三吏三别 茅屋为秋风所破 诗圣',
     mech:'忧国忧民', mechText:'体系件：与李白同场触发「李杜诗篇」，全队 +18。' },
 
-  { id:'sushi', name:'苏轼', from:'宋 · 东坡', cat:'ctr', tier:'T1', power:30, emblem:'🍖',
+  { id:'sushi', name:'苏轼', from:'宋 · 东坡', cat:'ctr', tier:'T1', power:38, emblem:'🍖',
     tags:['历史','宋','诗人','食'], lore:'东坡肉 一蓑烟雨任平生 大江东去 赤壁赋 苏东坡',
     mech:'东坡肉', mechText:'一锅东坡肉专治饿鬼：克制一切「食 / 饿」类角色；且风雨不侵，免死一次。',
     counter:{ tags:['食','饿','贪吃'], note:'东坡肉' }, passive:{ saveCount:1 } },
 
-  { id:'hezhizhang', name:'贺知章', from:'唐 · 诗人', cat:'sys', tier:'T1', power:18, emblem:'📜',
+  { id:'hezhizhang', name:'贺知章', from:'唐 · 诗人', cat:'sys', tier:'T1', power:26, emblem:'📜',
     tags:['历史','唐','诗人','文墨'], lore:'少小离家老大回 二月春风似剪刀 四明狂客 回乡偶书',
     mech:'少小离家老大回', mechText:'离乡的人终究回来：把一名阵亡队友拉回战场（战力 80%）。',
     act:{ type:'revive', desc:'指定一名阵亡队友，将其复活' } },
 
-  { id:'zuti', name:'祖逖', from:'晋 · 名将', cat:'sys', tier:'T2', power:45, emblem:'🐓',
+  { id:'zuti', name:'祖逖', from:'晋 · 名将', cat:'sys', tier:'T2', power:53, emblem:'🐓',
     tags:['历史','晋','将','闻鸡'], lore:'闻鸡起舞 中流击楫 祖逖北伐 闻鸡',
     mech:'闻鸡起舞', mechText:'指定一名队友 +25 战力，并立刻获得一次额外行动。',
     act:{ type:'buff', value:25, extraAction:true, desc:'指定一名队友 +25 战力并获得额外行动' } },
 
-  { id:'wangxizhi', name:'王羲之', from:'晋 · 书圣', cat:'ctr', tier:'T2', power:32, emblem:'🖌',
+  { id:'wangxizhi', name:'王羲之', from:'晋 · 书圣', cat:'ctr', tier:'T2', power:40, emblem:'🖌',
     tags:['历史','晋','书法','文墨'], lore:'入木三分 兰亭序 书圣 东床快婿 换鹅',
     mech:'入木三分', mechText:'笔锋透纸三分，无视一切「铁壁 / 防御 / 铜头」类硬功。',
     counter:{ tags:['铁壁','防御','铜头','硬功'], note:'入木三分' } },
@@ -1101,7 +1102,7 @@ var CHARACTERS = [
     mech:'有教无类', mechText:'弟子三千，人人有份：全队战力 +18。',
     act:{ type:'buff', value:18, all:true, desc:'全队战力 +18' } },
 
-  { id:'laozi', name:'老子', from:'春秋 · 道祖', cat:'mech', tier:'T1', power:28, emblem:'☯',
+  { id:'laozi', name:'老子', from:'春秋 · 道祖', cat:'mech', tier:'T1', power:36, emblem:'☯',
     tags:['历史','春秋','道'], lore:'道可道非常道 无为 道德经 紫气东来 太上老君',
     mech:'道法自然', mechText:'一句「道可道，非常道」，让一名敌人的整个机制归于虚无。',
     act:{ type:'disable', desc:'指定一名敌人，令其机制归于虚无' } },
@@ -1127,7 +1128,7 @@ var CHARACTERS = [
     mech:'黑旋风双斧', mechText:'两把板斧抡起来不分敌我：对「未出手」的敌人额外 +18 战力。',
     passive:{ ambush:18 } },
 
-  { id:'wuyong', name:'吴用', from:'水浒 · 智多星', cat:'mech', tier:'T1', power:30, emblem:'🧮',
+  { id:'wuyong', name:'吴用', from:'水浒 · 智多星', cat:'mech', tier:'T1', power:38, emblem:'🧮',
     tags:['历史','水浒','谋','冷门'], lore:'智取生辰纲 智多星 吴用 梁山军师 计',
     mech:'智取生辰纲', mechText:'偷走对方 25 点战力加给自己：你的就是我的。',
     act:{ type:'steal', value:25, desc:'偷取目标 25 点战力加给自己' } },
@@ -1138,7 +1139,7 @@ var CHARACTERS = [
     mech:'七十二变', mechText:'二选一：① 复制技能——变成对方，把它的机制整套搬走；② 复制战力——拿走对方一半战力再打。',
     act:{ type:'copy', desc:'指定一名敌人，变化成它并立刻反打' } },
 
-  { id:'tangseng', name:'唐僧', from:'西游 · 取经人', cat:'ctr', tier:'T1', power:15, emblem:'🧘',
+  { id:'tangseng', name:'唐僧', from:'西游 · 取经人', cat:'ctr', tier:'T1', power:23, emblem:'🧘',
     tags:['西游','僧','佛'], lore:'紧箍咒 唐僧 西天取经 慈悲 师父',
     mech:'紧箍咒', mechText:'一念紧箍咒，猴子满地滚：克制一切「猴 / 悟空 / 妖」类角色。',
     counter:{ ids:['sunwukong'], tags:['猴'], note:'紧箍咒' } },
@@ -1151,7 +1152,7 @@ var CHARACTERS = [
     tags:['西游','妖','近战'], lore:'卷帘大将 流沙河 降妖宝杖 挑担',
     mech:'卷帘大将', mechText:'体系件：与唐僧同场时全队 +8 战力。' },
 
-  { id:'bailongma', name:'白龙马', from:'西游 · 西海三太子', cat:'sys', tier:'T2', power:60, emblem:'🐉',
+  { id:'bailongma', name:'白龙马', from:'西游 · 西海三太子', cat:'sys', tier:'T2', power:68, emblem:'🐉',
     tags:['西游','龙','骑'], lore:'白龙马 西海龙王三太子 化马 驮经 八部天龙',
     mech:'化马驮经', mechText:'体系件：与唐僧同场时全队 +8，并让唐僧免死一次。' },
 
@@ -1160,7 +1161,7 @@ var CHARACTERS = [
     mech:'五指山', mechText:'一巴掌压五百年：指定一名角色，本局彻底无法行动。',
     act:{ type:'disable', desc:'指定一名角色，令其本局无法行动' } },
 
-  { id:'guanyin', name:'观音', from:'西游 · 菩萨', cat:'sys', tier:'T1', power:35, emblem:'🏺',
+  { id:'guanyin', name:'观音', from:'西游 · 菩萨', cat:'sys', tier:'T1', power:43, emblem:'🏺',
     tags:['西游','佛','神'], lore:'净瓶 杨柳枝 救苦救难 观音 紧箍咒',
     mech:'杨柳净瓶', mechText:'甘露一滴，起死回生：复活一名阵亡队友并给全队一次免死。',
     act:{ type:'revivePlus', desc:'复活一名队友，并给全队一次免死' } },
@@ -1216,7 +1217,7 @@ var CHARACTERS = [
     mech:'刑天舞干戚', mechText:'头断了也能打：免死两次，且永不被反杀。',
     passive:{ saveCount:2, noRiposte:true } },
 
-  { id:'nvwa', name:'女娲', from:'神话 · 造人', cat:'mech', tier:'T1', power:40, emblem:'🧱',
+  { id:'nvwa', name:'女娲', from:'神话 · 造人', cat:'mech', tier:'T1', power:48, emblem:'🧱',
     tags:['神话','神','创世'], lore:'补天 女娲造人 五色石 蛇身',
     mech:'炼石补天', mechText:'五色石补天：复活全体阵亡队友（战力 60%），每局一次。',
     act:{ type:'reviveAll', desc:'复活全体阵亡队友' } },
@@ -1226,7 +1227,7 @@ var CHARACTERS = [
     mech:'开天辟地', mechText:'一斧分开天地：双方所有已成型的体系全部作废。',
     act:{ type:'breakAll', desc:'双方所有体系全部作废' } },
 
-  { id:'gonggong', name:'共工', from:'神话 · 水神', cat:'mech', tier:'T1', power:75, emblem:'🌊',
+  { id:'gonggong', name:'共工', from:'神话 · 水神', cat:'mech', tier:'T1', power:83, emblem:'🌊',
     tags:['神话','神','水'], lore:'共工撞不周山 水神 天柱折 怒触不周山',
     mech:'怒触不周山', mechText:'一头撞断天柱：自爆，敌方全体战力 -30。',
     act:{ type:'suicideAoe', value:30, desc:'自爆出局，敌方全体战力 -30' } },
@@ -1253,12 +1254,12 @@ var CHARACTERS = [
     mech:'铜头铁臂', mechText:'硬气功护体：任何数值对撞都伤不到他。',
     passive:{ immuneNumbers:true } },
 
-  { id:'wandousheshou', name:'豌豆射手', from:'游戏 · 植物大战僵尸', cat:'num', tier:'T2', power:58, emblem:'🌱',
+  { id:'wandousheshou', name:'豌豆射手', from:'游戏 · 植物大战僵尸', cat:'num', tier:'T2', power:66, emblem:'🌱',
     tags:['游戏','植物','远程'], lore:'豌豆连射 豌豆射手 植物大战僵尸 阳光 花园',
     mech:'豌豆连射', mechText:'远程点射：攻击尚未行动的敌人时战力 +12。',
     passive:{ ambush:12 } },
 
-  { id:'nongfu', name:'农夫', from:'寓言 · 拔苗助长', cat:'ctr', tier:'T1', power:18, emblem:'🌾',
+  { id:'nongfu', name:'农夫', from:'寓言 · 拔苗助长', cat:'ctr', tier:'T1', power:26, emblem:'🌾',
     tags:['寓言','农'], lore:'拔苗助长 农夫 庄稼 禾苗 揠苗',
     mech:'拔苗助长', mechText:'连根拔起：克制一切「植物 / 庄稼 / 苗」类角色。',
     counter:{ tags:['植物','庄稼','苗'], note:'拔苗助长' } },
@@ -1288,12 +1289,12 @@ var CHARACTERS = [
     mech:'保护森林', mechText:'森林之王，力大无穷：数值对撞 +8。',
     passive:{ flat:8 } },
 
-  { id:'doraemon', name:'哆啦A梦', from:'动漫 · 哆啦A梦', cat:'sys', tier:'T1', power:25, emblem:'🔵',
+  { id:'doraemon', name:'哆啦A梦', from:'动漫 · 哆啦A梦', cat:'sys', tier:'T1', power:33, emblem:'🔵',
     tags:['动漫','未来','道具','怕鼠'], lore:'四次元口袋 任意门 竹蜻蜓 铜锣烧 怕老鼠',
     mech:'四次元口袋', mechText:'掏道具：全队战力 +18（家具城体系成型则翻倍）；致命弱点——怕老鼠。',
     act:{ type:'buff', value:18, all:true, desc:'全队战力 +18' } },
 
-  { id:'xiaoxin', name:'蜡笔小新', from:'动漫 · 蜡笔小新', cat:'mech', tier:'T1', power:40, emblem:'👶',
+  { id:'xiaoxin', name:'蜡笔小新', from:'动漫 · 蜡笔小新', cat:'mech', tier:'T1', power:48, emblem:'👶',
     tags:['动漫','熊孩子','搞笑'], lore:'大象 屁股外星人 动感超人 熊孩子 美伢',
     mech:'熊孩子', mechText:'一顿乱搞，把对方的机制搅黄：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'指定一名敌人，把它的机制搅黄' } },
@@ -1353,7 +1354,7 @@ var CHARACTERS = [
     mech:'三刀流', mechText:'三刀齐出：数值对撞 +10。',
     passive:{ flat:10 } },
 
-  { id:'kenan', name:'柯南', from:'动漫 · 名侦探柯南', cat:'mech', tier:'T1', power:30, emblem:'🔍',
+  { id:'kenan', name:'柯南', from:'动漫 · 名侦探柯南', cat:'mech', tier:'T1', power:38, emblem:'🔍',
     tags:['动漫','侦探','智'], lore:'真相只有一个 柯南 名侦探 麻醉针 沉睡的小五郎',
     mech:'真相只有一个', mechText:'看穿把戏：指定一名敌人，其机制被识破、本局失效。',
     act:{ type:'disable', desc:'指定一名敌人，识破并封死其机制' } },
@@ -1372,15 +1373,15 @@ var CHARACTERS = [
     mech:'原子吐息', mechText:'一口核能喷穿一切：数值对撞 +12。',
     passive:{ flat:12 } },
 
-  { id:'chengliuxiang', name:'橙留香', from:'动画 · 果宝特攻', cat:'sys', tier:'T2', power:52, emblem:'🍊',
+  { id:'chengliuxiang', name:'橙留香', from:'动画 · 果宝特攻', cat:'sys', tier:'T2', power:60, emblem:'🍊',
     tags:['动画','水果','近战'], lore:'果宝机甲 橙留香 果宝特攻 橙子',
     mech:'果宝机甲', mechText:'体系件：与金刚同场触发「刚果金」。' },
 
-  { id:'lanmao', name:'蓝猫', from:'动画 · 蓝猫淘气三千问', cat:'sys', tier:'T2', power:42, emblem:'🐱',
+  { id:'lanmao', name:'蓝猫', from:'动画 · 蓝猫淘气三千问', cat:'sys', tier:'T2', power:50, emblem:'🐱',
     tags:['动画','猫','科普'], lore:'三千问 蓝猫 蓝猫淘气三千问 科普',
     mech:'三千问', mechText:'体系件：与淘气同场触发「蓝猫淘气三千问」。' },
 
-  { id:'taoqi', name:'淘气', from:'动画 · 蓝猫淘气三千问', cat:'sys', tier:'T2', power:40, emblem:'🐭',
+  { id:'taoqi', name:'淘气', from:'动画 · 蓝猫淘气三千问', cat:'sys', tier:'T2', power:48, emblem:'🐭',
     tags:['动画','鼠','科普'], lore:'十万个为什么 淘气 蓝猫淘气三千问 科普',
     mech:'十万个为什么', mechText:'体系件：与蓝猫同场触发「蓝猫淘气三千问」。' }
 
@@ -1394,10 +1395,11 @@ var CHARACTERS = [
   { id:'thanos', name:'灭霸', from:'漫威 · 正版', cat:'mech', tier:'T0', power:90, emblem:'🧤',
     tags:['漫威','宇宙','神'], lore:'无限手套 打响指 泰坦星 六颗宝石 宇宙平衡',
     parent:'灭建国',
-    mech:'打响指', mechText:'一个响指，随机抹除一名敌方角色（无视一切机制）。天敌：钢铁侠，以及任何会开盒的人。',
-    act:{ type:'snipe', desc:'打响指，随机抹除一名敌人' } },
+    mech:'打响指', mechText:'宇宙平衡法则：每局只能打一次——对面只剩 1 人时 50% 抹掉他；2 人以上按比例清算，偶数抹一半、奇数抹三分之二（随机点名，无视一切机制）。次数用完后只能靠余威。但宇宙平衡对所有人成立——自己这边也会按同样比例倒下。',
+    burn:20,
+    act:{ type:'snap', desc:'打响指：剩 1 人时 50% 抹除；多人时偶数抹一半、奇数抹三分之二' } },
 
-  { id:'ironman', name:'钢铁侠', from:'漫威 · 复仇者联盟', cat:'ctr', tier:'T1', power:70, emblem:'🦾',
+  { id:'ironman', name:'钢铁侠', from:'漫威 · 复仇者联盟', cat:'ctr', tier:'T1', power:78, emblem:'🦾',
     tags:['漫威','机械','现实'], parent:'钢卫国', lore:'I am Iron Man 钢铁侠 方舟反应炉 纳米战甲 牺牲',
     mech:'I am Iron Man', mechText:'以命换命：自我牺牲，令一名敌方角色的机制永久失效。',
     act:{ type:'sacrifice', desc:'牺牲自己，令一名敌人本局机制失效' } },
@@ -1435,7 +1437,7 @@ var CHARACTERS = [
     mech:'营销', mechText:'热搜、通稿、SIUUU 三件套，先把人设立住——免死一次；谁碰他一下立刻倒地，第一次攻击原样反弹、出手者出局。',
     passive:{ reflect:1, saveCount:1 }, act:{ type:'chop', value:18, desc:'摔手机：目标战力 -18' } },
 
-{ id:'zhangxuefeng', name:'张雪峰', from:'现实 · 考研名师', cat:'mech', tier:'T1', power:60, emblem:'🎓',
+{ id:'zhangxuefeng', name:'张雪峰', from:'现实 · 考研名师', cat:'mech', tier:'T1', power:68, emblem:'🎓',
     tags:['现实','名人','教育'], lore:'张雪峰 劝退 新闻学打晕 文科都是服务业 不知道学啥就学计算机 985 志愿填报 考研',
     mech:'劝退', mechText:'三句话，把你这个专业的梦说没：指定一名敌人本局无法行动（他被劝退去复读了）。',
     act:{ type:'disable', desc:'劝退：令一名敌人本局无法行动' } },
@@ -1481,13 +1483,13 @@ var CHARACTERS = [
     mech:'胡萝卜录音笔', mechText:'你说的每句话我都录下来了：指定一名敌人，他的机制被当场作废、本局无法行动。',
     act:{ type:'disable', desc:'录音笔取证：令一名敌人本局无法行动' } },
 
-{ id:'huoqigang', name:'霍启刚', from:'网络梗', cat:'ctr', tier:'T1', power:45, emblem:'🌊',
+{ id:'huoqigang', name:'霍启刚', from:'网络梗', cat:'ctr', tier:'T1', power:53, emblem:'🌊',
     tags:['网络梗','自媒体','水军'], lore:'霍启刚 水军头子 带节奏 风向 控评 刷屏',
     mech:'政治手段', mechText:'带节奏黑梅西：舆论说翻就翻，黑的能带成白的——他在场，梅西的被动直接失效。',
     counter:{ tags:['梅西'], note:'带节奏' }, aura:{ muteTags:['梅西'] },
     act:{ type:'chop', value:20, desc:'开一波节奏：目标战力 -20' } },
 
-{ id:'cr7sister', name:'C罗姐姐', from:'网络梗', cat:'ctr', tier:'T1', power:45, emblem:'📣',
+{ id:'cr7sister', name:'C罗姐姐', from:'网络梗', cat:'ctr', tier:'T1', power:53, emblem:'📣',
     tags:['网络梗','自媒体'], lore:'C罗姐姐 维护C罗 带节奏 发帖 拉踩 嘴上维护实际拆台',
     mech:'维护C罗', mechText:'嘴上说是在维护，发出去的每一条都在拆台：她在场，C罗的「营销」被动直接失效（免死、反弹全没）。',
     counter:{ tags:['C罗'], note:'维护C罗（实则拆台）' }, aura:{ muteTags:['C罗'] },
@@ -1529,7 +1531,7 @@ var CHARACTERS = [
     mech:'智慧的骗术', mechText:'几句话让巴依老爷乖乖掏钱：偷取目标 25 点战力。',
     act:{ type:'steal', value:25, desc:'空手套白狼：偷取目标 25 点战力' } },
 
-  { id:'dansheng', name:'蛋生', from:'动画 · 天书奇谭', cat:'mech', tier:'T1', power:82, emblem:'📜',
+  { id:'dansheng', name:'蛋生', from:'动画 · 天书奇谭', cat:'mech', tier:'T1', power:90, emblem:'📜',
     tags:['动画','天书奇谭','法术'], lore:'蛋生 天书 狐狸精 袁公 法术 白云洞',
     mech:'天书', mechText:'翻一页天书，把对方的法术全收了：清空敌方全部增益。',
     act:{ type:'purge', desc:'天书收法：清空敌方全部增益' } },
@@ -1549,7 +1551,7 @@ var CHARACTERS = [
     mech:'神鹿', mechText:'谁想害它，先被自己的念头反噬：第一次被攻击原样反弹，出手者出局。',
     passive:{ reflect:1 } },
 
-  { id:'sangeheshang', name:'三个和尚', from:'动画 · 三个和尚', cat:'mech', tier:'T2', power:38, emblem:'🛕',
+  { id:'sangeheshang', name:'三个和尚', from:'动画 · 三个和尚', cat:'mech', tier:'T2', power:46, emblem:'🛕',
     tags:['动画','三个和尚','寓言'], lore:'三个和尚 没水喝 挑水 抬水 谁也不干',
     mech:'没水喝', mechText:'人一多就谁也不挑水，全队渴得没劲：敌方全体战力 -12。',
     act:{ type:'aoe', value:12, desc:'没水喝：敌方全体战力 -12' } },
@@ -1573,7 +1575,7 @@ var CHARACTERS = [
     act:{ type:'chop', value:28, desc:'大钳子：目标战力 -28' } },
 
   /* ============ 其他国产动画：正派与反派 ============ */
-  { id:'yizhier', name:'一只耳', from:'动画 · 黑猫警长', cat:'mech', tier:'T1', power:56, emblem:'🐭',
+  { id:'yizhier', name:'一只耳', from:'动画 · 黑猫警长', cat:'mech', tier:'T1', power:64, emblem:'🐭',
     tags:['动画','黑猫警长','反派','老鼠'], lore:'一只耳 老鼠 黑猫警长的宿敌 耳朵 逃犯',
     mech:'调虎离山', mechText:'专挑警察不在的时候下手：克制一切「警察」类角色。',
     counter:{ tags:['警察'], note:'听见警笛就跑' },
@@ -1590,7 +1592,7 @@ var CHARACTERS = [
     mech:'一屁股坐下去', mechText:'不讲技术，就讲分量：目标战力 -26。',
     act:{ type:'chop', value:26, desc:'一屁股坐下去：目标战力 -26' } },
 
-  { id:'bayi', name:'巴依老爷', from:'动画 · 阿凡提的故事', cat:'mech', tier:'T1', power:62, emblem:'💰',
+  { id:'bayi', name:'巴依老爷', from:'动画 · 阿凡提的故事', cat:'mech', tier:'T1', power:70, emblem:'💰',
     tags:['动画','阿凡提','反派','财主'], lore:'巴依老爷 财主 抠门 放高利贷 被阿凡提整',
     mech:'放高利贷', mechText:'借你十块，还我三十：偷取目标 22 点战力。',
     act:{ type:'steal', value:22, desc:'放高利贷：偷取目标 22 点战力' } },
@@ -1600,17 +1602,17 @@ var CHARACTERS = [
     mech:'偷天书', mechText:'把别人的本事偷来自己用：偷取目标 28 点战力。',
     act:{ type:'steal', value:28, desc:'偷天书：偷取目标 28 点战力' } },
 
-  { id:'busheren', name:'捕蛇人', from:'动画 · 九色鹿', cat:'mech', tier:'T2', power:44, emblem:'🪤',
+  { id:'busheren', name:'捕蛇人', from:'动画 · 九色鹿', cat:'mech', tier:'T2', power:52, emblem:'🪤',
     tags:['动画','九色鹿','反派','告密'], lore:'捕蛇人 落水被救 见钱眼开 出卖九色鹿 报应',
     mech:'出卖', mechText:'为了赏钱什么都说：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'出卖：令一名敌人本局无法行动' } },
 
-  { id:'datouerzi', name:'大头儿子', from:'动画 · 大头儿子和小头爸爸', cat:'mech', tier:'T2', power:46, emblem:'🧒',
+  { id:'datouerzi', name:'大头儿子', from:'动画 · 大头儿子和小头爸爸', cat:'mech', tier:'T2', power:54, emblem:'🧒',
     tags:['动画','大头儿子','家庭'], lore:'大头儿子 小头爸爸 围裙妈妈 大头 十万个为什么',
     mech:'十万个为什么', mechText:'一个问题接一个问题，问到对方崩溃：目标战力 -18。',
     act:{ type:'chop', value:18, desc:'十万个为什么：目标战力 -18' } },
 
-  { id:'xiaotoubaba', name:'小头爸爸', from:'动画 · 大头儿子和小头爸爸', cat:'sys', tier:'T2', power:50, emblem:'👨',
+  { id:'xiaotoubaba', name:'小头爸爸', from:'动画 · 大头儿子和小头爸爸', cat:'sys', tier:'T2', power:58, emblem:'👨',
     tags:['动画','大头儿子','家庭'], lore:'小头爸爸 耐心 陪玩 讲道理 大头儿子',
     mech:'讲道理', mechText:'耐着性子一句一句讲，全家都听他的：全队战力 +12。',
     act:{ type:'buff', value:12, all:true, desc:'讲道理：全队战力 +12' } },
@@ -1636,7 +1638,7 @@ var CHARACTERS = [
     mech:'喷火', mechText:'一口火喷出去，谁也扛不住：敌方全体战力 -18。',
     act:{ type:'aoe', value:18, desc:'喷火：敌方全体战力 -18' } },
 
-  { id:'wuwa', name:'五娃', from:'动画 · 葫芦兄弟', cat:'sys', tier:'T1', power:74, emblem:'💧',
+  { id:'wuwa', name:'五娃', from:'动画 · 葫芦兄弟', cat:'sys', tier:'T1', power:82, emblem:'💧',
     tags:['动画','葫芦兄弟','葫芦'], lore:'五娃 水娃 吸水 青葫芦 大水',
     mech:'吸水', mechText:'一口把水全吸干，对方的招也使不出来了：清空敌方全部增益。',
     act:{ type:'purge', desc:'吸水：清空敌方全部增益' } },
@@ -1670,7 +1672,7 @@ var CHARACTERS = [
     mech:'挑行李', mechText:'重活全他扛，队友才走得动：全队战力 +14。',
     act:{ type:'buff', value:14, all:true, desc:'挑行李：全队战力 +14' } },
 
-  { id:'niumowang', name:'牛魔王', from:'动画 · 西游记', cat:'num', tier:'T1', power:90, emblem:'🐂',
+  { id:'niumowang', name:'牛魔王', from:'动画 · 西游记', cat:'num', tier:'T1', power:92, emblem:'🐂',
     tags:['动画','西游记','妖怪','Boss'], lore:'牛魔王 大力牛魔王 火焰山 芭蕉扇 孙悟空结拜兄弟',
     mech:'大力', mechText:'跟孙悟空掰手腕都不输：目标战力 -30。',
     act:{ type:'chop', value:30, desc:'大力：目标战力 -30' } },
@@ -1681,7 +1683,7 @@ var CHARACTERS = [
     act:{ type:'disable', desc:'芭蕉扇：令一名敌人本局无法行动' } },
 
   /* ============ 喜羊羊组 ============ */
-  { id:'lanyangyang', name:'懒羊羊', from:'动画 · 喜羊羊', cat:'mech', tier:'T2', power:40, emblem:'😴',
+  { id:'lanyangyang', name:'懒羊羊', from:'动画 · 喜羊羊', cat:'mech', tier:'T2', power:48, emblem:'😴',
     tags:['动画','喜羊羊','羊'], lore:'懒羊羊 睡觉 头上长草 懒 好吃',
     mech:'装睡', mechText:'躺着不动，谁都以为他没事：免死一次。',
     passive:{ saveCount:1 } },
@@ -1691,7 +1693,7 @@ var CHARACTERS = [
     mech:'直脾气', mechText:'一句话不对就冲上去：先手，且数值对撞 +10。',
     passive:{ firstStrike:true, flat:10 } },
 
-  { id:'manyangyang', name:'慢羊羊', from:'动画 · 喜羊羊', cat:'sys', tier:'T2', power:36, emblem:'👓',
+  { id:'manyangyang', name:'慢羊羊', from:'动画 · 喜羊羊', cat:'sys', tier:'T2', power:44, emblem:'👓',
     tags:['动画','喜羊羊','羊','村长'], lore:'慢羊羊 村长 慢 发明 蜗牛',
     mech:'发明', mechText:'捣鼓半天掏出个东西，还真能用：全队战力 +12。',
     act:{ type:'buff', value:12, all:true, desc:'发明：全队战力 +12' } },
@@ -1731,7 +1733,7 @@ var CHARACTERS = [
     mech:'埋人', mechText:'一铁锹下去，直接给你挖个坑：目标战力 -28。',
     act:{ type:'chop', value:28, desc:'埋人：目标战力 -28' } },
 
-  { id:'weiqunmama', name:'围裙妈妈', from:'动画 · 大头儿子', cat:'sys', tier:'T2', power:44, emblem:'🍲',
+  { id:'weiqunmama', name:'围裙妈妈', from:'动画 · 大头儿子', cat:'sys', tier:'T2', power:52, emblem:'🍲',
     tags:['动画','大头儿子','家庭'], lore:'围裙妈妈 做饭 唠叨 一家人',
     mech:'开饭了', mechText:'一桌饭下来全家都有劲：全队战力 +13。',
     act:{ type:'buff', value:13, all:true, desc:'开饭了：全队战力 +13' } },
@@ -1758,7 +1760,7 @@ var CHARACTERS = [
     mech:'休克疗法', mechText:'一剂猛药下去，全场都休克：敌方全体战力 -15。',
     act:{ type:'aoe', value:15, desc:'休克疗法：敌方全体战力 -15' } },
 
-{ id:'unitednations', name:'联合国', from:'现实 · 国际组织', cat:'ctr', tier:'T1', power:58, emblem:'🌐',
+{ id:'unitednations', name:'联合国', from:'现实 · 国际组织', cat:'ctr', tier:'T1', power:66, emblem:'🌐',
     tags:['现实','国际','组织'], lore:'联合国 大会决议 安理会 联合一致共策和平 蓝色头盔 表决',
     mech:'大会决议', mechText:'安理会可以否决，可大会一百多票照样通过：克制一切「政治」类角色；点名一人本局无法行动。',
     counter:{ tags:['政治'], note:'大会决议' },
@@ -1850,6 +1852,357 @@ var CHARACTERS = [
     mech:'止楚攻宋', mechText:'走了十天十夜，把一场仗劝了下来：全队获得一次免死，且免疫机制克制。',
     passive:{ nullify:true }, act:{ type:'barrier', desc:'止战：全队获得一次免死' } },
 
+/* ============ 假面骑士 ============ */
+  { id:'kamen1', name:'假面骑士1号', from:'特摄 · 假面骑士', cat:'num', tier:'T1', power:82, emblem:'🦗',
+    tags:['特摄','假面骑士','昭和'], lore:'本乡猛 蝗虫改造人 骑士踢 修卡 立花藤兵卫',
+    mech:'骑士踢', mechText:'跳起来那一脚，改造人的全力：目标战力 -26。',
+    act:{ type:'chop', value:26, desc:'骑士踢：目标战力 -26' } },
+
+  { id:'kuuga', name:'空我', from:'特摄 · 假面骑士空我', cat:'mech', tier:'T1', power:86, emblem:'🔴',
+    tags:['特摄','假面骑士','平成'], lore:'五代雄介 超变身 究极形态 古朗基 封印 记号',
+    mech:'超变身 · 封印', mechText:'变了再变，最后把他封起来：指定一名敌人本局无法行动。',
+    act:{ type:'disable', desc:'封印：令一名敌人本局无法行动' } },
+
+  { id:'daguba', name:'达古巴', from:'特摄 · 假面骑士空我', cat:'num', tier:'T0', power:92, emblem:'⚡',
+    tags:['特摄','假面骑士','反派','古朗基'], lore:'达古巴 古朗基之王 白黑两色 究极之暗 空我宿敌',
+    mech:'究极之暗', mechText:'把整座城市变成雪原的力量：克制「空我」，敌方全体战力 -18。',
+    counter:{ ids:['kuuga'], note:'空我的宿敌' },
+    act:{ type:'aoe', value:18, desc:'究极之暗：敌方全体战力 -18' } },
+
+  { id:'decade', name:'Decade', from:'特摄 · 假面骑士Decade', cat:'mech', tier:'T1', power:88, emblem:'📷',
+    tags:['特摄','假面骑士','平成','旅行者'], lore:'门矢士 世界的破坏者 Final Form Ride 骑士卡片 大拖把',
+    mech:'一切骑士的力量', mechText:'把其他骑士的卡片抽出来自己用：克制所有「假面骑士」，还能复制对手的主动机制。',
+    counter:{ tags:['假面骑士'], note:'世界的破坏者' },
+    act:{ type:'copy', desc:'抽卡：复制对手的主动机制' } },
+
+  { id:'deno', name:'电王', from:'特摄 · 假面骑士电王', cat:'mech', tier:'T1', power:76, emblem:'🚃',
+    tags:['特摄','假面骑士','平成','异魔神'], lore:'野上良太郎 异魔神 桃塔罗斯 时之列车 特异点',
+    mech:'时之列车', mechText:'开着列车把时间撞歪：偷取目标 24 点战力。',
+    act:{ type:'steal', value:24, desc:'时之列车：偷取目标 24 点战力' } },
+
+  { id:'double', name:'假面骑士W', from:'特摄 · 假面骑士W', cat:'sys', tier:'T1', power:80, emblem:'🌪',
+    tags:['特摄','假面骑士','平成','二人一体'], lore:'左翔太郎 菲利普 疾风王牌 二人一体 鸣海侦探事务所 记忆体',
+    mech:'二人一体', mechText:'两个人插进一条腰带里，谁也拆不开：免疫机制克制，免死一次。',
+    passive:{ nullify:true, saveCount:1 } },
+
+  { id:'ooo', name:'假面骑士OOO', from:'特摄 · 假面骑士OOO', cat:'mech', tier:'T1', power:78, emblem:'🪙',
+    tags:['特摄','假面骑士','平成','硬币'], lore:'火野映司 硬币 欲望 贪欲者 塔托巴 扫描',
+    mech:'硬币组合', mechText:'三枚硬币凑齐，谁也拦不住：偷取目标 26 点战力。',
+    act:{ type:'steal', value:26, desc:'硬币组合：偷取目标 26 点战力' } },
+
+  { id:'build', name:'假面骑士Build', from:'特摄 · 假面骑士Build', cat:'sys', tier:'T1', power:82, emblem:'⚗',
+    tags:['特摄','假面骑士','平成','物理学家'], lore:'桐生战兔 天才物理学家 最佳搭配 挤压驱动 创造',
+    mech:'最佳搭配', mechText:'把队伍配成最佳搭配：全队战力 +16，且免疫机制克制。',
+    passive:{ nullify:true }, act:{ type:'buff', value:16, all:true, desc:'最佳搭配：全队战力 +16' } },
+
+  { id:'zeroone', name:'假面骑士零一', from:'特摄 · 假面骑士Zero-One', cat:'sys', tier:'T1', power:74, emblem:'🤖',
+    tags:['特摄','假面骑士','令和','社长'], lore:'飞电或人 社长 人工智能 修玛吉亚 冷笑话',
+    mech:'社长权限', mechText:'公司是他的，人也是他的：全队战力 +14。',
+    act:{ type:'buff', value:14, all:true, desc:'社长权限：全队战力 +14' } },
+
+  { id:'blackrx', name:'Black RX', from:'特摄 · 假面骑士Black RX', cat:'num', tier:'T1', power:84, emblem:'🌑',
+    tags:['特摄','假面骑士','昭和'], lore:'南光太郎 世纪王 太阳之子 光剑 影月宿敌',
+    mech:'太阳之子', mechText:'光剑一扫，一片都倒下：敌方全体战力 -16。',
+    act:{ type:'aoe', value:16, desc:'太阳之子：敌方全体战力 -16' } },
+
+  { id:'yingyue', name:'影月', from:'特摄 · 假面骑士Black', cat:'ctr', tier:'T1', power:88, emblem:'🌘',
+    tags:['特摄','假面骑士','反派','世纪王'], lore:'影月 秋月信彦 世纪王 黑日宿敌 撒旦剑',
+    mech:'世纪王之影', mechText:'和太阳之子同源，反着来：克制「Black RX」与「昭和」系骑士。',
+    counter:{ tags:['昭和'], note:'宿敌' },
+    act:{ type:'chop', value:26, desc:'撒旦剑：目标战力 -26' } },
+
+  { id:'ryuki', name:'假面骑士龙骑', from:'特摄 · 假面骑士龙骑', cat:'mech', tier:'T1', power:72, emblem:'🐉',
+    tags:['特摄','假面骑士','平成','卡牌'], lore:'城户真司 卡牌 镜世界 龙骑 决斗 不许有人再死',
+    mech:'镜世界', mechText:'进镜子里打，输赢全看抽到什么卡：赌一手，赢则目标出局，输则自己 -20。',
+    act:{ type:'gamble', desc:'镜世界：赌一把' } },
+
+{ id:'agito', name:'亚极陀', from:'特摄 · 假面骑士亚极陀', cat:'mech', tier:'T1', power:80, emblem:'👤',
+    tags:['特摄','假面骑士','平成','进化'], lore:'津上翔一 进化 未知生命体 暴风形态 神',
+    mech:'进化', mechText:'每过一回合更强一点，谁也追不上：全队战力 +12，自己额外 +8。',
+    act:{ type:'buff', value:12, all:true, desc:'进化：全队战力 +12' } },
+
+  { id:'kabuto', name:'甲斗', from:'特摄 · 假面骑士甲斗', cat:'num', tier:'T1', power:86, emblem:'🦂',
+    tags:['特摄','假面骑士','平成','高速'], lore:'天道总司 加速 奶奶说过 世界最强 骑士系统',
+    mech:'加速', mechText:'一秒里他打了三十下，你只看见残影：先手，且数值对撞 +14。',
+    passive:{ firstStrike:true, flat:14 } },
+
+  { id:'faiz', name:'Faiz', from:'特摄 · 假面骑士555', cat:'num', tier:'T1', power:78, emblem:'📱',
+    tags:['特摄','假面骑士','平成','喷射'], lore:'乾巧 喷射器 奥菲以诺 手机变身 红色光子血液',
+    mech:'喷射器', mechText:'背后推进器一点火，直接撞穿：先手，且不会被反杀。',
+    passive:{ firstStrike:true, noRiposte:true } },
+
+  { id:'zio', name:'时王', from:'特摄 · 假面骑士时王', cat:'mech', tier:'T1', power:88, emblem:'⏰',
+    tags:['特摄','假面骑士','平成','时间'], lore:'常磐庄吾 平成骑士 时间 逢魔时王 表盘',
+    mech:'借用平成之力', mechText:'把历年骑士的表盘全用一遍：克制所有「平成」系骑士。',
+    counter:{ tags:['平成'], note:'平成骑士的力量我都有' },
+    act:{ type:'copy', desc:'借用力量：复制对手的主动机制' } },
+
+  { id:'evol', name:'Evol', from:'特摄 · 假面骑士Build', cat:'mech', tier:'T0', power:94, emblem:'🕳',
+    tags:['特摄','假面骑士','反派','Boss'], lore:'Evolto 黑洞 潘多拉魔盒 毁灭星球 假面骑士Build最终Boss',
+    mech:'黑洞形态', mechText:'一个黑洞吞掉整片战场：克制「Build」，敌方全体战力 -22。',
+    counter:{ tags:['物理学家'], note:'我造的他' },
+    act:{ type:'aoe', value:22, desc:'黑洞：敌方全体战力 -22' } },
+
+  { id:'danranbo', name:'檀黎斗', from:'特摄 · 假面骑士Ex-Aid', cat:'mech', tier:'T1', power:92, emblem:'🎮',
+    tags:['特摄','假面骑士','反派','神'], lore:'檀黎斗 天才玩家M 神之才能 丧尸玩家 游戏',
+    mech:'神之才能', mechText:'「神之才能」——把规则也当成游戏来改：清空敌方全部增益。',
+    act:{ type:'purge', desc:'改写规则：清空敌方全部增益' } },
+
+  { id:'odin', name:'奥丁', from:'特摄 · 假面骑士龙骑', cat:'mech', tier:'T1', power:86, emblem:'⏳',
+    tags:['特摄','假面骑士','反派','卡牌'], lore:'奥丁 时间停止 黄金卡 龙骑 镜世界最强',
+    mech:'时间停止', mechText:'时间停住的那几秒，只够他出一次手：克制「龙骑」，并令一人无法行动。',
+    counter:{ ids:['ryuki'], note:'时间停止' },
+    act:{ type:'disable', desc:'时间停止：令一名敌人本局无法行动' } },
+
+  { id:'xiuka', name:'修卡大首领', from:'特摄 · 假面骑士', cat:'sys', tier:'T1', power:82, emblem:'🎭',
+    tags:['特摄','假面骑士','反派','组织'], lore:'修卡 大首领 改造人军团 一文字隼人 立花 昭和',
+    mech:'改造人军团', mechText:'一个倒下，后面还有一整支军队：克制「昭和」系骑士，全队战力 +15。',
+    counter:{ tags:['昭和'], note:'都是我的改造人' },
+    act:{ type:'buff', value:15, all:true, desc:'改造人军团：全队战力 +15' } },
+
+{ id:'blade', name:'假面骑士剑', from:'特摄 · 假面骑士Blade', cat:'mech', tier:'T1', power:80, emblem:'🃏',
+    tags:['特摄','假面骑士','平成','卡牌'], lore:'剑崎一真 黑桃 式样卡 不死者 封印 假面骑士Blade',
+    mech:'封印不死者', mechText:'把不死者重新封回卡里：偷取目标 22 点战力。',
+    act:{ type:'steal', value:22, desc:'封印：偷取目标 22 点战力' } },
+
+  { id:'hibiki', name:'响鬼', from:'特摄 · 假面骑士响鬼', cat:'num', tier:'T1', power:78, emblem:'🥁',
+    tags:['特摄','假面骑士','平成','音击'], lore:'响鬼 音击 鬼 太鼓 火焰 清澈之音',
+    mech:'音击', mechText:'一鼓下去，声浪扫翻一片：敌方全体战力 -16。',
+    act:{ type:'aoe', value:16, desc:'音击：敌方全体战力 -16' } },
+
+  { id:'kiva', name:'月骑', from:'特摄 · 假面骑士Kiva', cat:'num', tier:'T1', power:82, emblem:'🦇',
+    tags:['特摄','假面骑士','平成','吸血鬼'], lore:'红渡 小提琴 牙 2008 1986 城堡 多兰',
+    mech:'牙', mechText:'咬住就不松口：目标战力 -24。',
+    act:{ type:'chop', value:24, desc:'牙：目标战力 -24' } },
+
+  { id:'fourze', name:'卌骑', from:'特摄 · 假面骑士Fourze', cat:'sys', tier:'T1', power:76, emblem:'🚀',
+    tags:['特摄','假面骑士','平成','宇宙'], lore:'如月弦太朗 开关 宇宙 友情 天高 假面骑士部',
+    mech:'友情', mechText:'全校都来帮忙，这就是友情的分量：全队战力 +15。',
+    act:{ type:'buff', value:15, all:true, desc:'友情：全队战力 +15' } },
+
+  { id:'wizard', name:'魔法使', from:'特摄 · 假面骑士Wizard', cat:'sys', tier:'T1', power:78, emblem:'💍',
+    tags:['特摄','假面骑士','平成','魔法'], lore:'操真晴人 魔法 戒指 幻想 无限 绝望',
+    mech:'魔法', mechText:'戒指一戴，护盾就起来：全队获得一次免死。',
+    act:{ type:'barrier', desc:'魔法：全队获得一次免死' } },
+
+  { id:'gaim', name:'铠武', from:'特摄 · 假面骑士Gaim', cat:'num', tier:'T1', power:84, emblem:'🍊',
+    tags:['特摄','假面骑士','平成','锁种'], lore:'葛叶纮汰 柳橙 锁种 舞 海姆冥界 霸主',
+    mech:'柳橙锁种', mechText:'一刀切开，汁水四溅：目标战力 -26。',
+    act:{ type:'chop', value:26, desc:'柳橙：目标战力 -26' } },
+
+  { id:'drive', name:'驰骑', from:'特摄 · 假面骑士Drive', cat:'num', tier:'T1', power:80, emblem:'🚗',
+    tags:['特摄','假面骑士','平成','赛车'], lore:'泊进之介 车 变速 特状课 库里姆 腰带先生',
+    mech:'变速', mechText:'档位一挂，抢先一步到：先手，且不会被反杀。',
+    passive:{ firstStrike:true, noRiposte:true } },
+
+  { id:'ghost', name:'幽灵', from:'特摄 · 假面骑士Ghost', cat:'mech', tier:'T1', power:82, emblem:'👻',
+    tags:['特摄','假面骑士','平成','英雄'], lore:'天空寺尊 英雄之魂 无限魂 命 眼魂',
+    mech:'无限魂', mechText:'死过好几次了，打不死也封不住：免疫机制克制，免死一次。',
+    passive:{ nullify:true, saveCount:1 } },
+
+  { id:'exaid', name:'艾克赛德', from:'特摄 · 假面骑士Ex-Aid', cat:'sys', tier:'T1', power:84, emblem:'🕹',
+    tags:['特摄','假面骑士','平成','游戏'], lore:'宝生永梦 无敌玩家 游戏 患者 形态 医生',
+    mech:'无敌玩家', mechText:'按下去就无敌，谁也碰不到：全队获得一次护盾。',
+    act:{ type:'barrier', desc:'无敌玩家：全队获得一次免死' } },
+
+{ id:'fanquannv', name:'饭圈女', from:'网络梗 · 饭圈', cat:'ctr', tier:'T1', power:53, emblem:'📢',
+    tags:['网络梗','饭圈','舆论'], lore:'饭圈女 控评 拉踩 开麦 举报 打榜 塌房',
+    mech:'开麦', mechText:'一句“你不配”能骂上热搜：克制一切「运动员」，并让目标战力 -20。',
+    counter:{ tags:['运动员'], note:'开麦' },
+    act:{ type:'chop', value:20, desc:'开麦：目标战力 -20' } },
+
+{ id:'wangchuqin', name:'王楚钦', from:'现实 · 乒乓球', cat:'num', tier:'T1', power:84, emblem:'🏓',
+    tags:['现实','乒乓球','运动员','左手'], lore:'王楚钦 大头 左手横板 莎头组合 混双金牌 巴黎奥运 世界第一',
+    mech:'左手横板', mechText:'左手横板，对面一时适应不了：先手，且数值对撞 +12。',
+    passive:{ firstStrike:true, flat:12 },
+    act:{ type:'chop', value:24, desc:'爆冲：目标战力 -24' } },
+
+  { id:'sunyingsha', name:'孙颖莎', from:'现实 · 乒乓球', cat:'sys', tier:'T1', power:82, emblem:'🏅',
+    tags:['现实','乒乓球','运动员'], lore:'孙颖莎 莎莎 混双金牌 女团金牌 巴黎奥运 正手快攻',
+    mech:'正手快攻', mechText:'一板抢在前面，队伍跟着起势：全队战力 +15。',
+    act:{ type:'buff', value:15, all:true, desc:'正手快攻：全队战力 +15' } },
+
+{ id:'schumacher', name:'舒马赫', from:'现实 · F1', cat:'sys', tier:'T1', power:90, emblem:'🏎',
+    tags:['现实','赛车','F1','车手','运动员'], lore:'舒马赫 七冠王 法拉利王朝 五连冠 雨战 德国',
+    mech:'七冠王', mechText:'七个世界冠军压阵，整个车队都服：全队战力 +18。',
+    act:{ type:'buff', value:18, all:true, desc:'七冠王：全队战力 +18' } },
+
+  { id:'senna', name:'塞纳', from:'现实 · F1', cat:'mech', tier:'T1', power:88, emblem:'🌧',
+    tags:['现实','赛车','F1','车手','运动员'], lore:'塞纳 雨战 三届世界冠军 巴西 1994 圣马力诺',
+    mech:'雨战', mechText:'下雨天别人减速他加速：战力不如对手时反判赢。',
+    passive:{ underdogWin:true } },
+
+  { id:'hamilton', name:'汉密尔顿', from:'现实 · F1', cat:'num', tier:'T1', power:90, emblem:'🏆',
+    tags:['现实','赛车','F1','车手','运动员'], lore:'汉密尔顿 七冠王 轮胎管理 梅赛德斯 英国 2020土耳其',
+    mech:'轮胎管理', mechText:'一套胎跑到底，别人先崩他不崩：免死一次。',
+    passive:{ saveCount:1 },
+    act:{ type:'chop', value:24, desc:'保胎到终点：目标战力 -24' } },
+
+  { id:'verstappen', name:'维斯塔潘', from:'现实 · F1', cat:'num', tier:'T1', power:89, emblem:'🦁',
+    tags:['现实','赛车','F1','车手','运动员','荷兰'], lore:'维斯塔潘 最后一圈 2021阿布扎比 荷兰 红牛',
+    mech:'最后一圈', mechText:'最后一圈才动手，刹不住也拦不住：先手，且不会被反杀。克制「汉密尔顿」。',
+    counter:{ ids:['hamilton'], note:'2021 阿布扎比最后一圈' },
+    passive:{ firstStrike:true, noRiposte:true } },
+
+  { id:'raikkonen', name:'莱科宁', from:'现实 · F1', cat:'mech', tier:'T1', power:82, emblem:'🧊',
+    tags:['现实','赛车','F1','车手','运动员','芬兰'], lore:'莱科宁 冰人 Leave me alone 2007世界冠军 芬兰',
+    mech:'Leave me alone', mechText:'「别管我，我知道我在干嘛」——谁的话都不听，也套不住他：免疫一切机制克制。',
+    passive:{ nullify:true } },
+
+{ id:'s1mple', name:'s1mple', from:'现实 · CS', cat:'num', tier:'T0', power:90, emblem:'🎯',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'s1mple 乌克兰 NAVI AWP 斯德哥尔摩Major MVP TOP1 三次',
+    mech:'全能狙', mechText:'枪法、反应、意识全点满，一枪一个：随机抹除一名敌人（无视战力）。',
+    act:{ type:'snipe', desc:'AWP：随机抹除一名敌人' } },
+
+  { id:'zywoo', name:'ZywOo', from:'现实 · CS', cat:'num', tier:'T1', power:90, emblem:'🌟',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'ZywOo 法国 Vitality 神童 三次 TOP1 2019 2020 2023',
+    mech:'法国神童', mechText:'十九岁就登顶世界第一：先手，且数值对撞 +12。',
+    passive:{ firstStrike:true, flat:12 } },
+
+  { id:'coldzera', name:'coldzera', from:'现实 · CS', cat:'num', tier:'T1', power:88, emblem:'🐸',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'coldzera 巴西 跳狙四杀 MLG哥伦布 2016 Mirage 涂鸦',
+    mech:'跳狙四杀', mechText:'跳起来一枪四个，那个位置后来被官方画成了涂鸦：敌方全体战力 -30。',
+    act:{ type:'aoe', value:30, desc:'跳狙四杀：敌方全体战力 -30' } },
+
+  { id:'olofmeister', name:'olofmeister', from:'现实 · CS', cat:'mech', tier:'T1', power:86, emblem:'🪜',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'olofmeister 瑞典 Fnatic olofpass Overpass 架人 两届Major',
+    mech:'Olofpass', mechText:'踩队友的头顶架到对面看不见的地方，等于白拿视野：偷取目标 26 点战力。',
+    act:{ type:'steal', value:26, desc:'架人视角：偷取目标 26 点战力' } },
+
+  { id:'dupreeh', name:'dupreeh', from:'现实 · CS', cat:'sys', tier:'T1', power:86, emblem:'🏅',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'dupreeh 丹麦 五届Major 全勤19届 Astralis 突破手',
+    mech:'五冠全勤', mechText:'十九届 Major 一届没落，五个冠军压场：全队战力 +16。',
+    act:{ type:'buff', value:16, all:true, desc:'五冠全勤：全队战力 +16' } },
+
+{ id:'donk', name:'donk', from:'现实 · CS', cat:'num', tier:'T0', power:94, emblem:'💥',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'donk 俄罗斯 Spirit 上海Major MVP 最年轻 破局者 2024TOP1',
+    mech:'破局者', mechText:'十七岁就拿下 Major MVP，见人就干：先手，且数值对撞 +16。',
+    passive:{ firstStrike:true, flat:16 },
+    act:{ type:'chop', value:28, desc:'干爆：目标战力 -28' } },
+
+  { id:'ropz', name:'ropz', from:'现实 · CS', cat:'mech', tier:'T1', power:90, emblem:'🧤',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'ropz 爱沙尼亚 Vitality 收割者 残局 2025TOP3',
+    mech:'收割者', mechText:'残局交给他，剩几个人他收几个人：清空敌方全部增益，并偷取 20 战力。',
+    act:{ type:'steal', value:20, desc:'残局收割：偷取目标 20 点战力' } },
+
+  { id:'monesy', name:'m0NESY', from:'现实 · CS', cat:'num', tier:'T1', power:92, emblem:'👶',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'m0NESY 俄罗斯 Falcons 天才少年 狙击 2025TOP4',
+    mech:'天才狙', mechText:'十几岁就在顶级赛场架狙，反应快得离谱：先手，且不会被反杀。',
+    passive:{ firstStrike:true, noRiposte:true },
+    act:{ type:'chop', value:26, desc:'架狙：目标战力 -26' } },
+
+  { id:'sh1ro', name:'sh1ro', from:'现实 · CS', cat:'sys', tier:'T1', power:88, emblem:'🛡',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'sh1ro 俄罗斯 Spirit 保枪狙 2025TOP5',
+    mech:'保枪狙', mechText:'枪保得比自己命还紧，队伍永远不亏经济：全队战力 +15，自己免死一次。',
+    passive:{ saveCount:1 },
+    act:{ type:'buff', value:15, all:true, desc:'保枪：全队战力 +15' } },
+
+  { id:'molodoy', name:'molodoy', from:'现实 · CS', cat:'num', tier:'T1', power:86, emblem:'🌱',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'molodoy 哈萨克斯坦 最佳新秀 2025TOP6',
+    mech:'年度新秀', mechText:'刚上来的一年就把老将们甩在后面：数值对撞 +10，且免疫机制克制。',
+    passive:{ flat:10, nullify:true } },
+
+  { id:'mezii', name:'mezii', from:'现实 · CS', cat:'sys', tier:'T1', power:86, emblem:'📦',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'mezii 英国 Vitality 主区防守者 2025',
+    mech:'主防者', mechText:'一个人守一个区，怎么冲都冲不进来：全队获得一次免死。',
+    act:{ type:'barrier', desc:'主防：全队获得一次免死' } },
+
+  { id:'apex', name:'apEX', from:'现实 · CS', cat:'sys', tier:'T1', power:84, emblem:'📋',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'apEX 法国 Vitality 指挥 IGL 2025最佳指挥',
+    mech:'指挥', mechText:'战术板上画一笔，全队跟着动：全队战力 +18。',
+    act:{ type:'buff', value:18, all:true, desc:'指挥：全队战力 +18' } },
+
+  { id:'danking', name:'DANK1NG', from:'现实 · CS', cat:'num', tier:'T1', power:84, emblem:'🥚',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'DANK1NG 蛋神 蛋总 吕郑豪 石家庄 TYLOO 亚一狙 AWP 天禄',
+    mech:'亚一狙', mechText:'亚洲第一狙，架住就是一条路：先手，且数值对撞 +10；主动一发破的，目标战力 -28。',
+    passive:{ firstStrike:true, flat:10 },
+    act:{ type:'chop', value:28, desc:'一发破的：目标战力 -28' } },
+
+  { id:'qiezi', name:'茄子', from:'现实 · CS', cat:'num', tier:'T1', power:78, emblem:'🍆',
+    tags:['枪械','现实','电竞','CS','选手','运动员','主播'], lore:'茄子 吴权清 茂名 WDNMD 闸总 白给 冲锋狙 天禄 一枪秒了 我起了',
+    mech:'我起了，一枪秒了', mechText:'「我起了，一枪秒了，有什么好说的」——冲锋狙先手，一起枪就随机带走一个；但打完全是白给，自己掉 15 战力。',
+    passive:{ firstStrike:true }, burn:15,
+    act:{ type:'snipe', desc:'我起了，一枪秒了：随机抹除一名敌人（自身 -15）' } },
+
+{ id:'gaben', name:'G胖', from:'现实 · CS', cat:'mech', tier:'T0', power:88, emblem:'🧔',
+    tags:['现实','电竞','CS','老板','梗'], lore:'G胖 Gabe Newell Valve Steam 不会数3 夏日特卖 半条命 传送门',
+    mech:'不会数 3', mechText:'他数不到 3，可你一进商店就得打三折：敌方全体战力 -30；但打折是亏本的，他自己也掉 15。',
+    burn:15,
+    act:{ type:'aoe', value:30, desc:'夏日特卖：敌方全体战力 -30（三折）' } },
+
+  { id:'pasha', name:'pashaBiceps', from:'现实 · CS', cat:'sys', tier:'T1', power:86, emblem:'💪',
+    tags:['枪械','现实','电竞','CS','选手','运动员','梗'], lore:'pashaBiceps My friend 波兰 VP 黄金五人组 健身 人气',
+    mech:'My Friend', mechText:'每句话后面都加一句 my friend，全队都被他哄得卖命：全队战力 +17。',
+    act:{ type:'buff', value:17, all:true, desc:'My Friend：全队战力 +17' } },
+
+  { id:'kennys', name:'kennyS', from:'现实 · CS', cat:'num', tier:'T1', power:88, emblem:'🪄',
+    tags:['枪械','现实','电竞','CS','选手','运动员','梗'], lore:'kennyS 法国 魔法棒 AWP 瞬镜 2015年度电竞玩家 被削弱',
+    mech:'魔法棒', mechText:'那把狙被他用成了魔法棒，快得不像话——强到 Valve 专门削了 AWP：先手，且不会被反杀。',
+    passive:{ firstStrike:true, noRiposte:true },
+    act:{ type:'chop', value:26, desc:'瞬镜：目标战力 -26' } },
+
+{ id:'vjett', name:'捷风', from:'游戏 · 无畏契约', cat:'num', tier:'T1', power:88, emblem:'🌪',
+    tags:['枪械','游戏','无畏契约','特工'], lore:'捷风 Jett 风 御风 剑刃风暴 冲刺 上升气流',
+    mech:'御风', mechText:'一个冲刺就没影了，匕首从背后到：先手，且不会被反杀。',
+    passive:{ firstStrike:true, noRiposte:true },
+    act:{ type:'chop', value:26, desc:'剑刃风暴：目标战力 -26' } },
+
+  { id:'vsage', name:'贤者', from:'游戏 · 无畏契约', cat:'sys', tier:'T1', power:86, emblem:'💠',
+    tags:['枪械','游戏','无畏契约','特工'], lore:'贤者 Sage 复活 冰墙 治疗 减速球 中国',
+    mech:'复活', mechText:'把人从地上拉回来——这一手能把出局的队友救回来。',
+    act:{ type:'revive', desc:'复活：让一名出局的队友重新站上战场' } },
+
+  { id:'vphoenix', name:'不死鸟', from:'游戏 · 无畏契约', cat:'num', tier:'T1', power:84, emblem:'🔥',
+    tags:['枪械','游戏','无畏契约','特工'], lore:'不死鸟 Phoenix 火焰 自燃 重生 闪光 英国',
+    mech:'自燃', mechText:'烧死在火里也能从火里站起来：免死一次。',
+    passive:{ saveCount:1 },
+    act:{ type:'chop', value:22, desc:'火墙：目标战力 -22' } },
+
+  { id:'vreyna', name:'雷娜', from:'游戏 · 无畏契约', cat:'mech', tier:'T1', power:86, emblem:'👁',
+    tags:['枪械','游戏','无畏契约','特工'], lore:'雷娜 Reyna 吸魂 女皇 墨西哥 吞噬 致盲',
+    mech:'吸魂', mechText:'杀掉一个就把魂吸过来，越打越强：偷取目标 26 点战力。',
+    act:{ type:'steal', value:26, desc:'吸魂：偷取目标 26 点战力' } },
+
+  { id:'vcypher', name:'零', from:'游戏 · 无畏契约', cat:'mech', tier:'T1', power:82, emblem:'📹',
+    tags:['枪械','游戏','无畏契约','特工'], lore:'零 Cypher 摄像头 绊线 情报 审讯 摩洛哥',
+    mech:'绊线', mechText:'整张图都布了线，你一动就被锁死：指定一名敌人本局无法行动。',
+    act:{ type:'disable', desc:'绊线：令一名敌人本局无法行动' } },
+
+  { id:'vkilljoy', name:'奇乐', from:'游戏 · 无畏契约', cat:'mech', tier:'T1', power:84, emblem:'🤖',
+    tags:['枪械','游戏','无畏契约','特工'], lore:'奇乐 Killjoy 炮塔 机器人 封锁 陷阱 德国',
+    mech:'封锁', mechText:'炮塔一摆，整片区域进不来：最多两名尚未出手的敌人本局无法行动。',
+    act:{ type:'aoeSeal', desc:'封锁：敌方未出手的角色本局无法行动' } },
+
+{ id:'tenz', name:'TenZ', from:'现实 · 无畏契约', cat:'num', tier:'T1', power:92, emblem:'⚡',
+    tags:['枪械','现实','电竞','无畏契约','选手','运动员'], lore:'TenZ 加拿大 Sentinels Masters雷克雅未克 MVP 2021 雷兹 捷风',
+    mech:'全场最佳', mechText:'2021 雷克雅未克那一站，他一个人把比赛打没了：先手，且数值对撞 +14。',
+    passive:{ firstStrike:true, flat:14 },
+    act:{ type:'chop', value:24, desc:'突破：目标战力 -24' } },
+
+  { id:'zmjjkk', name:'ZmjjKK', from:'现实 · 无畏契约', cat:'num', tier:'T0', power:96, emblem:'🇨🇳',
+    tags:['现实','电竞','无畏契约','选手','运动员','枪械'], lore:'ZmjjKK 康康 郑永康 EDG 冠军赛 2024 仁川 MVP 111杀 冥驹 英雄戍卫 从A杀到Z 以下范上 GAI 重庆话 唱见',
+    mech:'狙击枪我起了，对面就要输', mechText:'「对我来说，狙击枪我起了，对面就要输，就这么简单。」——每局一次机会：端起冥驹开枪，三成概率直接把这局赢下来（对面全灭）；没成也带走一个。但枪声一响位置就暴露——他自己也会被反手带走。先手、免疫机制克制。但碰上燕双鹰，枪里就没有子弹了。',
+    passive:{ nullify:true, firstStrike:true },
+    burn:20,
+    act:{ type:'killerShot', desc:'狙击枪我起了：30% 直接终结这局，否则随机抹除一名敌人（自身 -20）' } },
+
+  { id:'aspas', name:'aspas', from:'现实 · 无畏契约', cat:'num', tier:'T1', power:89, emblem:'🎯',
+    tags:['枪械','现实','电竞','无畏契约','选手','运动员'], lore:'aspas 巴西 LOUD 冠军赛2022 MVP 3000击杀 捷风',
+    mech:'三千杀', mechText:'越打手感越热，一个人能磨掉整条防线：目标战力 -27。',
+    act:{ type:'chop', value:27, desc:'拉枪：目标战力 -27' } },
+
+{ id:'kane', name:'凯恩', from:'现实 · 足球', cat:'num', tier:'T1', power:90, emblem:'⚽',
+    tags:['现实','足球','运动员','名人'], lore:'凯恩 Harry Kane 英格兰 拜仁 热刺 无冠魔咒 德甲冠军 门前嗅觉 点球',
+    mech:'无冠魔咒', mechText:'十六年职业、六次决赛全输，可他就是不倒下——这辈子第一个冠军是第十六年才拿到的：免死一次；主动门前一顶，目标战力 -26。',
+    passive:{ saveCount:1 },
+    act:{ type:'chop', value:26, desc:'门前嗅觉：目标战力 -26' } },
+
+  { id:'niko', name:'NiKo', from:'现实 · CS', cat:'num', tier:'T1', power:88, emblem:'🔫',
+    tags:['枪械','现实','电竞','CS','选手','运动员'], lore:'NiKo 波黑 科瓦奇 G2 Falcons 十年TOP20 步枪 卡托维兹 科隆',
+    mech:'无冠魔咒', mechText:'十年顶级、年年进年度前二十，Major 冠军一个都没有——枪法照样是顶级的，但赢了也白赢：数值对撞 +12，每赢一手自己掉 10 战力。',
+    passive:{ flat:12 }, burn:10,
+    act:{ type:'chop', value:24, desc:'步枪点射：目标战力 -24（自身 -10）' } },
+
   { id:'messi', name:'梅西', from:'现实 · 球王', cat:'num', tier:'T1', power:86, emblem:'⚽',
     tags:['现实','名人','足球','梅西'], lore:'手球 上帝之手2.0 掐脖子 法比尼奥 七场五点 世界杯纪录 连过五人 金球 小跳蚤',
     mech:'七场五点', mechText:'七场吹了五个点球，单届世界杯纪录：裁判向着他——战力不如对方时，反而判他赢。',
@@ -1883,7 +2236,7 @@ var CHARACTERS = [
     passive:{ flat:14 } },
 
   /* ==================== 网络梗 ==================== */
-  { id:'caixukun', name:'蔡徐坤', from:'网络梗 · 鸡你太美', cat:'mech', tier:'T1', power:38, emblem:'🏀',
+  { id:'caixukun', name:'蔡徐坤', from:'网络梗 · 鸡你太美', cat:'mech', tier:'T1', power:46, emblem:'🏀',
     tags:['网络梗','名人','唱跳'], lore:'鸡你太美 蔡徐坤 篮球 中分 只因你太美',
     mech:'鸡你太美', mechText:'强制嘲讽：指定一名敌人，其本局只能攻击蔡徐坤。',
     act:{ type:'taunt', desc:'指定一名敌人，强制其只能打你' } },
@@ -1899,7 +2252,7 @@ var CHARACTERS = [
     counter:{ tags:['现实','名人'], note:'刑法通说' },
     act:{ type:'delete', targetTags:['现实','名人'], desc:'指定一名「现实 / 名人」角色，依法送走' } },
 
-  { id:'jigong', name:'济公', from:'民间 · 济公', cat:'ctr', tier:'T1', power:40, emblem:'🍖',
+  { id:'jigong', name:'济公', from:'民间 · 济公', cat:'ctr', tier:'T1', power:48, emblem:'🍖',
     tags:['历史','宋','佛','狗肉'], lore:'酒肉穿肠过 济公 狗肉 鞋儿破帽儿破 疯和尚',
     mech:'酒肉穿肠过', mechText:'最爱狗肉：克制一切「狗」类角色——包括那个无敌的德鲁比。',
     counter:{ tags:['狗'], note:'狗肉' } },
@@ -1914,12 +2267,12 @@ var CHARACTERS = [
     mech:'整活', mechText:'克制一切「猫」类角色，尤其是那只叫汤姆的。',
     counter:{ ids:['tom'], tags:['猫'], note:'整活' } },
 
-  { id:'tom', name:'汤姆', from:'动画 · 猫和老鼠', cat:'num', tier:'T2', power:60, emblem:'🐈',
+  { id:'tom', name:'汤姆', from:'动画 · 猫和老鼠', cat:'num', tier:'T2', power:68, emblem:'🐈',
     tags:['动画','猫'], lore:'汤姆 猫和老鼠 抓老鼠 钢琴 惨叫',
     mech:'捕鼠', mechText:'克制一切「鼠」类角色。可惜杰瑞永远打不死。',
     counter:{ tags:['鼠'], note:'捕鼠' } },
 
-  { id:'yugong', name:'愚公', from:'寓言 · 愚公移山', cat:'ctr', tier:'T1', power:25, emblem:'⛰',
+  { id:'yugong', name:'愚公', from:'寓言 · 愚公移山', cat:'ctr', tier:'T1', power:33, emblem:'⛰',
     tags:['寓言','农','坚持'], lore:'愚公移山 子子孙孙 挖山 太行王屋 智叟',
     mech:'愚公移山', mechText:'子子孙孙无穷匮也——把对方已成型的体系整座搬走。',
     act:{ type:'breakCombo', desc:'指定对方一套已成型的体系，将其拆解' } },
@@ -1929,7 +2282,7 @@ var CHARACTERS = [
     mech:'纯真', mechText:'一双干净的眼睛，把对方所有增益净化掉：敌方全体增益清零。',
     act:{ type:'purge', desc:'净化敌方全体增益与护盾' } },
 
-  { id:'huanong', name:'华农兄弟', from:'网络梗 · 竹鼠', cat:'ctr', tier:'T1', power:40, emblem:'🐹',
+  { id:'huanong', name:'华农兄弟', from:'网络梗 · 竹鼠', cat:'ctr', tier:'T1', power:48, emblem:'🐹',
     tags:['网络梗','农','鼠'], lore:'竹鼠 中暑 漂亮 华农兄弟 养殖',
     mech:'这只竹鼠中暑了', mechText:'专治各种鼠：克制一切「鼠」类角色。',
     counter:{ tags:['鼠'], note:'竹鼠中暑了' } },
@@ -1939,17 +2292,17 @@ var CHARACTERS = [
     mech:'无用发明', mechText:'现场搓一个没用的东西给全队：全队随机 +12 到 +25 战力。',
     act:{ type:'randomBuff', desc:'全队随机 +12~25 战力' } },
 
-  { id:'tuituitui', name:'退退退', from:'网络梗 · 大妈', cat:'mech', tier:'T1', power:35, emblem:'🖐',
+  { id:'tuituitui', name:'退退退', from:'网络梗 · 大妈', cat:'mech', tier:'T1', power:43, emblem:'🖐',
     tags:['网络梗','驱邪'], lore:'退退退 大妈 驱邪 摆摊 手势',
     mech:'退退退', mechText:'一套手势把人退回去：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'指定一名敌人，用「退退退」把它劝退' } },
 
-  { id:'xuegao', name:'雪糕刺客', from:'网络梗 · 钟薛高', cat:'mech', tier:'T1', power:40, emblem:'🍦',
+  { id:'xuegao', name:'雪糕刺客', from:'网络梗 · 钟薛高', cat:'mech', tier:'T1', power:48, emblem:'🍦',
     tags:['网络梗','食','背刺'], lore:'雪糕刺客 钟薛高 价格 背刺 冰柜',
     mech:'结账背刺', mechText:'偷偷结账，一刀背刺：偷走目标 25 点战力加给自己。',
     act:{ type:'steal', value:25, desc:'偷取目标 25 点战力加给自己' } },
 
-  { id:'dongyuhui', name:'董宇辉', from:'网络梗 · 小作文', cat:'mech', tier:'T1', power:35, emblem:'📖',
+  { id:'dongyuhui', name:'董宇辉', from:'网络梗 · 小作文', cat:'mech', tier:'T1', power:43, emblem:'📖',
     tags:['网络梗','名人','文墨'], lore:'董宇辉 小作文 东方甄选 玉米 知识带货',
     mech:'知识小作文', mechText:'一段小作文把人讲破防：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'一段小作文让对方破防，本局无法行动' } },
@@ -1966,7 +2319,7 @@ var CHARACTERS = [
     mech:'高科技盒武器', mechText:'当众开盒：喊出对方的家长名字，有家长的当场破防社死；没家长的反而被全班嘲笑（自损战力）。',
     act:{ type:'doxx', desc:'开盒一名敌人：有家长的当场出局，没家长的自己被嘲笑' } },
 
-{ id:'qiyidazhuan', name:'奇异大专', from:'网络梗 · MJ校园', cat:'mech', tier:'T1', power:58, emblem:'📜',
+{ id:'qiyidazhuan', name:'奇异大专', from:'网络梗 · MJ校园', cat:'mech', tier:'T1', power:66, emblem:'📜',
     tags:['漫威','MJ校园','同学','法师'], lore:'奇异大专 学历降级 阿戈摩托之眼 一千四百万种补考 专升本 时间宝石',
     mech:'一千四百万种补考', mechText:'时间倒回去重考一次：免死一次；倒带把你俩一起拖进补考，目标本局无法行动。',
     passive:{ saveCount:1 }, act:{ type:'disable', desc:'拉对手一起补考，令其本局无法行动' } },
@@ -1976,7 +2329,7 @@ var CHARACTERS = [
     mech:'中年土味视频', mechText:'当着全班放一段自己的土味视频，全场脚趾抠地：敌方全体战力 -22。',
     act:{ type:'aoe', value:22, desc:'敌方全体战力 -22' } },
 
-  { id:'rocket', name:'小浣熊', from:'漫威 · 银河护卫队', cat:'num', tier:'T2', power:70, emblem:'🦝',
+  { id:'rocket', name:'小浣熊', from:'漫威 · 银河护卫队', cat:'num', tier:'T2', power:78, emblem:'🦝',
     tags:['漫威','枪械','机械'], parent:'小浣熊爸爸',
     lore:'火箭浣熊 高科技 盒武器 小浣熊 一枪一个',
     mech:'高科技盒武器', mechText:'扛着高科技设备开盒：喊出对方家长的名字，有家长的当场破防。',
@@ -2013,15 +2366,15 @@ var CHARACTERS = [
     mech:'振金盾牌', mechText:'举盾格挡：本局免疫一次机制克制。',
     passive:{ saveCount:1 } },
 
-{ id:'haozhiqiang', name:'浩志强', from:'网络梗 · MJ校园', cat:'sys', tier:'T2', power:25, emblem:'📋',
+{ id:'haozhiqiang', name:'浩志强', from:'网络梗 · MJ校园', cat:'sys', tier:'T2', power:33, emblem:'📋',
     tags:['网络梗','MJ校园','家长','成绩单'], lore:'成绩单 家长签字 浩志强',
     mech:'家长签字', mechText:'体系件：与钢卫国、美爱民同场触发「家长会」。' },
 
-  { id:'gangweiguo', name:'钢卫国', from:'网络梗 · MJ校园', cat:'sys', tier:'T2', power:25, emblem:'📋',
+  { id:'gangweiguo', name:'钢卫国', from:'网络梗 · MJ校园', cat:'sys', tier:'T2', power:33, emblem:'📋',
     tags:['网络梗','MJ校园','家长','成绩单'], lore:'成绩单 家长签字 钢卫国',
     mech:'家长签字', mechText:'体系件：与浩志强、美爱民同场触发「家长会」。' },
 
-  { id:'meiaimin', name:'美爱民', from:'网络梗 · MJ校园', cat:'sys', tier:'T2', power:25, emblem:'📋',
+  { id:'meiaimin', name:'美爱民', from:'网络梗 · MJ校园', cat:'sys', tier:'T2', power:33, emblem:'📋',
     tags:['网络梗','MJ校园','家长','成绩单'], lore:'成绩单 家长签字 美爱民',
     mech:'家长签字', mechText:'体系件：与浩志强、钢卫国同场触发「家长会」。' },
 
@@ -2044,12 +2397,12 @@ var CHARACTERS = [
     act:{ type:'barrier', desc:'全队获得一次免死' } },
 
   /* ==================== 宝可梦（御三家） ==================== */
-  { id:'miaowazhongzi', name:'妙蛙种子', from:'动漫 · 宝可梦', cat:'num', tier:'T2', power:60, emblem:'🌿',
+  { id:'miaowazhongzi', name:'妙蛙种子', from:'动漫 · 宝可梦', cat:'num', tier:'T2', power:68, emblem:'🌿',
     tags:['动漫','宝可梦','草'], lore:'妙蛙种子 藤鞭 草 种子 御三家',
     mech:'藤鞭', mechText:'草系压制水系：克制一切「水」属性。',
     counter:{ tags:['水'], note:'藤鞭' } },
 
-  { id:'jienigui', name:'杰尼龟', from:'动漫 · 宝可梦', cat:'num', tier:'T2', power:62, emblem:'💧',
+  { id:'jienigui', name:'杰尼龟', from:'动漫 · 宝可梦', cat:'num', tier:'T2', power:70, emblem:'💧',
     tags:['动漫','宝可梦','水'], lore:'杰尼龟 水枪 水 御三家 龟壳',
     mech:'水枪', mechText:'水系压制火系：克制一切「火」属性。',
     counter:{ tags:['火'], note:'水枪' } },
@@ -2093,7 +2446,7 @@ var CHARACTERS = [
     counter:{ tags:['奥特曼','光'], note:'光线吸收' } },
 
   /* ==================== 水浒（补环） ==================== */
-  { id:'gaoqiu', name:'高俅', from:'水浒 · 太尉', cat:'ctr', tier:'T1', power:55, emblem:'👺',
+  { id:'gaoqiu', name:'高俅', from:'水浒 · 太尉', cat:'ctr', tier:'T1', power:63, emblem:'👺',
     tags:['历史','水浒','奸臣','官'], lore:'高俅 太尉 白虎堂 陷害林冲 招安',
     mech:'白虎堂', mechText:'一套军法把人送进大牢：克制一切「将 / 教头」类角色。',
     counter:{ tags:['将','教头'], note:'白虎堂陷害' } },
@@ -2145,7 +2498,7 @@ var CHARACTERS = [
     mech:'及时雨', mechText:'一声哥哥，百人应：全队获得一次免死。',
     act:{ type:'barrier', desc:'全队获得一次免死' } },
 
-  { id:'shiqian', name:'时迁', from:'水浒 · 鼓上蚤', cat:'mech', tier:'T1', power:32, emblem:'🦶',
+  { id:'shiqian', name:'时迁', from:'水浒 · 鼓上蚤', cat:'mech', tier:'T1', power:40, emblem:'🦶',
     tags:['历史','水浒','盗'], lore:'鼓上蚤 时迁 偷甲 飞檐走壁 盗',
     mech:'鼓上蚤', mechText:'飞檐走壁顺走你的东西：偷走目标 25 点战力。',
     act:{ type:'steal', value:25, desc:'偷取目标 25 点战力' } },
@@ -2180,7 +2533,7 @@ var CHARACTERS = [
     mech:'天照', mechText:'黑炎不灭：克制「火」属性，且先手。',
     counter:{ tags:['火'], note:'天照黑炎' }, passive:{ firstStrike:true } },
 
-  { id:'kaguoxi', name:'卡卡西', from:'动漫 · 火影忍者', cat:'mech', tier:'T1', power:80, emblem:'👁',
+  { id:'kaguoxi', name:'卡卡西', from:'动漫 · 火影忍者', cat:'mech', tier:'T1', power:88, emblem:'👁',
     tags:['动漫','火影','忍者','写轮眼'], lore:'卡卡西 复制忍者 写轮眼 雷切 亲热天堂',
     mech:'复制忍者', mechText:'二选一：① 复制技能——搬走对方的主动机制，令其本局无法行动；② 复制战力——拿走对方一半战力再打。',
     act:{ type:'copy', desc:'复制对方的技能或战力' } },
@@ -2210,7 +2563,7 @@ var CHARACTERS = [
     mech:'泽斯提姆光线', mechText:'Z 字光线：对「怪兽」类必定克制。',
     counter:{ tags:['怪兽'], note:'Z光线' } },
 
-  { id:'maladouna', name:'马拉多纳', from:'现实 · 球王', cat:'mech', tier:'T1', power:80, emblem:'⚽',
+  { id:'maladouna', name:'马拉多纳', from:'现实 · 球王', cat:'mech', tier:'T1', power:88, emblem:'⚽',
     tags:['现实','名人','足球'], lore:'上帝之手 连过五人 马拉多纳 阿根廷 86世界杯',
     mech:'上帝之手', mechText:'手球也算进：偷走目标 20 点战力，且不会被反杀。',
     act:{ type:'steal', value:20, desc:'偷取目标 20 点战力' }, passive:{ noRiposte:true } },
@@ -2220,12 +2573,12 @@ var CHARACTERS = [
     mech:'跨栏', mechText:'一路跨过去：先手，且不会被反杀。',
     passive:{ firstStrike:true, noRiposte:true } },
 
-  { id:'shuanq', name:'栓Q哥', from:'网络梗 · 英语', cat:'mech', tier:'T1', power:30, emblem:'🗣',
+  { id:'shuanq', name:'栓Q哥', from:'网络梗 · 英语', cat:'mech', tier:'T1', power:38, emblem:'🗣',
     tags:['网络梗','名人'], lore:'栓Q 英文 谢谢 广西 老师',
     mech:'栓Q', mechText:'一段魔性英语灌进耳朵：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'用魔性英语让一名敌人本局无法行动' } },
 
-  { id:'xiaoyangge', name:'小杨哥', from:'网络梗 · 反向带货', cat:'mech', tier:'T1', power:45, emblem:'📢',
+  { id:'xiaoyangge', name:'小杨哥', from:'网络梗 · 反向带货', cat:'mech', tier:'T1', power:53, emblem:'📢',
     tags:['网络梗','名人','带货'], lore:'反向带货 兄弟们 小杨哥 破价 打下来',
     mech:'反向带货', mechText:'把对方的价格打下来：偷走目标 25 点战力。',
     act:{ type:'steal', value:25, desc:'偷取目标 25 点战力' } },
@@ -2273,18 +2626,18 @@ var CHARACTERS = [
     mech:'结硬寨打呆仗', mechText:'扎硬寨，挖深沟：免死两次。',
     passive:{ saveCount:2 } },
 
-  { id:'luxun', name:'鲁迅', from:'历史 · 民国', cat:'mech', tier:'T1', power:70, emblem:'✒',
+  { id:'luxun', name:'鲁迅', from:'历史 · 民国', cat:'mech', tier:'T1', power:78, emblem:'✒',
     tags:['历史','民国','文人','文墨'], lore:'鲁迅 横眉冷对千夫指 阿Q正传 呐喊 狂人日记',
     mech:'横眉冷对', mechText:'一支笔就是刀：指定一名敌人被骂到本局无法行动。',
     act:{ type:'disable', desc:'一支笔把人骂到本局无法行动' } },
 
-  { id:'linzexu', name:'林则徐', from:'历史 · 清', cat:'mech', tier:'T1', power:65, emblem:'🔥',
+  { id:'linzexu', name:'林则徐', from:'历史 · 清', cat:'mech', tier:'T1', power:73, emblem:'🔥',
     tags:['历史','清','官'], lore:'林则徐 虎门销烟 苟利国家生死以 开眼看世界',
     mech:'虎门销烟', mechText:'一把火烧干净：敌方所有增益与护盾全部销毁。',
     act:{ type:'purge', desc:'销毁敌方所有增益与护盾' } },
 
   /* ==================== 人民的名义 ==================== */
-  { id:'houliangping', name:'侯亮平', from:'影视 · 人民的名义', cat:'mech', tier:'T1', power:80, emblem:'🕵',
+  { id:'houliangping', name:'侯亮平', from:'影视 · 人民的名义', cat:'mech', tier:'T1', power:88, emblem:'🕵',
     tags:['影视','官场','反贪'], lore:'侯亮平 反贪局长 人民的名义 查案 一身正气',
     mech:'反贪调查', mechText:'查你，查到你就完了：指定一名敌人，其机制本局失效。',
     act:{ type:'disable', desc:'查实一名敌人的问题，令其本局无法行动' } },
@@ -2304,7 +2657,7 @@ var CHARACTERS = [
     mech:'死亡凝视', mechText:'一个眼神压得人不敢说话：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'一个眼神，让一名敌人本局无法行动' } },
 
-  { id:'zhaodehan', name:'赵德汉', from:'影视 · 人民的名义', cat:'num', tier:'T2', power:40, emblem:'💵',
+  { id:'zhaodehan', name:'赵德汉', from:'影视 · 人民的名义', cat:'num', tier:'T2', power:48, emblem:'💵',
     tags:['影视','官场','贪'], lore:'赵德汉 一面墙 小官巨贪 现金 两亿',
     mech:'一面墙', mechText:'一墙的钱，砸也能砸出一条命：免死一次。',
     passive:{ saveCount:1 } },
@@ -2342,7 +2695,7 @@ var CHARACTERS = [
     mech:'制衡', mechText:'让底下人互相咬：挑动两名敌人自相残杀，败者出局。',
     act:{ type:'duel', desc:'挑动两名敌人互殴，败者出局' }, passive:{ saveCount:1 } },
 
-  { id:'hairui', name:'海瑞', from:'影视 · 大明王朝1566', cat:'mech', tier:'T1', power:60, emblem:'⚰',
+  { id:'hairui', name:'海瑞', from:'影视 · 大明王朝1566', cat:'mech', tier:'T1', power:68, emblem:'⚰',
     tags:['影视','大明','清官','官场'], lore:'海瑞 抬棺上疏 天下第一疏 刚峰 海青天 骂皇帝',
     mech:'抬棺死谏', mechText:'棺材都抬来了，就没打算活着回去：与一名敌人同归于尽。',
     act:{ type:'suicide', together:true, desc:'与一名敌人同归于尽' } },
@@ -2352,7 +2705,7 @@ var CHARACTERS = [
     mech:'把持朝纲', mechText:'一道票拟压下去，你连话都说不出：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'把持朝纲，令一名敌人本局无法行动' } },
 
-  { id:'yanshifan', name:'严世蕃', from:'影视 · 大明王朝1566', cat:'mech', tier:'T1', power:70, emblem:'🧠',
+  { id:'yanshifan', name:'严世蕃', from:'影视 · 大明王朝1566', cat:'mech', tier:'T1', power:78, emblem:'🧠',
     tags:['影视','大明','权臣','鬼才'], lore:'严世蕃 小阁老 鬼才 一目十行 改稻为桑',
     mech:'鬼才', mechText:'脑子转得比谁都快：立刻获得一次额外行动。',
     act:{ type:'extra', desc:'立刻获得一次额外行动' } },
@@ -2372,7 +2725,7 @@ var CHARACTERS = [
     mech:'装疯', mechText:'你说什么我都听不懂：免死两次。',
     passive:{ saveCount:2 } },
 
-  { id:'shenyishi', name:'沈一石', from:'影视 · 大明王朝1566', cat:'mech', tier:'T1', power:45, emblem:'🧾',
+  { id:'shenyishi', name:'沈一石', from:'影视 · 大明王朝1566', cat:'mech', tier:'T1', power:53, emblem:'🧾',
     tags:['影视','大明','商人'], lore:'沈一石 火烧账册 江南首富 织造局 一把火烧了',
     mech:'火烧账册', mechText:'把账本一点，大家一起完：自爆出局，敌方全体战力 -30。',
     act:{ type:'suicideAoe', value:30, desc:'自爆出局，敌方全体战力 -30' } },
@@ -2436,7 +2789,7 @@ var CHARACTERS = [
     mech:'独立自主', mechText:'不听任何人的指挥：免死一次，且先手。',
     passive:{ saveCount:1, firstStrike:true } },
 
-  { id:'kennidi', name:'肯尼迪', from:'历史 · 冷战', cat:'mech', tier:'T1', power:77, emblem:'🚀',
+  { id:'kennidi', name:'肯尼迪', from:'历史 · 冷战', cat:'mech', tier:'T1', power:85, emblem:'🚀',
     tags:['历史','冷战','政治'], lore:'肯尼迪 古巴导弹危机 登月演讲 新边疆 遇刺',
     mech:'古巴导弹危机', mechText:'十三天对峙，把人逼回谈判桌：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'极限施压，令一名敌人本局无法行动' } },
@@ -2548,7 +2901,7 @@ var CHARACTERS = [
     mech:'解放者', mechText:'专门掀翻殖民者：克制一切「殖民 / 帝国」类角色。',
     counter:{ tags:['殖民','帝国'], note:'解放者' } },
 
-  { id:'sugeladi', name:'苏格拉底', from:'历史 · 古希腊', cat:'mech', tier:'T1', power:45, emblem:'🏛',
+  { id:'sugeladi', name:'苏格拉底', from:'历史 · 古希腊', cat:'mech', tier:'T1', power:53, emblem:'🏛',
     tags:['历史','希腊','哲学'], lore:'苏格拉底 灵魂三问 认识你自己 毒酒 我唯一知道的是我一无所知',
     mech:'灵魂三问', mechText:'连问三个为什么，把人问崩溃：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'三问下来，令一名敌人本局无法行动' } },
@@ -2558,14 +2911,14 @@ var CHARACTERS = [
     mech:'洞穴寓言', mechText:'让他只看墙上的影子：指定一名敌人本局只能攻击柏拉图。',
     act:{ type:'taunt', desc:'让一名敌人只能追着影子打' } },
 
-  { id:'yalishiduode', name:'亚里士多德', from:'历史 · 古希腊', cat:'mech', tier:'T1', power:55, emblem:'📐',
+  { id:'yalishiduode', name:'亚里士多德', from:'历史 · 古希腊', cat:'mech', tier:'T1', power:63, emblem:'📐',
     tags:['历史','希腊','哲学'], lore:'亚里士多德 三段论 逻辑学 中庸之道 逍遥学派',
     mech:'三段论', mechText:'大前提、小前提、结论——你的增益不成立：销毁敌方全部增益与护盾。',
     act:{ type:'purge', desc:'逻辑拆解，销毁敌方全部增益' } },
 
 
   /* ==================== 科学家 / 文学家 ==================== */
-  { id:'aiyinsitan', name:'爱因斯坦', from:'历史 · 现代物理', cat:'mech', tier:'T1', power:60, emblem:'🧪',
+  { id:'aiyinsitan', name:'爱因斯坦', from:'历史 · 现代物理', cat:'mech', tier:'T1', power:68, emblem:'🧪',
     tags:['历史','科学','物理'], lore:'爱因斯坦 相对论 质能方程 光速 普林斯顿 吐舌头',
     mech:'相对论', mechText:'时间在你身上变慢：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'时间膨胀，令一名敌人本局无法行动' } },
@@ -2595,7 +2948,7 @@ var CHARACTERS = [
     mech:'适者生存', mechText:'熬到最后的就是赢家：免死一次，数值对撞 +8。',
     passive:{ saveCount:1, flat:8 } },
 
-  { id:'turing', name:'图灵', from:'历史 · 计算机', cat:'mech', tier:'T1', power:50, emblem:'🔐',
+  { id:'turing', name:'图灵', from:'历史 · 计算机', cat:'mech', tier:'T1', power:58, emblem:'🔐',
     tags:['历史','科学','数学'], lore:'图灵 图灵机 破译恩尼格玛 计算机之父 图灵测试',
     mech:'破译', mechText:'再复杂的密码也能拆开：指定一名敌人，其机制被识破、本局失效。',
     act:{ type:'disable', desc:'破译一名敌人的机制，令其本局失效' } },
@@ -2632,22 +2985,22 @@ var CHARACTERS = [
     mech:'抓早恋', mechText:'你俩跟我来一趟办公室：挑动两名敌人互殴，败者出局。',
     act:{ type:'duel', desc:'把两名敌人叫进办公室，败者出局' } },
 
-  { id:'banzhuren', name:'班主任', from:'网络梗 · MJ校园', cat:'mech', mech:'叫家长', tier:'T2', power:40, emblem:'☎',
+  { id:'banzhuren', name:'班主任', from:'网络梗 · MJ校园', cat:'mech', mech:'叫家长', tier:'T2', power:48, emblem:'☎',
     tags:['网络梗','MJ校园','教师'], lore:'班主任 叫家长 办公室 家长签字 你们家孩子',
     mechText:'一个电话把你爸叫来：点名一名敌人，有家长的直接出局。',
     act:{ type:'doxx', desc:'叫家长，有 parent 的敌人当场出局' } },
 
-  { id:'xiaozhang', name:'校长', from:'网络梗 · MJ校园', cat:'mech', tier:'T2', power:45, emblem:'🎓',
+  { id:'xiaozhang', name:'校长', from:'网络梗 · MJ校园', cat:'mech', tier:'T2', power:53, emblem:'🎓',
     tags:['网络梗','MJ校园','教师'], lore:'校长 记大过 升旗仪式 全校通报 处分',
     mech:'记大过', mechText:'升旗台上念名字，社死当场：目标战力 -20。',
     act:{ type:'chop', value:20, desc:'目标战力 -20' } },
 
-  { id:'menwei', name:'门卫大爷', from:'网络梗 · MJ校园', cat:'mech', tier:'T2', power:35, emblem:'🚧',
+  { id:'menwei', name:'门卫大爷', from:'网络梗 · MJ校园', cat:'mech', tier:'T2', power:43, emblem:'🚧',
     tags:['网络梗','MJ校园','教师'], lore:'门卫大爷 查门禁 校牌 迟到了登记 不让进',
     mech:'查门禁', mechText:'没校牌就是不让进：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'拦在门外，令一名敌人本局无法行动' } },
 
-  { id:'suguan', name:'宿管阿姨', from:'网络梗 · MJ校园', cat:'mech', tier:'T2', power:33, emblem:'🔌',
+  { id:'suguan', name:'宿管阿姨', from:'网络梗 · MJ校园', cat:'mech', tier:'T2', power:41, emblem:'🔌',
     tags:['网络梗','MJ校园','教师'], lore:'宿管阿姨 查寝 没收热得快 电饭锅 熄灯',
     mech:'查寝', mechText:'柜子一开全没收：清空敌方全部增益。',
     act:{ type:'purge', desc:'没收敌方全部增益' } },
@@ -2663,12 +3016,12 @@ var CHARACTERS = [
     mech:'你说的都对，但是', mechText:'什么机制在他这儿都不好使：一切机制克制对他无效。',
     passive:{ nullify:true } },
 
-  { id:'jiafang', name:'甲方', from:'网络梗 · 互联网', cat:'mech', tier:'T1', power:52, emblem:'📄',
+  { id:'jiafang', name:'甲方', from:'网络梗 · 互联网', cat:'mech', tier:'T1', power:60, emblem:'📄',
     tags:['网络梗','互联网','老板'], lore:'甲方 这个不行 重做 我要的是五彩斑斓的黑 需求变更',
     mech:'这个不行，重做', mechText:'一句重做，前面全白干：双方所有体系效果一并作废。',
     act:{ type:'breakAll', desc:'一句话推翻全部方案，双方体系作废' } },
 
-  { id:'jizhe', name:'记者', from:'网络梗 · 互联网', cat:'mech', tier:'T1', power:50, emblem:'🎤',
+  { id:'jizhe', name:'记者', from:'网络梗 · 互联网', cat:'mech', tier:'T1', power:58, emblem:'🎤',
     tags:['网络梗','互联网','媒体'], lore:'记者 曝光 话筒怼脸 热搜 采访',
     mech:'曝光', mechText:'话筒一怼，你就上热搜了：指定一名敌人本局无法行动。',
     act:{ type:'disable', desc:'曝光一名敌人，令其本局无法行动' } },
@@ -2694,12 +3047,12 @@ var CHARACTERS = [
     mech:'封狼居胥', mechText:'八百骑深入两千公里，封山而还：敌方全体战力 -20。',
     act:{ type:'aoe', value:20, desc:'敌方全体战力 -20' } },
 
-  { id:'yegong', name:'叶公', from:'寓言 · 叶公好龙', cat:'mech', tier:'T2', power:38, emblem:'🐉',
+  { id:'yegong', name:'叶公', from:'寓言 · 叶公好龙', cat:'mech', tier:'T2', power:46, emblem:'🐉',
     tags:['寓言','成语','平民'], lore:'叶公好龙 钩以写龙 凿以写龙 真龙来了就跑',
     mech:'叶公好龙', mechText:'嘴上说最喜欢你：把敌人的攻击全引到自己身上，然后溜掉。',
     act:{ type:'taunt', desc:'让一名敌人本局只追着叶公打' } },
 
-  { id:'nanguo', name:'南郭先生', from:'寓言 · 滥竽充数', cat:'sys', tier:'T2', power:32, emblem:'🎺',
+  { id:'nanguo', name:'南郭先生', from:'寓言 · 滥竽充数', cat:'sys', tier:'T2', power:40, emblem:'🎺',
     tags:['寓言','成语','平民'], lore:'南郭先生 滥竽充数 三百人一起吹 齐湣王 逃',
     mech:'滥竽充数', mechText:'混在三百人的乐队里谁也看不出来：全队获得一次免死。',
     act:{ type:'barrier', desc:'混进队伍，全队获得一次免死' } },
@@ -2812,9 +3165,9 @@ var COMBOS = [
     desc:'大娃 + 二娃 + 三娃 + 六娃 + 七娃：七兄弟凑齐五个，全队 +25，每人免死一次。',
     effects:{ teamPower:25, teamShield:1 } },
 
-  { id:'sanzhier', name:'两极格局', members:['pudadi','chuangjianguo'], tag:'双人',
-    desc:'普大帝 + 川建国：世界就剩这两极，一个东一个西，同队时全队 +20。',
-    effects:{ teamPower:20 } },
+  { id:'sanzhier', name:'两极格局', members:['pudadi','chuangjianguo','hexiansheng'], need:2, tag:'三选二',
+    desc:'普大帝 / 川建国 / X兔子 任两人同队：世界就剩这两极，全队 +20。（三人凑齐时让位给「三分天下」）',
+    exclusiveWith:['sanfentianxia'], effects:{ teamPower:20 } },
 
   { id:'hongguan', name:'宏观调控', members:['keynes','volcker'], tag:'双人',
     desc:'凯恩斯 + 沃尔克：一个放水一个抽水，两只手都在政府手里，双方 +24。',
@@ -2828,8 +3181,48 @@ var COMBOS = [
     desc:'管仲 + 桑弘羊：盐和铁归国家卖，千年不换的财政术，双方 +22。',
     effects:{ pairPower:22 } },
 
+  { id:'fanpai', name:'反派联盟', members:['daguba','yingyue','evol'], tag:'三人',
+    desc:'达古巴 + 影月 + Evol：三个最终 Boss 同台，全队 +26，每人免死一次。',
+    effects:{ teamPower:26, teamShield:1 } },
+
+  { id:'valo', name:'无畏契约', members:['vjett','vsage','vphoenix','vreyna','vcypher','vkilljoy'], need:3, tag:'六选三',
+    desc:'捷风 / 贤者 / 不死鸟 / 雷娜 / 零 / 奇乐：特工凑够 3 个就成型，全队 +20、每人免死一次。',
+    effects:{ teamPower:20, teamShield:1 } },
+
+  { id:'guanjunS', name:'冠军赛冠军', members:['tenz','zmjjkk','aspas'], need:2, tag:'三选二',
+    desc:'TenZ + ZmjjKK + aspas：三位冠军赛 MVP，凑够两个就成型，双方 +24。',
+    effects:{ pairPower:24 } },
+
+  { id:'wuguan', name:'无冠兄弟', members:['kane','niko'], tag:'双人',
+    desc:'凯恩 + NiKo：一个十六年才拿到第一个冠军，一个十年顶级至今没有 Major——没冠军的人凑一起，双方 +24。',
+    effects:{ pairPower:24 } },
+
+  { id:'tyloo', name:'天禄', members:['danking','qiezi'], tag:'双人',
+    desc:'DANK1NG + 茄子：一前一后两代天禄狙击手，双方 +22。',
+    effects:{ pairPower:22 } },
+
+  { id:'vitality', name:'Vitality 王朝', members:['zywoo','ropz','mezii','apex'], need:3, tag:'四选三',
+    desc:'ZywOo + ropz + mezii + apEX：2025 年度最佳战队，凑够 3 个就成型，全队 +24、每人免死一次。',
+    effects:{ teamPower:24, teamShield:1 } },
+
+  { id:'top1zheng', name:'TOP1 之争', members:['s1mple','zywoo'], tag:'双人',
+    desc:'s1mple + ZywOo：两个三届 HLTV 年度第一，谁才是世界第一，双方 +24。',
+    effects:{ pairPower:24 } },
+
+  { id:'guanjunzhizheng', name:'冠军之争', members:['hamilton','verstappen'], tag:'双人',
+    desc:'汉密尔顿 + 维斯塔潘：同分进收官战，最后一圈分出胜负，双方 +22。',
+    effects:{ pairPower:22 } },
+
+  { id:'shatou', name:'莎头组合', members:['wangchuqin','sunyingsha'], tag:'双人',
+    desc:'王楚钦 + 孙颖莎：国乒第一枚奥运混双金牌的搭档，双方 +24。',
+    effects:{ pairPower:24 } },
+
+  { id:'heisei', name:'平成骑士', members:['kuuga','agito','ryuki','faiz','blade','hibiki','kabuto','deno','kiva','decade','double','ooo','fourze','wizard','gaim','drive','ghost','exaid','build','zio'], need:5, tag:'二十选五',
+    desc:'平成二十位主骑，凑够 5 个就成型：全队 +22，每人免死一次。',
+    effects:{ teamPower:22, teamShield:1 } },
+
   { id:'sanfentianxia', name:'三分天下', members:['pudadi','chuangjianguo','hexiansheng'], tag:'三人',
-    desc:'普大帝 + 川建国 + 和先生：三家坐下来分世界，全队 +25，每人免死一次。',
+    desc:'普大帝 + 川建国 + X兔子：三家坐下来分世界，全队 +25，每人免死一次。触发时「两极格局」让位。',
     effects:{ teamPower:25, teamShield:1 } },
 
   { id:'mengyou', name:'盟友', members:['pudadi','hexiansheng'], tag:'双人',
@@ -2968,6 +3361,8 @@ var IP_CYCLES = [
     why:'罗翔一条故意伤害罪把泰森送进去 → 泰森一拳 KO，跑得再快也没用 → 博尔特跑得比传票快' },
   { ip:'哪吒', chain:['aobing','nezha','shiji'],
     why:'敖丙引海水淹陈塘关逼死哪吒 → 哪吒重生后打上骷髅山 → 石矶背后有截教撑腰，龙王也得让她三分' },
+  { ip:'假面骑士', chain:['decade','kuuga','daguba'],
+    why:'Decade 能抽出任何骑士的卡，空我也挡不住 → 空我最终用究极形态把达古巴封死 → 达古巴是空我的宿敌，反过来压得住世界的破坏者' },
   { ip:'华尔街', chain:['morgan','livermore','johnlaw'],
     why:'摩根一个人组织救市，把做空的按回去 → 利弗莫尔专等崩盘那一刻做空，泡沫都得破 → 约翰·劳印钞，把老银行家的规矩整个冲垮' },
   { ip:'葫芦兄弟', chain:['xiezijing','yeye','shejing'],
@@ -3177,6 +3572,65 @@ var BIOS = {
   huxueyan: '（1823—1885）晚清红顶商人。开阜康钱庄，因生丝生意失利引发挤兑而破产。',
   hexiansheng: '第三极里的 X兔子，代号而已。不结盟、不站队，闷头搞自己的事；谁把它拖进对抗，双方一起挨。不属于任何现实国家或个人。',
   mozishou: '《墨子·公输》记载：墨子走十日十夜到楚都，与公输盘九次演练攻守，把攻宋的事拦了下来。',
+  kamen1: '《假面骑士》1971 年第一号骑士，本乡猛，被修卡改造成蝗虫怪人后逃出。',
+  kuuga: '《假面骑士空我》主角五代雄介，能超变身成多种形态，最终以究极形态击败达古巴。',
+  daguba: '《假面骑士空我》最终 Boss，古朗基之王，与空我同为「究极之暗」。',
+  decade: '《假面骑士Decade》主角门矢士，「世界的破坏者」，能用所有骑士的卡片。',
+  deno: '《假面骑士电王》主角野上良太郎，与异魔神桃塔罗斯等合体，驾驶时之列车。',
+  double: '《假面骑士W》左翔太郎与菲利普二人一体变身，疾风王牌形态。',
+  ooo: '《假面骑士OOO》主角火野映司，靠三枚硬币组合变身。',
+  build: '《假面骑士Build》主角桐生战兔，天才物理学家，用「最佳搭配」变身。',
+  zeroone: '《假面骑士Zero-One》主角飞电或人，飞电智能社长。',
+  blackrx: '《假面骑士Black RX》主角南光太郎，世纪王，太阳之子。',
+  yingyue: '《假面骑士Black》中的影月，秋月信彦，与黑日同源的世纪王。',
+  ryuki: '《假面骑士龙骑》主角城户真司，在镜世界里靠卡片战斗。',
+  agito: '《假面骑士亚极陀》主角津上翔一，能不断进化的未知生命体。',
+  kabuto: '《假面骑士甲斗》主角天道总司，口头禅「奶奶说过」，能超加速。',
+  faiz: '《假面骑士555》主角乾巧，奥菲以诺，靠手机变身，背后有喷射器。',
+  zio: '《假面骑士时王》主角常磐庄吾，能借用历代平成骑士的力量。',
+  evol: '《假面骑士Build》最终 Boss，Evolto，黑洞形态，毁灭过多个星球。',
+  danranbo: '《假面骑士Ex-Aid》反派，檀黎斗，自称「神之才能」的天才游戏制作人。',
+  odin: '《假面骑士龙骑》最终反派，能停止时间，镜世界最强骑士。',
+  xiuka: '《假面骑士》中的邪恶组织修卡，把本乡猛改造成假面骑士1号。',
+  blade: '《假面骑士Blade》主角剑崎一真，靠扑克牌封印不死者。',
+  hibiki: '《假面骑士响鬼》主角响鬼，以音击作战的「鬼」。',
+  kiva: '《假面骑士Kiva》主角红渡，小提琴手，父亲是 1986 年的牙。',
+  fourze: '《假面骑士Fourze》主角如月弦太朗，用天文开关变身，口头禅是「来交朋友吧」。',
+  wizard: '《假面骑士Wizard》主角操真晴人，靠戒指施法的魔法师。',
+  gaim: '《假面骑士Gaim》主角葛叶纮汰，用水果锁种变身。',
+  drive: '《假面骑士Drive》主角泊进之介，警视厅特状课，和腰带先生搭档。',
+  ghost: '《假面骑士Ghost》主角天空寺尊，靠英雄之魂变身，死过又回来。',
+  exaid: '《假面骑士Ex-Aid》主角宝生永梦，天才儿科医生，用游戏卡带变身。',
+  fanquannv: '饭圈女孩。控评、拉踩、开麦、举报一条龙，偶像打比赛她比教练还急。',
+  tenz: '（2001— ）加拿大 Valorant 选手，Sentinels。2021 年雷克雅未克 Masters 随队 3:0 夺冠、全程一图未失，拿下赛事 MVP。',
+  zmjjkk: '中国 Valorant 选手，本名郑永康，ID 取自哥哥的游戏 ID「ZmJJ」加自己的「KK」。2024 年随 EDG 以 3:2 击败 TH，为中国赛区拿下首座全球冠军赛冠军；本人获总决赛 MVP，一个 BO5 轰出 111 次击杀创纪录。夺冠后他对着麦克风用重庆话喊「我从 A 杀到 Z」。2026 年 VCT CN 启点赛群访里他说：「对我来说，狙击枪我起了，对面就要输，就这么简单。」',
+  aspas: '（2003— ）巴西 Valorant 选手。2022 年随 LOUD 夺得全球冠军赛冠军并获赛事 MVP；是首位达成生涯 3000 击杀的选手。',
+  kane: '（1993— ）英格兰足球运动员，英格兰队史射手王。2023 年加盟拜仁慕尼黑，2024-25 赛季随队夺德甲冠军，这是他职业生涯第一个重要团队冠军——此前踢了 694 场职业比赛、输掉六次决赛。',
+  niko: '（1997— ）波黑 CS 选手，本名 Nikola Kovač。2025 年第十次连续入选 HLTV 年度 TOP20（第 18 名），创下该榜单连续入选纪录；2023 年曾排名年度第二，但至今没有拿过 Major 冠军。',
+  gaben: '（1962— ）美国人，Valve（维尔福）联合创始人兼总裁，Steam 平台的缔造者。因《半条命》《传送门》《求生之路》都没有第三代续作，玩家调侃他「不会数 3」，他本人也在 DOTA 2 语音包里自嘲过。',
+  pasha: '（1988— ）波兰 CS 选手，Virtus.pro 黄金五人组的明星，以「My friend」的口头禅和高人气著称。',
+  kennys: '（1995— ）法国 CS 选手，AWP 狙击手。2015 年获游戏大奖年度电竞玩家；因他的进攻式狙击太强，Valve 在 2015 年 3 月大幅削弱了 AWP 的开镜移动速度。',
+  qiezi: '（1991— ）中国 CS 选手，本名吴权清，广东茂名，曾效力天禄（TYLOO）担任狙击手与指挥。2016 年 IEM 台北站因早年使用过的账号有 VAC 封禁记录而被取消参赛资格，此后退役转型主播，直播中的口头禅「WDNMD」「闸总」「白给」成为流行梗。',
+  danking: '（1999— ）中国 CS:GO 选手，本名吕郑豪，河北石家庄。2019 年加入 TYLOO 担任狙击手，随队拿下 ESL ONE 科隆亚洲区、EPL S12 亚洲区、PAL 亚洲区夏季赛等冠军，2021 年 IEM 秋季赛亚洲区冠军。现为游戏主播。',
+  donk: '（2007— ）俄罗斯 CS 选手，Team Spirit。2024 年上海 Major 以 17 岁 11 个月成为史上最年轻 Major MVP，同年首登 HLTV 年度第一；2025 年排名第二并获年度最佳破局者。',
+  ropz: '（1999— ）爱沙尼亚 CS 选手，Vitality。2025 年 HLTV 年度第三、年度最佳收割者。',
+  monesy: '（2005— ）俄罗斯 CS 选手，Team Falcons。2025 年 HLTV 年度第四。',
+  sh1ro: '俄罗斯 CS 选手，Team Spirit。2025 年 HLTV 年度第五。',
+  molodoy: '哈萨克斯坦 CS 选手。2025 年度最佳新秀、HLTV 年度第六。',
+  mezii: '英国 CS 选手，Vitality。2025 年度最佳主区防守者。',
+  apex: '（1993— ）法国 CS 选手，Vitality 指挥。2025 年度最佳指挥。',
+  s1mple: '（1997— ）乌克兰 CS 选手。2021 年随 NAVI 夺得 PGL 斯德哥尔摩 Major 冠军并获 MVP，2018、2021、2022 三次当选 HLTV 年度第一。',
+  zywoo: '（2000— ）法国 CS 选手，Team Vitality。2019、2020、2023、2025 四度当选 HLTV 年度第一，是 CS 历史上第一位四冠选手。',
+  coldzera: '（1994— ）巴西 CS 选手。2016 年 MLG 哥伦布 Major 在 Mirage 打出跳狙四杀，该位置后来被官方做成涂鸦。',
+  olofmeister: '（1992— ）瑞典 CS 选手，Fnatic 时期两夺 Major。2014 年 DreamHack 冬季赛在 Overpass 架人拿到极佳视野，被判违例后地图重赛。',
+  dupreeh: '（1993— ）丹麦 CS 选手，CS:GO 历史上唯一参加全部 19 届 Major 的人，并五夺 Major 冠军。',
+  schumacher: '（1969— ）德国 F1 车手，7 届世界冠军，2000—2004 年随法拉利五连冠。',
+  senna: '（1960—1994）巴西 F1 车手，三届世界冠军，以雨战能力著称，1994 年圣马力诺大奖赛事故中去世。',
+  hamilton: '（1985— ）英国 F1 车手，7 届世界冠军，2020 年土耳其站提前锁定第七冠。',
+  verstappen: '（1997— ）荷兰 F1 车手，2021 年阿布扎比收官战最后一圈超越汉密尔顿，首夺世界冠军。',
+  raikkonen: '（1979— ）芬兰 F1 车手，2007 年世界冠军，2012 年阿布扎比站留下名言「Leave me alone, I know what I\'m doing」。',
+  wangchuqin: '（2000— ）中国乒乓球运动员，左手横板。2024 巴黎奥运会与孙颖莎夺得混双金牌，这是国乒首枚奥运混双金牌；同届男单 32 强不敌莫雷加德。',
+  sunyingsha: '（2000— ）中国乒乓球运动员。2024 巴黎奥运会混双金牌、女团金牌。',
   messi: '（1987— ）阿根廷足球运动员。八次金球奖得主，2022年率队夺得世界杯；那届阿根廷 7 场获判 5 个点球，创单届世界杯纪录。',
   cr7: '（1985— ）葡萄牙足球运动员。五座金球奖，欧洲赛场与国家队历史射手王。',
   jordan: '（1963— ）美国篮球运动员。六次NBA总冠军，「最后一投」成为经典。',
@@ -3213,6 +3667,8 @@ var BIOS = {
 
 var CHAR_MAP = {};
 for (var _i = 0; _i < CHARACTERS.length; _i++) CHAR_MAP[CHARACTERS[_i].id] = CHARACTERS[_i];
+// 隐藏终局卡单独登记：能按 id 查到，但不进 BP 池、不进图鉴
+if (typeof OHMA_DEF !== 'undefined' && OHMA_DEF) CHAR_MAP[OHMA_DEF.id] = OHMA_DEF;
 
 (function applyCycles() {
   IP_CYCLES.forEach(function (cy) {
@@ -3243,6 +3699,49 @@ if (typeof globalThis !== 'undefined') {
   globalThis.loreCorpus = loreCorpus;
   globalThis.BIOS = BIOS;
 }
+
+
+/* ===== 隐藏终局卡：只在「时王献祭四位平成骑士」时登场，不进 BP 池 ===== */
+var OHMA_DEF = {
+  id:'ohma', name:'逢魔时王', from:'特摄 · 假面骑士时王', cat:'mech', tier:'T0', power:150, emblem:'👑',
+  tags:['特摄','假面骑士','最终形态','平成','魔王'],
+  lore:'逢魔时王 Ohma Zi-O 逢魔之日 所有骑士的历史 时空王者 魔王',
+  mech:'逢魔时王',
+  mechText:'平成所有骑士的力量都在他一个人身上：免疫一切机制克制、先手且不会被反杀；主动抹掉一名敌人，每出手一次自身流失 30 战力。第一次被击倒不会出局，而是变回普通【时王】。',
+  passive:{ nullify:true, firstStrike:true, noRiposte:true },
+  burn:30,
+  counter:{ tags:['假面骑士'], note:'你们的历史都在我身上' },
+  act:{ type:'delete', desc:'逢魔之力：直接抹掉一名敌人' }
+};
+if (typeof CHAR_MAP !== 'undefined' && CHAR_MAP) CHAR_MAP[OHMA_DEF.id] = OHMA_DEF;
+/* ===== 隐藏终局卡 2：金刚葫芦娃（七兄弟合体） ===== */
+var HULU_JINGANG_DEF = {
+  id:'hulujingang', name:'金刚葫芦娃', from:'动画 · 葫芦兄弟', cat:'num', tier:'T0', power:130, emblem:'💠',
+  tags:['动画','葫芦兄弟','最终形态','合体'],
+  lore:'金刚葫芦娃 七心合一 七娃合体 葫芦小金刚 力大无穷 铜头铁臂',
+  mech:'七心合一',
+  mechText:'七个葫芦娃合成一个：免疫一切机制克制、免死一次；主动一扫敌方全体 -40，但每出手一次自身流失 20（七个心撑着一个人）。',
+  passive:{ nullify:true, saveCount:1 },
+  burn:20,
+  act:{ type:'aoe', value:40, desc:'七心合一：敌方全体战力 -40（自身 -20）' }
+};
+
+/* ===== 隐藏终局卡 3：悟吉塔（悟空 + 贝吉塔 融合） ===== */
+var WUJITA_DEF = {
+  id:'wujita', name:'悟吉塔', from:'动漫 · 龙珠', cat:'num', tier:'T0', power:135, emblem:'💫',
+  tags:['动漫','龙珠','最终形态','合体'],
+  lore:'悟吉塔 融合舞 悟空 贝吉塔 超级赛亚人 三十分钟',
+  mech:'融合舞',
+  mechText:'悟空和贝吉塔跳融合舞合成的战士：免疫一切机制克制、先手；主动一击 -35，但每次出手自身流失 20（融合只有三十分钟）。',
+  passive:{ nullify:true, firstStrike:true },
+  burn:20,
+  act:{ type:'chop', value:35, desc:'灵魂冲击：目标战力 -35' }
+};
+if (typeof CHAR_MAP !== 'undefined' && CHAR_MAP) {
+  CHAR_MAP[HULU_JINGANG_DEF.id] = HULU_JINGANG_DEF;
+  CHAR_MAP[WUJITA_DEF.id] = WUJITA_DEF;
+}
+
 
 </script>
 <script>
@@ -3279,6 +3778,27 @@ var BP = (function () {
     if (!ch) return {};
     if (isMuted(b, ch)) return {};
     return ch.def.passive || {};
+  }
+
+  // 控制类技能（封杀 / 群体封印 / 摧毁机制）是否会被目标挡下
+  // 返回 null = 可以控制；返回字符串 = 被挡下的原因
+  function mechBlocked(b, a, t) {
+    if (!a || !t) return null;
+    var p = effPassive(b, t);
+    if (p.nullify) return t.name + ' 免疫机制克制';
+    var cd = t.def.counter;
+    if (cd) {
+      if (cd.ids && cd.ids.indexOf(a.def.id) >= 0)
+        return t.name + ' 反制 ' + a.name + '（' + (cd.note || '克制') + '）';
+      if (cd.tags) {
+        var at = a.def.tags || [];
+        for (var i = 0; i < cd.tags.length; i++) {
+          if (at.indexOf(cd.tags[i]) >= 0)
+            return t.name + ' 反制 ' + a.name + '（' + (cd.note || '克制') + '）';
+        }
+      }
+    }
+    return null;
   }
 
   function pickOne(arr) { return arr[rndInt(arr.length)]; }
@@ -3447,7 +3967,16 @@ var BP = (function () {
       var ids = s.chars.map(function (c) { return c.def.id; });
       s.combos = COMBOS.filter(function (c) {
         if (s.broken.indexOf(c.id) >= 0) return false;
-        return c.members.every(function (m) { return ids.indexOf(m) >= 0; });
+        // need = 凑够几个就算成型（默认要全员）
+        var need = c.need || c.members.length;
+        var have = c.members.filter(function (m) { return ids.indexOf(m) >= 0; }).length;
+        return have >= need;
+      });
+      // 互斥：被高优先级体系压住的，不再生效
+      var active = s.combos.map(function (c) { return c.id; });
+      s.combos = s.combos.filter(function (c) {
+        if (!c.exclusiveWith) return true;
+        return !c.exclusiveWith.some(function (id) { return active.indexOf(id) >= 0; });
       });
     });
   }
@@ -3553,9 +4082,29 @@ var BP = (function () {
   /* ------------------------------------------------------------
    *  死亡 / 复活
    * ---------------------------------------------------------- */
+  // 逢魔时王被击倒 → 时空归位，变回普通时王（这一次顶掉免死）
+  function revertOhma(b, ch) {
+    var zioDef = CHAR_MAP['zio'];
+    if (!zioDef || ch.def.id !== 'ohma') return false;
+    ch.def = zioDef;
+    ch.name = zioDef.name;
+    ch.emblem = zioDef.emblem;
+    ch.buff = 0;
+    ch.acted = true;
+    ch.disabled = false;
+    ch.reverted = true;
+    ch.reflectCount = (zioDef.passive && zioDef.passive.reflect) || 0;
+    log(b, 'mech', '👑 逢魔时王被击倒——时空归位，力量散尽，变回普通【时王】。');
+    recomputeCombos(b);
+    recomputeAll(b);
+    return true;
+  }
+
   function killChar(b, ch, opts) {
     opts = opts || {};
     if (!ch.alive) return false;
+    // 逢魔先「退位」再死：第一次被击倒只是变回时王
+    if (ch.def.id === 'ohma' && !ch.reverted && !opts.absolute) { revertOhma(b, ch); return false; }
     if (!opts.bypass && ch.saveLeft > 0) {
       ch.saveUsed += 1;
       ch.saveLeft -= 1;
@@ -3629,6 +4178,8 @@ var BP = (function () {
         return aliveEnemies;
       }
       case 'snipe':
+      case 'snap':
+      case 'killerShot':
       case 'aoe':
       case 'aoeSeal':
       case 'breakAll':
@@ -3649,7 +4200,7 @@ var BP = (function () {
 
   function doAction(b, sideKey, actorUid, t1, t2, opts) {
     var _actorCh = getChar(b[sideKey], actorUid);
-    b.lastAction = { side: sideKey, actorId: _actorCh ? _actorCh.def.id : null };
+    b.lastAction = { side: sideKey, actorId: _actorCh ? _actorCh.def.id : null, t1: t1 ? (t1.uid || t1) : null, t2: t2 ? (t2.uid || t2) : null };
     b._snap = snapState(b);
     if (!b.retroUsed) b.retroUsed = {};
     opts = opts || {};
@@ -3682,11 +4233,93 @@ var BP = (function () {
     log(b, a.side, '▶ ' + sideName(a.side) + '【' + a.name + '】发动「' + a.def.mech + '」');
 
     switch (type) {
-      case 'delete':
+      case 'delete': {
         if (!target) { log(b, 'neg', '目标无效。'); break; }
         log(b, 'mech', '概念级抹除：' + a.name + ' 的「' + a.def.mech + '」落到 ' + target.name + ' 身上。');
         killChar(b, target, { bypass: true, cause: a.def.mech });
         break;
+      }
+
+      case 'killerShot': {
+        var aliveK = foe.chars.filter(function (c) { return c.alive; });
+        if (!aliveK.length) { log(b, 'neg', '枪口没有目标。'); break; }
+        if (!a.killerShotUsed) {
+          a.killerShotUsed = true;
+          if (Math.random() < 0.3) {
+            log(b, 'mech', '🎯 「狙击枪我起了，对面就要输。」——五发子弹，五个人头。');
+            aliveK.forEach(function (v) {
+              log(b, 'death', '☠ ' + v.name + ' 被一枪带走。');
+              killChar(b, v, { bypass: true, absolute: true, quiet: true, cause: '冥驹 · 对面就要输' });
+            });
+            break;
+          }
+          log(b, 'neg', '🎯 这一枪擦边而过——对面还剩一口气。');
+        }
+        var pickK = aliveK[Math.floor(Math.random() * aliveK.length)];
+        log(b, 'mech', '🎯 冥驹点名：' + pickK.name + '。');
+        killChar(b, pickK, { bypass: true, absolute: true, cause: '冥驹' });
+        // 开完一枪，位置就暴露了
+        if (a.alive) {
+          log(b, 'neg', '📡 枪声一响，位置就暴露了——他也被反手带走。');
+          killChar(b, a, { bypass: true, absolute: true, quiet: true, cause: '暴露位置' });
+        }
+        break;
+      }
+
+      case 'snap': {
+        var alive = foe.chars.filter(function (c) { return c.alive; });
+        if (!alive.length) { log(b, 'neg', '响指打空了。'); break; }
+        if (a.snapUsed) {
+          log(b, 'neg', '手套上的宝石已经暗了——这一局只能打一次响指。');
+          var pickE = alive[Math.floor(Math.random() * alive.length)];
+          killChar(b, pickE, { cause: '余威' });
+          break;
+        }
+        a.snapUsed = true;
+        var n = alive.length;
+        if (n === 1) {
+          if (Math.random() < 0.5) {
+            log(b, 'mech', '一个响指——宇宙平衡法则：' + alive[0].name + ' 化作灰烬。');
+            killChar(b, alive[0], { bypass: true, absolute: true, cause: '打响指 · 宇宙平衡' });
+          } else {
+            log(b, 'neg', '一个响指——' + alive[0].name + ' 站住了，这次清算没有落到他身上。');
+          }
+          break;
+        }
+        var killN = (n % 2 === 0) ? Math.floor(n / 2) : Math.round(n * 2 / 3);
+        killN = Math.max(1, Math.min(n, killN));
+        var pool2 = alive.slice();
+        for (var i2 = pool2.length - 1; i2 > 0; i2--) {
+          var j2 = Math.floor(Math.random() * (i2 + 1));
+          var tmp2 = pool2[i2]; pool2[i2] = pool2[j2]; pool2[j2] = tmp2;
+        }
+        var victims = pool2.slice(0, killN);
+        log(b, 'mech', '一个响指——宇宙平衡法则：' + n + ' 人里清算 ' + killN + ' 人（' +
+          (n % 2 === 0 ? '偶数抹一半' : '奇数抹三分之二') + '）。');
+        victims.forEach(function (v) {
+          log(b, 'death', '☠ ' + v.name + ' 化作灰烬。');
+          killChar(b, v, { bypass: true, quiet: true, absolute: true, cause: '打响指' });
+        });
+        // 宇宙平衡对「所有生命」成立：自己这边也按同样比例清算（他自己除外）
+        var myAlive = side.chars.filter(function (c) { return c.alive && c.uid !== a.uid; });
+        if (myAlive.length) {
+          var mn = myAlive.length;
+          var mkN = (mn % 2 === 0) ? Math.floor(mn / 2) : Math.round(mn * 2 / 3);
+          mkN = Math.max(1, Math.min(mn, mkN));
+          var mine = myAlive.slice();
+          for (var q = mine.length - 1; q > 0; q--) {
+            var w = Math.floor(Math.random() * (q + 1));
+            var tw = mine[q]; mine[q] = mine[w]; mine[w] = tw;
+          }
+          var fell = mine.slice(0, mkN);
+          log(b, 'neg', '⚖ 宇宙平衡对所有人成立——自己这边也倒下 ' + fell.length + ' 人：' + fell.map(function (c) { return c.name; }).join('、') + '。');
+          fell.forEach(function (v) {
+            log(b, 'death', '☠ 【' + v.name + '】化作灰烬。');
+            killChar(b, v, { bypass: true, quiet: true, absolute: true, cause: '宇宙平衡' });
+          });
+        }
+        break;
+      }
 
       case 'snipe': {
         var alive = foe.chars.filter(function (c) { return c.alive; });
@@ -3697,12 +4330,15 @@ var BP = (function () {
         break;
       }
 
-      case 'disable':
+      case 'disable': {
         if (!target) { log(b, 'neg', '目标无效。'); break; }
+        var _blk = mechBlocked(b, a, target);
+        if (_blk) { log(b, 'neg', '⛔ 控制无效——' + _blk + '，' + target.name + ' 根本不吃这一套。'); break; }
         target.disabled = true;
         target.acted = true;
         log(b, 'mech', '💥 ' + target.name + ' 被彻底镇住，本局再也无法行动。');
         break;
+      }
 
       case 'taunt':
         if (!target) { log(b, 'neg', '目标无效。'); break; }
@@ -3764,13 +4400,20 @@ var BP = (function () {
         if (mode === 'skill') {
           log(b, 'mech', a.name + ' 把 ' + src.name + ' 的机制整个复制过来——「' + src.def.mech + '」。');
           if (dest) {
-            dest.disabled = true;
-            dest.acted = true;
-            log(b, 'mech', dest.name + ' 的机制被原地搬空，本局再也无法行动。');
+            // 搬空机制属于控制，先过克制/免疫
+            var _cpBlk = mechBlocked(b, a, dest);
+            if (_cpBlk) {
+              log(b, 'neg', '⛔ 搬不动他的机制——' + _cpBlk + '，只能借招式硬打。');
+            } else {
+              dest.disabled = true;
+              dest.acted = true;
+              log(b, 'mech', dest.name + ' 的机制被原地搬空，本局再也无法行动。');
+            }
+            // 借来的杀招：走正常结算，不白给秒杀
             var KILL_ACTS = { delete: 1, aoe: 1, snipe: 1, chop: 1, gamble: 1, suicide: 1, sacrifice: 1 };
             if (KILL_ACTS[srcAct.type]) {
-              log(b, 'mech', '而这套机制本身就是杀招——' + dest.name + ' 被自己的招式反噬出局。');
-              killChar(b, dest, { bypass: true, cause: '被复制的机制反噬' });
+              log(b, 'mech', '借来的杀招照打——' + a.name + ' 用「' + src.def.mech + '」去撞 ' + dest.name + '。');
+              resolveNumbers(b, a, dest, { label: '复制的杀招' });
             }
           }
         } else {
@@ -3809,6 +4452,8 @@ var BP = (function () {
         log(b, 'mech', '钢铁侠抬头：「I am Iron Man.」');
         killChar(b, a, { bypass: true, quiet: true, cause: '自我牺牲' });
         log(b, 'death', '☠ 【' + a.name + '】自我牺牲。');
+        var _blk2 = mechBlocked(b, a, target);
+        if (_blk2) { log(b, 'neg', '⛔ 摧毁失败——' + _blk2 + '。'); break; }
         target.disabled = true;
         target.acted = true;
         log(b, 'mech', target.name + ' 的机制被彻底摧毁，本局再也无法行动。');
@@ -3852,11 +4497,18 @@ var BP = (function () {
       }
 
       case 'aoeSeal': {
-        var n = 0;
+        var n = 0, blk = [];
         var cand = foe.chars.filter(function (e) { return e.alive && !e.acted; })
-          .sort(function (x, y) { return powerOf(b, y) - powerOf(b, x); }).slice(0, 2);
-        cand.forEach(function (e) { e.disabled = true; e.acted = true; n++; });
+          .sort(function (x, y) { return powerOf(b, y) - powerOf(b, x); });
+        cand.forEach(function (e) {
+          if (n >= 2) return;
+          var why = mechBlocked(b, a, e);
+          if (why) { blk.push(why); return; }
+          e.disabled = true; e.acted = true; n++;
+        });
         log(b, 'mech', '领域展开：敌方 ' + n + ' 名尚未出手的角色被灌入无限信息，本局无法行动。');
+        blk.forEach(function (w) { log(b, 'neg', '⛔ 领域落空——' + w + '，封印无效。'); });
+        if (!n && !blk.length) log(b, 'neg', '领域展开落空：没有可封印的目标。');
         break;
       }
 
@@ -3989,6 +4641,13 @@ var BP = (function () {
 
       default:
         resolveAttack(b, a, target);
+    }
+
+    // 合体/终局卡的「燃烧率」：每出手一次自身流失战力
+    var _burn = (a.def && a.def.burn) || 0;
+    if (_burn > 0 && a.alive) {
+      a.buff -= _burn;
+      log(b, 'neg', '⏳ 力量反噬：' + a.name + ' 自身战力 -' + _burn + '（剩余 ' + powerOf(b, a) + '）。');
     }
 
     finishTurn(b);
@@ -4328,9 +4987,135 @@ var BP = (function () {
     if (!r.pass && !forced) { b.retroUsed[side] = true; return { ok: false, error: '复议不成立', verdict: r }; }
     var ok = restoreState(b, b._snap);
     b.retroUsed[side] = true;
+    if (la.actorId) b.aiAvoid = { actorId: la.actorId, t1: la.t1 || null, t2: la.t2 || null };
     b.lastAction = null;
     log(b, 'rule', '⚖ ' + sideName(side) + ' 复议上一手成立：该手结算被整体撤销。');
     return { ok: ok, verdict: r };
+  }
+
+
+  /* ------------------------------------------------------------
+   *  逢魔降临：献祭 4 位队友，时王化为逢魔时王
+   * ---------------------------------------------------------- */
+  var HEISEI_IDS = null;
+  function heiseiIds() {
+    if (HEISEI_IDS) return HEISEI_IDS;
+    var c = COMBOS.filter(function (x) { return x.id === 'heisei'; })[0];
+    HEISEI_IDS = c ? c.members : [];
+    return HEISEI_IDS;
+  }
+
+  function ascendReady(b, side) {
+    var zio = null;
+    b[side].chars.forEach(function (c) { if (c.alive && c.def.id === 'zio') zio = c; });
+    if (!zio) return null;
+    var list = heiseiIds();
+    var mates = b[side].chars.filter(function (c) {
+      return c.alive && c.uid !== zio.uid && list.indexOf(c.def.id) >= 0;
+    });
+    return { zio: zio, mates: mates, ok: mates.length >= 4 };
+  }
+
+
+  /* ------------------------------------------------------------
+   *  通用合体：葫芦七兄弟 / 悟空+贝吉塔
+   * ---------------------------------------------------------- */
+  var HULU_IDS = ['dawa','erwa','sanwa','siwa','wuwa','liuwa','qiwa'];
+
+  function transformTo(b, ch, def) {
+    ch.def = def;
+    ch.name = def.name;
+    ch.emblem = def.emblem;
+    ch.buff = 0;
+    ch.disabled = false;
+    ch.acted = true;
+    ch.reflectCount = (def.passive && def.passive.reflect) || 0;
+    recomputeCombos(b);
+    recomputeAll(b);
+    checkEnd(b);
+  }
+
+  function fusionReady(b, side) {
+    var s = b[side];
+    if (!s) return null;
+    var alive = s.chars.filter(function (c) { return c.alive; });
+    // 葫芦：同队活着的葫芦娃 ≥ 5
+    var hulu = alive.filter(function (c) { return HULU_IDS.indexOf(c.def.id) >= 0; });
+    if (hulu.length >= 5 && typeof HULU_JINGANG_DEF !== 'undefined') {
+      return { kind: 'hulu', label: '七娃合体', count: hulu.length, target: '金刚葫芦娃',
+               desc: '献祭 4 位葫芦兄弟，留下一人合体成【金刚葫芦娃】' };
+    }
+    // 龙珠：悟空 + 贝吉塔 同队且都活着
+    var wu = null, ve = null;
+    alive.forEach(function (c) {
+      if (c.def.id === 'wukonglongzhu') wu = c;
+      if (c.def.id === 'beijita') ve = c;
+    });
+    if (wu && ve && typeof WUJITA_DEF !== 'undefined') {
+      return { kind: 'dragon', label: '融合舞', count: 2, target: '悟吉塔',
+               desc: '贝吉塔跳进融合舞，与悟空合成【悟吉塔】' };
+    }
+    return null;
+  }
+
+  function doFusion(b, side) {
+    if (b.over) return { ok: false, error: '对局已结束' };
+    var r = fusionReady(b, side);
+    if (!r) return { ok: false, error: '现在没有可以合体的组合' };
+    var s = b[side];
+    var alive = s.chars.filter(function (c) { return c.alive; });
+    if (r.kind === 'hulu') {
+      var hulu = alive.filter(function (c) { return HULU_IDS.indexOf(c.def.id) >= 0; })
+        .sort(function (x, y) { return powerOf(b, y) - powerOf(b, x); });
+      var keep = hulu[0], sac = hulu.slice(1, 5);
+      log(b, 'sys', '💠 七心合一——' + sac.map(function (c) { return c.name; }).join('、') + ' 化作光芒融进 ' + keep.name + '。');
+      sac.forEach(function (c) {
+        c.alive = false; c.saveUsed = c.saveMax;
+        log(b, 'death', '☠ 【' + c.name + '】与兄弟合为一体。');
+      });
+      transformTo(b, keep, HULU_JINGANG_DEF);
+      log(b, 'mech', '💠 【' + keep.name + '】化为【金刚葫芦娃】——七个葫芦娃凑成了一个。战力 ' + HULU_JINGANG_DEF.power + '。');
+      return { ok: true, kind: 'hulu' };
+    }
+    var wu2 = null, ve2 = null;
+    alive.forEach(function (c) {
+      if (c.def.id === 'wukonglongzhu') wu2 = c;
+      if (c.def.id === 'beijita') ve2 = c;
+    });
+    log(b, 'sys', '💫 融合舞——贝吉塔与悟空摆出同样的姿势，两人合一。');
+    ve2.alive = false; ve2.saveUsed = ve2.saveMax;
+    log(b, 'death', '☠ 【贝吉塔】融进了悟空体内。');
+    transformTo(b, wu2, WUJITA_DEF);
+    log(b, 'mech', '💫 【悟空】化为【悟吉塔】——融合只有三十分钟。战力 ' + WUJITA_DEF.power + '。');
+    return { ok: true, kind: 'dragon' };
+  }
+
+  function ascendZio(b, side) {
+    if (b.over) return { ok: false, error: '对局已结束' };
+    if (typeof OHMA_DEF === 'undefined' || !OHMA_DEF) return { ok: false, error: '终局卡未加载' };
+    var r = ascendReady(b, side);
+    if (!r || !r.zio) return { ok: false, error: '场上没有时王' };
+    if (!r.ok) return { ok: false, error: '需要 4 位活着的平成骑士当祭品（现在只有 ' + r.mates.length + ' 位）' };
+    var sac = r.mates.sort(function (x, y) { return powerOf(b, y) - powerOf(b, x); }).slice(0, 4);
+    log(b, 'sys', '👑 逢魔之日降临——时王献祭了 ' + sac.map(function (c) { return c.name; }).join('、') + '。');
+    sac.forEach(function (c) {
+      c.alive = false;
+      c.saveUsed = c.saveMax;
+      log(b, 'death', '☠ 【' + c.name + '】化作表盘，融入时空。');
+    });
+    var z = r.zio;
+    z.def = OHMA_DEF;
+    z.name = OHMA_DEF.name;
+    z.emblem = OHMA_DEF.emblem;
+    z.active = true;
+    z.disabled = false;
+    z.acted = true;
+    z.reflectCount = (OHMA_DEF.passive && OHMA_DEF.passive.reflect) || 0;
+    log(b, 'mech', '⏰ 【时王】化为【逢魔时王】——所有平成骑士的历史都堆在他一个人身上。战力 ' + OHMA_DEF.power + '。');
+    recomputeCombos(b);
+    recomputeAll(b);
+    checkEnd(b);
+    return { ok: true };
   }
 
   function advanceTurn(b) {
@@ -4339,6 +5124,8 @@ var BP = (function () {
     // 口胡每回合刷新一次；复审每次判决都有一次机会（不再每局限一次）
     if (b.argue) b.argue[b.turn] = 1;
     if (b.review) b.review[b.turn] = 1;
+    b.retroUsed = {};   // 复议：每手各一次，轮转即刷新
+    b.aiAvoid = null;   // 新的一手，AI 避让记录作废
     if (b.turn === b.firstActor) {
       b.roundNo = (b.roundNo || 1) + 1;
       log(b, 'round', '—— 第 ' + (b.roundNo - 1) + ' 回合结算：红方存活 ' + aliveCount(b.red) +
@@ -4490,6 +5277,15 @@ var BP = (function () {
     }
     if (type === 'gamble') return t ? 320 + threatOf(b, t) : 0;
     if (type === 'steal' || type === 'chop') return t ? 480 + threatOf(b, t) : 0;
+    if (type === 'killerShot') {
+      var nK = foe.chars.filter(function (c) { return c.alive; }).length;
+      return (ch.killerShotUsed ? 500 : 5000) + nK * 60;
+    }
+    if (type === 'snap') {
+      var aliveN = foe.chars.filter(function (c) { return c.alive; }).length;
+      var kNum = aliveN <= 1 ? 0.5 : ((aliveN % 2 === 0) ? aliveN / 2 : Math.round(aliveN * 2 / 3));
+      return 400 + kNum * 120;
+    }
     if (type === 'delete' || type === 'snipe') {
       var best = 0;
       foe.chars.forEach(function (c) { if (c.alive) best = Math.max(best, threatOf(b, c)); });
@@ -4546,13 +5342,22 @@ var BP = (function () {
     var myChars = b[side].chars.filter(canAct);
     if (!myChars.length) return null;
 
+    var fb = null, fbScore = -1e9;
+    function avoided(obj) {
+      var av = b.aiAvoid;
+      if (!av) return false;
+      var ach = getChar(b[side], obj.actor);
+      var aid = ach && ach.def ? ach.def.id : null;
+      return av.actorId === aid && (av.t1 || null) === (obj.t1 || null) && (av.t2 || null) === (obj.t2 || null);
+    }
     function consider(score, obj) {
+      if (avoided(obj)) { if (score > fbScore) { fbScore = score; fb = obj; } return; }
       if (score > bestScore) { bestScore = score; best = obj; }
     }
 
     myChars.forEach(function (ch) {
       var type = actTypeOf(ch);
-      if (type === 'snipe') { consider(scoreAction(b, side, ch, null, null), { actor: ch.uid, t1: null, t2: null }); return; }
+      if (type === 'snipe' || type === 'snap' || type === 'killerShot') { consider(scoreAction(b, side, ch, null, null), { actor: ch.uid, t1: null, t2: null }); return; }
       if (type === 'buff' && ch.def.act && ch.def.act.all) { consider(scoreAction(b, side, ch, null, null), { actor: ch.uid, t1: null, t2: null }); return; }
       if (type === 'breakCombo') {
         foe.combos.forEach(function (cb) { consider(480, { actor: ch.uid, t1: 'combo:' + cb.id, t2: null }); });
@@ -4587,6 +5392,7 @@ var BP = (function () {
     });
 
     if (!best && myChars.length) best = { actor: myChars[0].uid, t1: null, t2: null };
+    if (!best) best = fb;
     return best;
   }
 
@@ -4634,7 +5440,11 @@ var BP = (function () {
     useArgue: useArgue,
     reviewRuling: reviewRuling,
     appealLast: appealLast,
-    closeReview: closeReview
+    closeReview: closeReview,
+    ascendReady: ascendReady,
+    ascendZio: ascendZio,
+    fusionReady: fusionReady,
+    doFusion: doFusion
   };
 })();
 
@@ -4757,6 +5567,25 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
       if (b && b.awaitingReview) { BP.closeReview(b); afterAction(); return; }
       if (B.waitAI) { B.waitAI = false; maybeAIBattle(); return; }
       doPlayerAction();
+    });
+    $('#btnAscend').addEventListener('click', function () {
+      var b = G.battle;
+      if (!b || b.over) return;
+      var r = BP.ascendReady(b, b.turn);
+      if (r && r.ok) {
+        if (!confirm('献祭 4 位平成骑士，让时王变身【逢魔时王】？\n(变身后就无法回头了)')) return;
+        BP.ascendZio(b, b.turn);
+        B.sel = null; renderBattle(true); afterAction();
+        return;
+      }
+      var f = BP.fusionReady ? BP.fusionReady(b, b.turn) : null;
+      if (f) {
+        if (!confirm(f.desc + '？\n(合体后无法回头)')) return;
+        BP.doFusion(b, b.turn);
+        B.sel = null; renderBattle(true); afterAction();
+        return;
+      }
+      alert('现在没有可以变身的组合');
     });
     $('#btnArgue').addEventListener('click', openArgue);
     $('#btnReview').addEventListener('click', function () {
@@ -5272,6 +6101,20 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
     }
 
     var myTurn = (G.mode === 'pvp') || (b.turn === G.humanSide);
+    // 逢魔降临：场上够 4 位平成骑士时亮出来
+    var ab = $('#btnAscend');
+    if (ab) {
+      var asc = BP.ascendReady ? BP.ascendReady(b, b.turn) : null;
+      var fus = BP.fusionReady ? BP.fusionReady(b, b.turn) : null;
+      if (asc && asc.ok && myTurn) {
+        ab.style.display = ''; ab.textContent = '👑 逢魔降临';
+      } else if (fus && myTurn) {
+        ab.style.display = '';
+        ab.textContent = (fus.kind === 'hulu' ? '💠 七娃合体' : '💫 融合舞');
+      } else {
+        ab.style.display = 'none';
+      }
+    }
     if (!myTurn) {
       if (G.mode === 'pve' && B.waitAI) {
         prompt.innerHTML = '轮到 <b>' + sideName(b.turn) + '</b>：看清这一手的结算，点「让 AI 出手」继续（想申诉就点「⚖ 复议上一手」）。';
@@ -5526,6 +6369,23 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
       if (!b || b.over || b.awaitingReview) return;
       if (G.mode === 'pve' && b.turn === G.humanSide) return;
       B.busy = true;
+      // AI 也会用「逢魔降临」
+      var asc = BP.ascendReady ? BP.ascendReady(b, b.turn) : null;
+      if (asc && asc.ok) {
+        BP.ascendZio(b, b.turn);
+        B.busy = false;
+        renderBattle(true);
+        afterAction();
+        return;
+      }
+      var fus2 = BP.fusionReady ? BP.fusionReady(b, b.turn) : null;
+      if (fus2) {
+        BP.doFusion(b, b.turn);
+        B.busy = false;
+        renderBattle(true);
+        afterAction();
+        return;
+      }
       var act = BP.aiChoose(b, b.turn);
       if (!act) {
         B.busy = false;
@@ -5698,9 +6558,11 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
   function openRetro() {
     var b = G.battle;
     if (!b || b.over) return;
-    if (b.retroUsed && b.retroUsed[b.turn]) { alert('这一手已经复议过了，等下一手'); return; }
-    var mine = b[b.turn].chars.filter(function (c) { return c.alive; });
-    var foes = b[other(b.turn)].chars.filter(function (c) { return c.alive; });
+    // PvE 里复议的是「AI 刚打完的那一手」，所以记在人机一方头上
+    var side = (G.mode === 'pve' && b.turn !== G.humanSide) ? G.humanSide : b.turn;
+    if (b.retroUsed && b.retroUsed[side]) { alert('这一手已经复议过了，等下一手'); return; }
+    var mine = b[side].chars.filter(function (c) { return c.alive; });
+    var foes = b[other(side)].chars.filter(function (c) { return c.alive; });
     if (!mine.length || !foes.length) { alert('没有可以复议的对手'); return; }
     function opt(list) {
       return list.map(function (c) { return '<option value="' + c.uid + '">' + esc(c.name) + '</option>'; }).join('');
@@ -5719,7 +6581,7 @@ if (typeof globalThis !== 'undefined') globalThis.BP = BP;
     $('#modal').classList.add('is-on');
     $('#retroCancel').addEventListener('click', function () { $('#modal').classList.remove('is-on'); renderBattle(); });
     $('#retroJudge').addEventListener('click', function () {
-      var r = BP.appealLast(b, b.turn, $('#retroText').value, false);
+      var r = BP.appealLast(b, side, $('#retroText').value, false);
       if (r.ok) {
         $('#retroResult').innerHTML = '<div class="argue-ok">✅ 复议成立：上一手结算已撤销。</div>';
         setTimeout(function () {
